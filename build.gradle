@@ -20,6 +20,6 @@ dependencies {
 
 test.useTestNG()
 
-//springBoot {
-//    mainClass = "app.Application"
-//}
+springBoot {
+    mainClass = "app.Application"
+}
