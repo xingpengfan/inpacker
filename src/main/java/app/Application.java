@@ -21,7 +21,7 @@ public class Application {
 
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("index.html");
+                registry.addViewController("/").setViewName("app/html/index.html");
             }
 
             @Override
