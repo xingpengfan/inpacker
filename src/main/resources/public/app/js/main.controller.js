@@ -10,6 +10,15 @@
     function MainController($http) {
         var vm = this;
 
+        vm.createZip = function() {
+            $http.post('/api/create/' + 'firstZipEver')
+                .then((resp) => {
+                    console.log(resp.status);
+                }, (resp) => {
+                    console.log(resp.status);
+                })
+        }
+
     }
 
 })()
