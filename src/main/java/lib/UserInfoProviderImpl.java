@@ -27,7 +27,7 @@ public class UserInfoProviderImpl implements UserInfoProvider {
         final String url = getUrl(username);
         final HttpRequest req = HttpRequest.get(url);
         if (req.code() != 200) {
-            throw new UserNotFoundException("User " + username + " not found");
+            return null;
         }
 
         return parseUserInfo(req.body());

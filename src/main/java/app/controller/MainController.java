@@ -4,7 +4,6 @@ import app.dto.NotFoundResponse;
 import lib.UserInfo;
 import lib.UserInfoProvider;
 import lib.UserInfoProviderImpl;
-import lib.UserNotFoundException;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +19,11 @@ public class MainController {
 
     @RequestMapping(value = "api/user/{username}", method = GET)
     public ResponseEntity<?> getUserInfo(@PathVariable String username) {
-        try {
-            final UserInfo userInfo = userInfoProvider.getUserInfo(username);
-            return ResponseEntity.ok(userInfo);
-        } catch (UserNotFoundException e) {
+        final UserInfo userInfo = userInfoProvider.getUserInfo(username);
+        if (userInfo == null) {
             return ResponseEntity.status(404).body(new NotFoundResponse());
+        } else {
+            return ResponseEntity.ok(userInfo);
         }
     }
 
