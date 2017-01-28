@@ -2,12 +2,12 @@ package app.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class NotFoundResponse {
+public class MessageResponse {
 
     @SerializedName("message")
     public String message;
 
-    public NotFoundResponse() {
-        message = "Not Found";
+    public MessageResponse(String msg) {
+        message = msg;
     }
 }

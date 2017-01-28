@@ -1,6 +1,7 @@
 package app.controller;
 
-import app.dto.NotFoundResponse;
+import app.Service;
+import app.dto.MessageResponse;
 import app.UserInfo;
 import app.UserInfoProvider;
 
@@ -10,12 +11,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 public class MainController {
 
     private UserInfoProvider userInfoProvider;
+    private Service service = new Service();
 
     private static final UserInfo real = new UserInfo();
 
@@ -32,17 +37,31 @@ public class MainController {
 
     @RequestMapping(value = "api/user/{username}", method = GET)
     public ResponseEntity<?> getUserInfo(@PathVariable String username) {
-        if ("real".equals(username)) {
-            return ResponseEntity.ok(real);
-        } else {
-            return ResponseEntity.status(404).body(new NotFoundResponse());
-        }
-//        final UserInfo userInfo = userInfoProvider.getUserInfo(username);
-//        if (userInfo == null) {
-//            return ResponseEntity.status(404).body(new NotFoundResponse());
+//        if ("real".equals(username)) {
+//            return ResponseEntity.ok(real);
 //        } else {
-//            return ResponseEntity.ok(userInfo);
+//            return ResponseEntity.status(404).body(new MessageResponse("Not Found"));
 //        }
+        final UserInfo userInfo = userInfoProvider.getUserInfo(username);
+        if (userInfo == null) {
+            return ResponseEntity.status(404).body(new MessageResponse("Not Found"));
+        } else {
+            return ResponseEntity.ok(userInfo);
+        }
+    }
+
+    @RequestMapping(value = "api/zip/{username}", method = POST)
+    public ResponseEntity<?> createZip(@PathVariable String username) {
+        try {
+            service.createZip(username);
+            return ResponseEntity.ok(new MessageResponse("created"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new MessageResponse("io-exception"));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new MessageResponse("interrupted-exception"));
+        }
     }
 
 }
