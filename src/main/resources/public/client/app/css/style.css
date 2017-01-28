@@ -46,3 +46,31 @@ body {
 .content-holder .input-group {
     margin-top: 30px;
 }
+
+.user-not-found-alert {
+    margin-top: 10px;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.user-info-holder {
+    float: right;
+    margin-top: 20px;
+}
+
+.user-info-holder h1 {
+    font-size: 26px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.user-info-holder h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.user-info-holder h3 {
+    font-size: 18px;
+}

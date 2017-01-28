@@ -13,14 +13,10 @@
         vm.search = search;
         vm.show = {
             userSearch: true,
-            gettingUserInfo: false,
-            userNotFound: false,
             userInfo: false
         }
-
-        activate();
-
-        function activate() {}
+        vm.showNotFound = showNotFound;
+        vm.closeUserNotFoundMessage = closeUserNotFoundMessage;
 
         function search() {
             if (!isValidSearchInput()) return;
@@ -28,10 +24,10 @@
         }
 
         function getUserInfo() {
-            showGettingUserInfo();
             $http.get('http://localhost:8080/api/user/' + vm.searchInput)
                 .then((resp) => {
                     showUserInfo();
+                    vm.userInfo = resp.data;
                 }, (resp) => {
                     showUserNotFound();
                 });
@@ -43,30 +39,24 @@
 
         function showUserSearch() {
             vm.show.userSearch = true;
-            vm.show.gettingUserInfo = false;
-            vm.show.userNotFound = false;
-            vm.show.userInfo = false;
-        }
-
-        function showGettingUserInfo() {
-            vm.show.userSearch = false;
-            vm.show.gettingUserInfo = true;
-            vm.show.userNotFound = false;
-            vm.show.userInfo = false;
-        }
-
-        function showUserNotFound() {
-            vm.show.userSearch = false;
-            vm.show.gettingUserInfo = false;
-            vm.show.userNotFound = true;
             vm.show.userInfo = false;
         }
 
         function showUserInfo() {
             vm.show.userSearch = false;
-            vm.show.gettingUserInfo = false;
-            vm.show.userNotFound = false;
             vm.show.userInfo = true;
+        }
+
+        function showUserNotFound() {
+            vm.userNotFoundMessage = 'User ' + vm.searchInput + ' not found';
+        }
+
+        function showNotFound() {
+            return vm.userNotFoundMessage && vm.userNotFoundMessage !== '';
+        }
+
+        function closeUserNotFoundMessage() {
+            vm.userNotFoundMessage = '';
         }
 
     }

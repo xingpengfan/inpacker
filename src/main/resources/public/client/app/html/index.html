@@ -27,21 +27,17 @@
 <body ng-app="inpacker" ng-controller="MainController as vm">
 
 <div class="container">
+
     <div class="col-md-8 offset-md-2 content-holder">
 
         <div ng-include="'templates/user_search.html'" ng-show="vm.show.userSearch" ng-cloak>
-        </div>
-
-        <div ng-include="'templates/getting_user_info.html'" ng-show="vm.show.gettingUserInfo" ng-cloak>
-        </div>
-
-        <div ng-include="'templates/user_not_found.html'" ng-show="vm.show.userNotFound" ng-cloak>
         </div>
 
         <div ng-include="'templates/user_info.html'" ng-show="vm.show.userInfo" ng-cloak>
         </div>
 
     </div>
+
 </div>
 
 <!-- Angular -->

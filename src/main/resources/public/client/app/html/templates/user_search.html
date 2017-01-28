@@ -9,4 +9,11 @@
                aria-describedby="basic-addon2"
                maxlength="30" ng-model="vm.searchInput" autofocus>
     </div>
+    <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
+         ng-show="vm.showNotFound()">
+        <strong>User not found!</strong> {{vm.userNotFoundMessage}}
+        <span style="float: right;" ng-click="vm.closeUserNotFoundMessage()">
+            <i class="fa fa-close" aria-hidden="true" title="Close"></i>
+        </span>
+    </div>
 </form>
