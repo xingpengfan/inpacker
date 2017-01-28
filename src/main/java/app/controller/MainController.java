@@ -1,10 +1,10 @@
 package app.controller;
 
 import app.dto.NotFoundResponse;
-import lib.UserInfo;
-import lib.UserInfoProvider;
-import lib.UserInfoProviderImpl;
+import app.UserInfo;
+import app.UserInfoProvider;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RestController
 public class MainController {
 
-    private UserInfoProvider userInfoProvider = new UserInfoProviderImpl();
+    private UserInfoProvider userInfoProvider;
+
+    @Autowired
+    public MainController(UserInfoProvider provider) {
+        userInfoProvider = provider;
+    }
 
     @RequestMapping(value = "api/user/{username}", method = GET)
     public ResponseEntity<?> getUserInfo(@PathVariable String username) {

@@ -1,12 +1,15 @@
-package lib;
+package app;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
+@Service
 public class UserInfoProviderImpl implements UserInfoProvider {
 
     private JsonParser parser;

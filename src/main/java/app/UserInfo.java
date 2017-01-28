@@ -1,4 +1,4 @@
-package lib;
+package app;
 
 import com.google.gson.annotations.SerializedName;
 
