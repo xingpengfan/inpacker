@@ -1,5 +1,48 @@
+body {
+    background: #C5C2C9;
+}
+
 .title {
     text-align: center;
     background: blue;
     color: cyan;
+}
+
+.content-holder {
+    margin-top: 100px;
+}
+
+.content-holder h1 {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 500;
+    color: #333;
+}
+
+.content-holder input {
+    padding: 10px 0 10px 0;
+    font-size: 22px;
+    font-weight: 300;
+    color: #888;
+    outline: none;
+    border: none;
+    border-radius: 0 7px 7px 0;
+}
+
+.content-holder .search-button {
+    color: #888;
+    background: white;
+    font-size: 22px;
+    padding-left: 12px;
+    padding-bottom: 12px;
+    border: none;
+    border-radius: 7px 0 0 7px;
+}
+
+.content-holder .search-button:focus {
+    outline: none;
+}
+
+.content-holder .input-group {
+    margin-top: 30px;
 }

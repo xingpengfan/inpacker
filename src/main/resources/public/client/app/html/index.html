@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Inpacker</title>
 
     <!-- Bootstrap v4-alpha -->
@@ -17,10 +18,29 @@
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
 
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/0e13217097.js"></script>
+
     <link rel="stylesheet" href="../css/style.css">
 
 </head>
 <body ng-app="inpacker" ng-controller="MainController as vm">
+
+<div class="container">
+    <div class="col-md-8 offset-md-2 content-holder">
+        <h1>Welcome to Inpacker</h1>
+        <form ng-submit="vm.search()">
+            <div class="input-group col-md-10 offset-md-1">
+                <button class="col-md-1 input-group-addon search-button" type="button" id="basic-addon2"
+                        ng-click="vm.search()">
+                    <i class="fa fa-search" aria-hidden="true" title="Search {{vm.searchInput}}"></i>
+                </button>
+                <input class="col-md-11" type="text" placeholder="Search Instagram User" aria-describedby="basic-addon2"
+                       maxlength="30" ng-model="vm.searchInput">
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- Angular -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
