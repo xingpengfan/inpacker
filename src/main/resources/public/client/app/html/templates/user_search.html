@@ -1,0 +1,12 @@
+<h1>Welcome to Inpacker</h1>
+<form ng-submit="vm.search()">
+    <div class="input-group col-md-10 offset-md-1">
+        <button class="col-md-1 input-group-addon search-button" type="button" id="basic-addon2"
+                ng-click="vm.search()">
+            <i class="fa fa-search" aria-hidden="true" title="Search {{vm.searchInput}}"></i>
+        </button>
+        <input class="col-md-11" type="text" placeholder="Search Instagram User"
+               aria-describedby="basic-addon2"
+               maxlength="30" ng-model="vm.searchInput" autofocus>
+    </div>
+</form>

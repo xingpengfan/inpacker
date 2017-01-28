@@ -28,17 +28,19 @@
 
 <div class="container">
     <div class="col-md-8 offset-md-2 content-holder">
-        <h1>Welcome to Inpacker</h1>
-        <form ng-submit="vm.search()">
-            <div class="input-group col-md-10 offset-md-1">
-                <button class="col-md-1 input-group-addon search-button" type="button" id="basic-addon2"
-                        ng-click="vm.search()">
-                    <i class="fa fa-search" aria-hidden="true" title="Search {{vm.searchInput}}"></i>
-                </button>
-                <input class="col-md-11" type="text" placeholder="Search Instagram User" aria-describedby="basic-addon2"
-                       maxlength="30" ng-model="vm.searchInput">
-            </div>
-        </form>
+
+        <div ng-include="'templates/user_search.html'" ng-show="vm.show.userSearch" ng-cloak>
+        </div>
+
+        <div ng-include="'templates/getting_user_info.html'" ng-show="vm.show.gettingUserInfo" ng-cloak>
+        </div>
+
+        <div ng-include="'templates/user_not_found.html'" ng-show="vm.show.userNotFound" ng-cloak>
+        </div>
+
+        <div ng-include="'templates/user_info.html'" ng-show="vm.show.userInfo" ng-cloak>
+        </div>
+
     </div>
 </div>
 

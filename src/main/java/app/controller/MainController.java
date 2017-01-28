@@ -17,19 +17,32 @@ public class MainController {
 
     private UserInfoProvider userInfoProvider;
 
+    private static final UserInfo real = new UserInfo();
+
     @Autowired
     public MainController(UserInfoProvider provider) {
         userInfoProvider = provider;
+        real.biography = "some user biography";
+        real.count = 56;
+        real.fullName = "Jack White";
+        real.isPrivate = false;
+        real.profilePic = "https://avatars3.githubusercontent.com/u/7673240?v=3&s=460";
+        real.username = "real";
     }
 
     @RequestMapping(value = "api/user/{username}", method = GET)
     public ResponseEntity<?> getUserInfo(@PathVariable String username) {
-        final UserInfo userInfo = userInfoProvider.getUserInfo(username);
-        if (userInfo == null) {
-            return ResponseEntity.status(404).body(new NotFoundResponse());
+        if ("real".equals(username)) {
+            return ResponseEntity.ok(real);
         } else {
-            return ResponseEntity.ok(userInfo);
+            return ResponseEntity.status(404).body(new NotFoundResponse());
         }
+//        final UserInfo userInfo = userInfoProvider.getUserInfo(username);
+//        if (userInfo == null) {
+//            return ResponseEntity.status(404).body(new NotFoundResponse());
+//        } else {
+//            return ResponseEntity.ok(userInfo);
+//        }
     }
 
 }
