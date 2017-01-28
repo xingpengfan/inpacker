@@ -11,40 +11,53 @@
         var vm = this;
 
         vm.search = search;
-        vm.show = {
-            userSearch: true,
-            userInfo: false
-        }
+
         vm.showNotFound = showNotFound;
         vm.closeUserNotFoundMessage = closeUserNotFoundMessage;
+        vm.createZip = createZip;
+        vm.show = {
+            search: false,
+            info: false,
+            pack: false
+        };
 
+        activate();
+
+        function activate() {
+            showSearch();
+        }
+
+        // controlling views
+        function showSearch() {
+            vm.show.search = true;
+            vm.show.info = false;
+            vm.show.pack = false;
+        }
+
+        function showInfo() {
+            vm.show.search = false;
+            vm.show.info = true;
+            vm.show.pack = false;
+        }
+
+        function showPack() {
+            vm.show.search = false;
+            vm.show.info = false;
+            vm.show.pack = true;
+
+            vm.showDownloadUrl = false;
+            vm.downloadUrl = '/zip/' + vm.userInfo.username + '.zip';
+        }
+        // -----------------------
+
+        // controlling search view
         function search() {
             if (!isValidSearchInput()) return;
             getUserInfo();
         }
 
-        function getUserInfo() {
-            $http.get('http://localhost:8080/api/user/' + vm.searchInput)
-                .then((resp) => {
-                    showUserInfo();
-                    vm.userInfo = resp.data;
-                }, (resp) => {
-                    showUserNotFound();
-                });
-        }
-
         function isValidSearchInput() {
             return vm.searchInput && vm.searchInput !== '';
-        }
-
-        function showUserSearch() {
-            vm.show.userSearch = true;
-            vm.show.userInfo = false;
-        }
-
-        function showUserInfo() {
-            vm.show.userSearch = false;
-            vm.show.userInfo = true;
         }
 
         function showUserNotFound() {
@@ -58,6 +71,37 @@
         function closeUserNotFoundMessage() {
             vm.userNotFoundMessage = '';
         }
+        // -----------------------------
+
+        // controlling info view
+        function getUserInfo() {
+            $http.get('/api/user/' + vm.searchInput)
+                .then((resp) => {
+                    vm.userInfo = resp.data;
+                    showInfo();
+                }, (resp) => {
+                    showUserNotFound();
+                });
+        }
+
+        function createZip() {
+            showPack();
+            $http.post('/api/zip/' + vm.userInfo.username)
+                .then((resp) => {
+                    console.log('success: ' + resp.status);
+                    console.log(resp.data.message);
+                    if (resp.data.message === 'created') {
+                        showDownloadUrl();
+                    }
+                }, (resp) => {
+                    console.log('error: ' + resp.status);
+                });
+        }
+
+        function showDownloadUrl() {
+            vm.showDownloadUrl = true;
+        }
+        // -----------------------------
 
     }
 

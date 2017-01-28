@@ -1,0 +1,6 @@
+<div class="col-md-8 offset-md-2 content-holder">
+    <h2 ng-show="!vm.showDownloadUrl">Packing {{vm.userInfo.username}} pictures</h2>
+    <h3 ng-show="!vm.showDownloadUrl">it may take some time</h3>
+    <a  ng-show="vm.showDownloadUrl" href="{{vm.downloadUrl}}">Download</a>
+
+</div>
