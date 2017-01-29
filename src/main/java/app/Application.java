@@ -21,8 +21,8 @@ public class Application {
 
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("html/index.html");
-                registry.addViewController("/error").setViewName("html/page_not_found.html");
+                registry.addViewController("/").setViewName("index.html");
+                registry.addViewController("/error").setViewName("page_not_found.html");
             }
 
             @Override
