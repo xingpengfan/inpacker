@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Inpacker</title>
 
     <!-- Bootstrap v4-alpha -->
@@ -17,14 +18,34 @@
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="client/app/css/style.css">
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/0e13217097.js"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="icon" href="favicon.ico">
 
 </head>
-<body>
+<body ng-app="inpacker" ng-controller="MainController as vm">
 
-<h1 class="title">
-    Page Not Found
-</h1>
+<div class="container">
+
+    <div ng-include="'/html/templates/search.html'" ng-show="vm.show.search" ng-cloak>
+    </div>
+
+    <div ng-include="'/html/templates/info.html'" ng-show="vm.show.info" ng-cloak>
+    </div>
+
+    <div ng-include="'/html/templates/pack.html'" ng-show="vm.show.pack" ng-cloak>
+    </div>
+
+</div>
+
+<!-- Angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+<!-- scripts -->
+<script src="/js/main.controller.js"></script>
 
 </body>
 </html>

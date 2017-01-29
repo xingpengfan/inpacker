@@ -4,11 +4,11 @@ var browserSync = require('browser-sync');
 gulp.task('serve', [], function() {
   // .init starts the server
   browserSync.init({
-    server: "./app",
+    server: "./",
     port: 3000
   });
 
-  gulp.watch(['*.html', 'css/**/*.css', 'js/**/*.js'], {
-    cwd: 'app'
+  gulp.watch(['**/*.html', '**/*.css', '**/*.js'], {
+    cwd: '.'
   }, browserSync.reload);
 });
