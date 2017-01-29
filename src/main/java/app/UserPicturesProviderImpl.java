@@ -1,23 +1,23 @@
 package app;
 
 import com.github.kevinsawicki.http.HttpRequest;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 
+@Service
 public class UserPicturesProviderImpl implements UserPicturesProvider {
 
     private JsonParser jsonParser;
-    private Gson gson;
 
     public UserPicturesProviderImpl() {
         jsonParser = new JsonParser();
-        gson = new Gson();
     }
 
     @Override
