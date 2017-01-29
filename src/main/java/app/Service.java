@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -25,7 +24,13 @@ public class Service {
         picturesProvider = new UserPicturesProviderImpl();
     }
 
-    public void createZip(String username) throws IOException, InterruptedException, URISyntaxException {
+    public void createZip(String username) throws IOException, InterruptedException {
+        // create zip directory if it does not exist
+        File zipDir = new File(zipDirPath);
+        if (!zipDir.exists()) {
+            zipDir.mkdirs();
+        }
+
         BlockingDeque<String> urlsDeque = new LinkedBlockingDeque<>();
 
         new Thread(() -> picturesProvider.getUserPicturesUrls(username, urlsDeque)).start();

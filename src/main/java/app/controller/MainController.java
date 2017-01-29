@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -60,7 +59,7 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.ok(new MessageResponse("io-exception"));
-        } catch (InterruptedException | URISyntaxException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
             return ResponseEntity.ok(new MessageResponse("interrupted-exception"));
         }
