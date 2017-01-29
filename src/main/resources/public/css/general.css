@@ -1,0 +1,21 @@
+.header {
+    width: 100%;
+    background: #353239;
+    top: 0;
+    left: 0;
+}
+
+.header-contents {
+    height: 50px;
+    padding: 12px;
+}
+
+.header-contents a {
+    font-size: 20px;
+    color: white;
+}
+
+.inpacker-header-title {
+    color: white;
+    text-align: center;
+}
