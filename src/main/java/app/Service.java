@@ -1,26 +1,28 @@
 package app;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+@org.springframework.stereotype.Service
 public class Service {
 
     private UserPicturesProvider picturesProvider;
 
-    private static final String ZIP_DIR = "/public/zip/";
+    private static final String ZIP_DIR = "/home/igor/";
 
     public Service() {
         picturesProvider = new UserPicturesProviderImpl();
     }
 
-    public void createZip(String username) throws IOException, InterruptedException {
+    public void createZip(String username) throws IOException, InterruptedException, URISyntaxException {
         BlockingDeque<String> urlsDeque = new LinkedBlockingDeque<>();
 
         new Thread(() -> picturesProvider.getUserPicturesUrls(username, urlsDeque)).start();
@@ -39,10 +41,11 @@ public class Service {
         zipOutputStream.close();
     }
 
-    private ZipOutputStream createZipOutputStream(String path, String zipName) throws FileNotFoundException {
+    private ZipOutputStream createZipOutputStream(String path, String zipName) throws IOException {
         zipName += ".zip";
-        final URL resource = getClass().getResource(path);
-        return new ZipOutputStream(new FileOutputStream(resource.getFile() + zipName));
+        final File file = new File(path + zipName);
+        final FileOutputStream fos = new FileOutputStream(file);
+        return new ZipOutputStream(fos);
     }
 
     private void addPicToZip(String url, String picName, ZipOutputStream zipOutputStream) throws IOException {

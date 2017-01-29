@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -20,13 +21,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class MainController {
 
     private UserInfoProvider userInfoProvider;
-    private Service service = new Service();
+    private Service service;
 
     private static final UserInfo real = new UserInfo();
 
     @Autowired
-    public MainController(UserInfoProvider provider) {
+    public MainController(UserInfoProvider provider, Service s) {
         userInfoProvider = provider;
+        service = s;
         real.biography = "some user biography";
         real.count = 56;
         real.fullName = "Jack White";
@@ -58,7 +60,7 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.ok(new MessageResponse("io-exception"));
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | URISyntaxException e) {
             e.printStackTrace();
             return ResponseEntity.ok(new MessageResponse("interrupted-exception"));
         }
