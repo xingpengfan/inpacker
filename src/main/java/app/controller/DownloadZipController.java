@@ -1,5 +1,6 @@
 package app.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +14,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class DownloadZipController {
 
+    @Value("${zip.dir.path}")
+    private String zipDirPath;
+
     @RequestMapping(value = "zip/{username}.zip", method = GET, produces = "application/zip")
     @ResponseBody
     public FileSystemResource getZip(@PathVariable String username) {
-        return new FileSystemResource(new File("/home/igor/" + username + ".zip"));
+        return new FileSystemResource(new File(zipDirPath + username + ".zip"));
     }
 }

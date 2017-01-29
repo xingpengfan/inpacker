@@ -1,5 +1,7 @@
 package app;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,7 +18,8 @@ public class Service {
 
     private UserPicturesProvider picturesProvider;
 
-    private static final String ZIP_DIR = "/home/igor/";
+    @Value("${zip.dir.path}")
+    private String zipDirPath;
 
     public Service() {
         picturesProvider = new UserPicturesProviderImpl();
@@ -27,7 +30,7 @@ public class Service {
 
         new Thread(() -> picturesProvider.getUserPicturesUrls(username, urlsDeque)).start();
 
-        final ZipOutputStream zipOutputStream = createZipOutputStream(ZIP_DIR, username);
+        final ZipOutputStream zipOutputStream = createZipOutputStream(zipDirPath, username);
 
         String url = "";
         int picName = 1;
