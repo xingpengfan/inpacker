@@ -11,8 +11,9 @@
 }
 
 .header-contents a {
-    font-size: 20px;
+    font-size: 24px;
     color: white;
+    text-decoration: none;
 }
 
 .inpacker-header-title {
