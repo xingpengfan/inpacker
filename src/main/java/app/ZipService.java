@@ -28,24 +28,19 @@ public class ZipService {
     }
 
     public void createZip(String username) throws IOException, InterruptedException {
-        // create zip directory if it does not exist
-        File zipDir = new File(zipDirPath);
-        if (!zipDir.exists()) {
-            zipDir.mkdirs();
-        }
+        BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
 
-        BlockingDeque<String> urlsDeque = new LinkedBlockingDeque<>();
-
-        new Thread(() -> picturesProvider.getUserPicturesUrls(username, urlsDeque)).start();
+        new Thread(() -> picturesProvider.getUserPicturesUrls(username, itemsDeque)).start();
 
         final ZipOutputStream zipOutputStream = createZipOutputStream(zipDirPath, username);
 
-        String url = "";
+        Item item = new Item();
+        item.createdTime = 0;
         int picName = 1;
-        while (!url.equals("end")) {
-            url = urlsDeque.takeFirst();
-            if (url.equals("end")) continue;
-            addPicToZip(url, username + "/" + picName + ".jpg", zipOutputStream);
+        while (item.createdTime != -1) {
+            item = itemsDeque.takeFirst();
+            if (item.createdTime == -1) continue;
+            addPicToZip(item.url, username + "/" + picName + ".jpg", zipOutputStream);
             picName++;
         }
 

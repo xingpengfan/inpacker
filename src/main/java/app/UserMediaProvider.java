@@ -13,6 +13,6 @@ public interface UserMediaProvider {
      * @throws NullPointerException if the specified deque is {@code null}
      * @throws IllegalArgumentException if the specified username is not valid
      */
-    void getUserPicturesUrls(String username, BlockingDeque<String> deque);
+    void getUserPicturesUrls(String username, BlockingDeque<Item> deque);
 
 }
