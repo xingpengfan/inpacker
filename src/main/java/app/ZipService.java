@@ -30,6 +30,11 @@ public class ZipService {
     }
 
     public void createZip(String username) throws IOException, InterruptedException {
+        File zipDir = new File(zipDirPath);
+        if (!zipDir.exists()) {
+            zipDir.mkdirs();
+        }
+
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
 
         new Thread(() -> picturesProvider.getUserPicturesUrls(username, itemsDeque)).start();
