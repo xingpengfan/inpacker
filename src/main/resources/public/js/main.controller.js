@@ -11,15 +11,16 @@
         var vm = this;
 
         vm.search = search;
-
         vm.showNotFound = showNotFound;
         vm.closeUserNotFoundMessage = closeUserNotFoundMessage;
         vm.createZip = createZip;
+        vm.back = back;
         vm.show = {
             search: false,
             info: false,
             pack: false
         };
+        vm.searching = false;
 
         activate();
 
@@ -32,6 +33,7 @@
             vm.show.search = true;
             vm.show.info = false;
             vm.show.pack = false;
+            vm.searchInput = '';
         }
 
         function showInfo() {
@@ -53,6 +55,7 @@
         // controlling search view
         function search() {
             if (!isValidSearchInput()) return;
+            closeUserNotFoundMessage();
             getUserInfo();
         }
 
@@ -75,11 +78,14 @@
 
         // controlling info view
         function getUserInfo() {
+            vm.searching = true;
             $http.get('/api/user/' + vm.searchInput)
                 .then((resp) => {
                     vm.userInfo = resp.data;
+                    vm.searching = false;
                     showInfo();
                 }, (resp) => {
+                    vm.searching = false;
                     showUserNotFound();
                 });
         }
@@ -96,6 +102,10 @@
                 }, (resp) => {
                     console.log('error: ' + resp.status);
                 });
+        }
+
+        function back() {
+            showSearch();
         }
 
         function showDownloadUrl() {

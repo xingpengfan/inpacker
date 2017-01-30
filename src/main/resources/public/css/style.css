@@ -9,7 +9,7 @@ body {
 }
 
 .content-holder {
-    margin-top: 100px;
+    margin-top: 30px;
 }
 
 .content-holder h1 {
@@ -27,6 +27,10 @@ body {
     outline: none;
     border: none;
     border-radius: 0 7px 7px 0;
+}
+
+.content-holder input:disabled {
+    background: #fff;
 }
 
 .content-holder .search-button {

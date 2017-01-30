@@ -44,15 +44,22 @@
 
 <div class="container">
 
-    <div ng-include="'/templates/search.html'" ng-show="vm.show.search" ng-cloak>
-    </div>
+    <div class="col-md-8 offset-md-2 content-holder">
 
-    <div ng-include="'/templates/info.html'" ng-show="vm.show.info" ng-cloak>
-    </div>
+        <h1 class="instagram-logo">
+            <i class="fa fa-lg fa-instagram" aria-hidden="true"></i>
+        </h1>
 
-    <div ng-include="'/templates/pack.html'" ng-show="vm.show.pack" ng-cloak>
-    </div>
+        <div ng-include="'/templates/search.html'" ng-show="vm.show.search" ng-cloak>
+        </div>
 
+        <div ng-include="'/templates/info.html'" ng-show="vm.show.info" ng-cloak>
+        </div>
+
+        <div ng-include="'/templates/pack.html'" ng-show="vm.show.pack" ng-cloak>
+        </div>
+
+    </div>
 </div>
 
 <!-- Angular -->
