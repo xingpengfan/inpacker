@@ -17,13 +17,13 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class ZipService {
 
-    private UserPicturesProvider picturesProvider;
+    private UserMediaProvider picturesProvider;
 
     @Value("${zip.dir.path}")
     private String zipDirPath;
 
     @Autowired
-    public ZipService(UserPicturesProvider provider) {
+    public ZipService(UserMediaProvider provider) {
         picturesProvider = provider;
     }
 

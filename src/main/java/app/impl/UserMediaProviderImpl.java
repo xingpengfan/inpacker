@@ -1,6 +1,6 @@
 package app.impl;
 
-import app.UserPicturesProvider;
+import app.UserMediaProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonArray;
@@ -14,11 +14,11 @@ import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 
 @Service
-public class UserPicturesProviderImpl implements UserPicturesProvider {
+public class UserMediaProviderImpl implements UserMediaProvider {
 
     private JsonParser jsonParser;
 
-    public UserPicturesProviderImpl() {
+    public UserMediaProviderImpl() {
         jsonParser = new JsonParser();
     }
 

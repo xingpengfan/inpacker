@@ -2,7 +2,7 @@ package app;
 
 import java.util.concurrent.BlockingDeque;
 
-public interface UserPicturesProvider {
+public interface UserMediaProvider {
 
     /**
      * Gets all pics urls of the specified user and puts them into deque
