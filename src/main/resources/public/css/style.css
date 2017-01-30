@@ -56,6 +56,8 @@ body {
 }
 
 .user-info-contents {
+    margin-top: 30px;
+    background: #EFEFEF;
     border: 1px solid #919191;
     border-radius: 10px;
     padding: 20px;
@@ -80,7 +82,12 @@ body {
 }
 
 .user-info-holder h3 {
-    font-size: 18px;
+    font-size: 22px;
+}
+
+.private-user-fa {
+    font-size: 30px;
+    color: #000;
 }
 
 .private-user-text {
