@@ -4,7 +4,11 @@
         <h3 class="private-user-text" ng-show="vm.userInfo.is_private">
             This user is private
         </h3>
-        <h1>{{vm.userInfo.username}}</h1>
+        <h1>
+            <a href="{{vm.userInfo.instagramPageLink}}" target="_blank">
+                {{vm.userInfo.username}}
+            </a>
+        </h1>
         <h2>
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             {{vm.userInfo.full_name}}
@@ -15,7 +19,7 @@
         </h2>
 
         <div class="btn-group" role="group" aria-label="Choose next action">
-            <button type="button" class="btn btn-secondary go-btn" ng-click="vm.back()">
+            <button type="button" class="btn btn-secondary go-btn" ng-click="vm.showSearch()">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
             </button>
             <button type="button" class="btn btn-secondary go-btn" ng-click="vm.createZip()"

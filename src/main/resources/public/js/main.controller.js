@@ -11,10 +11,10 @@
         var vm = this;
 
         vm.search = search;
+        vm.showSearch = showSearch;
         vm.showNotFound = showNotFound;
         vm.closeUserNotFoundMessage = closeUserNotFoundMessage;
         vm.createZip = createZip;
-        vm.back = back;
         vm.show = {
             search: false,
             info: false,
@@ -89,6 +89,7 @@
             $http.get('/api/user/' + vm.searchInput)
                 .then((resp) => {
                     vm.userInfo = resp.data;
+                    vm.userInfo.instagramPageLink = 'https://www.instagram.com/' + vm.userInfo.username + '/';
                     vm.searching = false;
                     showInfo();
                 }, (resp) => {
@@ -104,10 +105,6 @@
                     showDownloadUrl();
                     showCheckIcon();
                 }, (resp) => {});
-        }
-
-        function back() {
-            showSearch();
         }
 
         function showDownloadUrl() {
