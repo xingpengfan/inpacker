@@ -14,7 +14,7 @@ public class Item {
     public String url;
 
     @SerializedName("created_time")
-    public int createdTime;
+    public long createdTime;
 
     @SerializedName("type")
     public String type; // image or video

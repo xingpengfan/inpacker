@@ -18,13 +18,15 @@ import java.util.zip.ZipOutputStream;
 public class ZipService {
 
     private UserMediaProvider picturesProvider;
+    private ItemNameHelper itemNameHelper;
 
     @Value("${zip.dir.path}")
     private String zipDirPath;
 
     @Autowired
-    public ZipService(UserMediaProvider provider) {
+    public ZipService(UserMediaProvider provider, ItemNameHelper nameHelper) {
         picturesProvider = provider;
+        itemNameHelper = nameHelper;
     }
 
     public void createZip(String username) throws IOException, InterruptedException {
@@ -36,12 +38,11 @@ public class ZipService {
 
         Item item = new Item();
         item.createdTime = 0;
-        int picName = 1;
         while (item.createdTime != -1) {
             item = itemsDeque.takeFirst();
             if (item.createdTime == -1) continue;
-            addPicToZip(item.url, username + "/" + picName + ".jpg", zipOutputStream);
-            picName++;
+            final String name = itemNameHelper.getName(item);
+            addItemToZip(item.url, username + "/" + name, zipOutputStream);
         }
 
         zipOutputStream.close();
@@ -54,7 +55,7 @@ public class ZipService {
         return new ZipOutputStream(fos);
     }
 
-    private void addPicToZip(String url, String picName, ZipOutputStream zipOutputStream) throws IOException {
+    private void addItemToZip(String url, String picName, ZipOutputStream zipOutputStream) throws IOException {
         zipOutputStream.putNextEntry(new ZipEntry(picName));
         InputStream in = new URL(url).openStream();
         byte[] b = new byte[1024];

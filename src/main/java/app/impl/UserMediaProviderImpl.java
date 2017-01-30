@@ -66,7 +66,7 @@ public class UserMediaProviderImpl implements UserMediaProvider {
                                .get("url").getAsString();
             item.captionText = jsonItem.get("caption").isJsonNull() ? ""
                                : jsonItem.get("caption").getAsJsonObject().get("text").getAsString();
-            item.createdTime = jsonItem.get("created_time").getAsInt();
+            item.createdTime = jsonItem.get("created_time").getAsLong();
             item.id = jsonItem.get("id").getAsString();
             item.type = jsonItem.get("type").getAsString();
             items[i] = item;
