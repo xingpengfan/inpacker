@@ -47,7 +47,7 @@
     <div class="col-md-8 offset-md-2 content-holder">
 
         <h1 class="logo">
-            <i class="fa fa-lg fa-instagram" aria-hidden="true"></i>
+            <i ng-class="vm.mainIconClass" aria-hidden="true"></i>
         </h1>
 
         <div ng-include="'/templates/search.html'" ng-show="vm.show.search" ng-cloak>

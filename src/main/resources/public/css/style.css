@@ -55,7 +55,7 @@ body {
     margin-top: 10px;
 }
 
-.user-info-contents {
+.user-info-contents, .collect-status-block {
     margin-top: 30px;
     background: #EFEFEF;
     border: 1px solid #919191;
@@ -98,4 +98,24 @@ body {
 .go-btn {
     cursor: pointer;
     font-size: 18px;
+}
+
+.collect-status-block {
+    margin-top: 30px;
+}
+
+.collect-status-block h3, h4 {
+    text-align: center;
+}
+
+.collect-status-block h3 {
+    color: #212121;
+}
+
+.collect-status-block h4 {
+    color: #616161;
+}
+
+.green-check {
+    color: #5CB85C;
 }

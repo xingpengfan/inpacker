@@ -34,12 +34,18 @@
             vm.show.info = false;
             vm.show.pack = false;
             vm.searchInput = '';
+            showInstagramIcon();
         }
 
         function showInfo() {
             vm.show.search = false;
             vm.show.info = true;
             vm.show.pack = false;
+            if (vm.userInfo.is_private) {
+                showSecretIcon();
+            } else {
+                showInstagramIcon();
+            }
         }
 
         function showPack() {
@@ -47,6 +53,7 @@
             vm.show.info = false;
             vm.show.pack = true;
 
+            showCogIcon();
             vm.showDownloadUrl = false;
             vm.downloadUrl = '/zip/' + vm.userInfo.username + '.zip';
         }
@@ -94,14 +101,9 @@
             showPack();
             $http.post('/api/zip/' + vm.userInfo.username)
                 .then((resp) => {
-                    console.log('success: ' + resp.status);
-                    console.log(resp.data.message);
-                    if (resp.data.message === 'created') {
-                        showDownloadUrl();
-                    }
-                }, (resp) => {
-                    console.log('error: ' + resp.status);
-                });
+                    showDownloadUrl();
+                    showCheckIcon();
+                }, (resp) => {});
         }
 
         function back() {
@@ -112,6 +114,25 @@
             vm.showDownloadUrl = true;
         }
         // -----------------------------
+
+        // controlling main icon
+        function showInstagramIcon() {
+            vm.mainIconClass = 'fa fa-lg fa-instagram';
+        }
+
+        function showCogIcon() {
+            vm.mainIconClass = 'fa fa-lg fa-cog fa-spin fa-fw';
+        }
+
+        function showCheckIcon() {
+            vm.mainIconClass = 'fa fa-lg fa-check green-check';
+        }
+
+        function showSecretIcon() {
+            vm.mainIconClass = 'fa fa-lg fa-user-secret';
+        }
+
+        // ---------------------
 
     }
 
