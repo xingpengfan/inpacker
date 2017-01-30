@@ -8,6 +8,10 @@
             <a href="{{vm.userInfo.instagramPageLink}}" target="_blank">
                 {{vm.userInfo.username}}
             </a>
+            <span class="fa-stack verified-stack" ng-show="vm.userInfo.is_verified">
+                <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
+                <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
+            </span>
         </h1>
         <h2>
             <i class="fa fa-user-circle" aria-hidden="true"></i>

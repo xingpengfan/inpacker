@@ -119,3 +119,15 @@ body {
 .green-check {
     color: #5CB85C;
 }
+
+.verified-stack {
+    font-size: 14px;
+}
+
+.verified-stack .fa-certificate {
+    color: #4D9AD8;
+}
+
+.verified-stack .fa-check {
+    color: #fff;
+}

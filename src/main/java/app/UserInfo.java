@@ -21,4 +21,7 @@ public class UserInfo {
 
     @SerializedName("count")
     public int count;
+
+    @SerializedName("is_verified")
+    public boolean isVerified;
 }
