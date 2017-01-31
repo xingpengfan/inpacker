@@ -13,7 +13,7 @@ public class Item {
     @SerializedName("url")
     public String url;
 
-    @SerializedName("created_time")
+    @SerializedName("createdTime")
     public long createdTime;
 
     @SerializedName("type")
@@ -22,7 +22,7 @@ public class Item {
     @SerializedName("id")
     public String id;
 
-    @SerializedName("caption_text")
+    @SerializedName("captionText")
     public String captionText;
 
     public boolean isVideo() {

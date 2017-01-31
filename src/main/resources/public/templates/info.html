@@ -1,21 +1,21 @@
 <div class="user-info-contents">
-    <img class="col-md-4 img-circle" src="{{vm.userInfo.profile_pic_url_hd}}">
+    <img class="col-md-4 img-circle" src="{{vm.userInfo.profilePic}}">
     <div class="col-md-7 user-info-holder">
-        <h3 class="private-user-text" ng-show="vm.userInfo.is_private">
+        <h3 class="private-user-text" ng-show="vm.userInfo.isPrivate">
             This user is private
         </h3>
         <h1>
             <a href="{{vm.userInfo.instagramPageLink}}" target="_blank">
                 {{vm.userInfo.username}}
             </a>
-            <span class="fa-stack verified-stack" ng-show="vm.userInfo.is_verified">
+            <span class="fa-stack verified-stack" ng-show="vm.userInfo.isVerified">
                 <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
                 <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
             </span>
         </h1>
         <h2>
             <i class="fa fa-user-circle" aria-hidden="true"></i>
-            {{vm.userInfo.full_name}}
+            {{vm.userInfo.fullName}}
         </h2>
         <h2>
             <i class="fa fa-file-image-o" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
             </button>
             <button type="button" class="btn btn-secondary go-btn" ng-click="vm.createZip()"
-                    ng-show="!vm.userInfo.is_private">
+                    ng-show="!vm.userInfo.isPrivate">
                 Download <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
         </div>

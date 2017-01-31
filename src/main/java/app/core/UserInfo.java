@@ -4,24 +4,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserInfo {
 
+    @SerializedName("instagramId")
+    public String instagramId;
+
     @SerializedName("username")
     public String username;
 
-    @SerializedName("is_private")
+    @SerializedName("isPrivate")
     public boolean isPrivate;
 
-    @SerializedName("full_name")
+    @SerializedName("fullName")
     public String fullName;
 
     @SerializedName("biography")
     public String biography;
 
-    @SerializedName("profile_pic_url_hd")
+    @SerializedName("profilePic")
     public String profilePic;
 
     @SerializedName("count")
     public int count;
 
-    @SerializedName("is_verified")
+    @SerializedName("isVerified")
     public boolean isVerified;
 }

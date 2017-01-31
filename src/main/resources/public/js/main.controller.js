@@ -41,7 +41,7 @@
             vm.show.search = false;
             vm.show.info = true;
             vm.show.pack = false;
-            if (vm.userInfo.is_private) {
+            if (vm.userInfo.isPrivate) {
                 showSecretIcon();
             } else {
                 showInstagramIcon();
