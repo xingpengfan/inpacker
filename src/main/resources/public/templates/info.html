@@ -23,11 +23,14 @@
         </h2>
 
         <div class="btn-group" role="group" aria-label="Choose next action">
-            <button type="button" class="btn btn-secondary go-btn" ng-click="vm.showSearch()">
+            <button type="button" class="btn btn-secondary go-btn" title="Search another user"
+                    ng-click="vm.showSearch()">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
             </button>
             <button type="button" class="btn btn-secondary go-btn" ng-click="vm.createZip()"
-                    ng-show="!vm.userInfo.isPrivate">
+                    ng-show="!vm.userInfo.isPrivate" ng-disabled="vm.userInfo.count === 0"
+                    title="{{vm.userInfo.count === 0 ? 'No data to download'
+                                                     : 'Download ' + vm.userInfo.username + ' data'}}">
                 Download <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
         </div>

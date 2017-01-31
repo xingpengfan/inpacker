@@ -24,7 +24,7 @@ public class UserMediaProviderImpl implements UserMediaProvider {
     }
 
     @Override
-    public void getUserPicturesUrls(String username, BlockingDeque<Item> deque) {
+    public void getUserMedia(String username, BlockingDeque<Item> deque) {
         Objects.requireNonNull(username, "username is null");
         Objects.requireNonNull(deque, "deque is null");
         if (username.isEmpty()) {

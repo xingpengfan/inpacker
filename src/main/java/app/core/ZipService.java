@@ -41,7 +41,7 @@ public class ZipService {
     public void createZip(String username) throws IOException, InterruptedException {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
 
-        new Thread(() -> picturesProvider.getUserPicturesUrls(username, itemsDeque)).start();
+        new Thread(() -> picturesProvider.getUserMedia(username, itemsDeque)).start();
 
         final ZipOutputStream zipOutputStream = createZipOutputStream(zipDirPath, username);
 

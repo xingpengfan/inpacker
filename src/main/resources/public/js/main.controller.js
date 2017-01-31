@@ -26,6 +26,17 @@
 
         function activate() {
             showSearch();
+//            vm.userInfo = {
+//                username: 'fakeinstagramuser_qwerty',
+//                fullName: 'Fake User',
+//                isPrivate: false,
+//                isVerified: true,
+//                count: 123,
+//                profilePic: 'https://assets-cdn.github.com/images/modules/site/home-ill-build.png',
+//                instagramId: '1273172631723',
+//                biography: 'i am a fake Instagram user'
+//            };
+//            showInfo();
         }
 
         // controlling views
