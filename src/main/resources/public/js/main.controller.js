@@ -26,7 +26,7 @@
 
         function activate() {
             showSearch();
-//            vm.userInfo = {
+//            vm.user = {
 //                username: 'fakeinstagramuser_qwerty',
 //                fullName: 'Fake User',
 //                isPrivate: false,
@@ -52,7 +52,7 @@
             vm.show.search = false;
             vm.show.info = true;
             vm.show.pack = false;
-            if (vm.userInfo.isPrivate) {
+            if (vm.user.isPrivate) {
                 showSecretIcon();
             } else {
                 showInstagramIcon();
@@ -66,7 +66,7 @@
 
             showCogIcon();
             vm.showDownloadUrl = false;
-            vm.downloadUrl = '/zip/' + vm.userInfo.username + '.zip';
+            vm.downloadUrl = '/zip/' + vm.user.username + '.zip';
         }
         // -----------------------
 
@@ -74,7 +74,7 @@
         function search() {
             if (!isValidSearchInput()) return;
             closeUserNotFoundMessage();
-            getUserInfo();
+            getUser();
         }
 
         function isValidSearchInput() {
@@ -95,12 +95,12 @@
         // -----------------------------
 
         // controlling info view
-        function getUserInfo() {
+        function getUser() {
             vm.searching = true;
             $http.get('/api/user/' + vm.searchInput)
                 .then((resp) => {
-                    vm.userInfo = resp.data;
-                    vm.userInfo.instagramPageLink = 'https://www.instagram.com/' + vm.userInfo.username + '/';
+                    vm.user = resp.data;
+                    vm.user.instagramPageLink = 'https://www.instagram.com/' + vm.user.username + '/';
                     vm.searching = false;
                     showInfo();
                 }, (resp) => {
@@ -111,7 +111,7 @@
 
         function createZip() {
             showPack();
-            $http.post('/api/zip/' + vm.userInfo.username)
+            $http.post('/api/zip/' + vm.user.username)
                 .then((resp) => {
                     showDownloadUrl();
                     showCheckIcon();

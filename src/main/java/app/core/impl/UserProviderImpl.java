@@ -1,7 +1,7 @@
 package app.core.impl;
 
-import app.core.UserInfo;
-import app.core.UserInfoProvider;
+import app.core.User;
+import app.core.UserProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonElement;
@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class UserInfoProviderImpl implements UserInfoProvider {
+public class UserProviderImpl implements UserProvider {
 
     private JsonParser parser;
 
-    public UserInfoProviderImpl() {
+    public UserProviderImpl() {
         parser = new JsonParser();
     }
 
     @Override
-    public UserInfo getUserInfo(String username) {
+    public User getUser(String username) {
         Objects.requireNonNull(username, "username is null");
         if (!isValidUsername(username)) {
             throw new IllegalArgumentException("username is empty");
@@ -34,23 +34,23 @@ public class UserInfoProviderImpl implements UserInfoProvider {
             return null;
         }
 
-        return parseUserInfo(req.body());
+        return parseUser(req.body());
     }
 
-    private UserInfo parseUserInfo(String json) {
+    private User parseUser(String json) {
         final JsonObject userJsonObject = parser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
-        final UserInfo userInfo = new UserInfo();
-        userInfo.instagramId = userJsonObject.get("id").getAsString();
-        userInfo.username = userJsonObject.get("username").getAsString();
-        userInfo.isPrivate = userJsonObject.get("is_private").getAsBoolean();
+        final User user = new User();
+        user.instagramId = userJsonObject.get("id").getAsString();
+        user.username = userJsonObject.get("username").getAsString();
+        user.isPrivate = userJsonObject.get("is_private").getAsBoolean();
         final JsonElement fullName = userJsonObject.get("full_name");
-        userInfo.fullName = fullName.isJsonNull() ? userInfo.username : fullName.getAsString();
+        user.fullName = fullName.isJsonNull() ? user.username : fullName.getAsString();
         final JsonElement biography = userJsonObject.get("biography");
-        userInfo.biography = biography.isJsonNull() ? "" : biography.getAsString();
-        userInfo.profilePic = userJsonObject.get("profile_pic_url_hd").getAsString();
-        userInfo.count = userJsonObject.get("media").getAsJsonObject().get("count").getAsInt();
-        userInfo.isVerified = userJsonObject.get("is_verified").getAsBoolean();
-        return userInfo;
+        user.biography = biography.isJsonNull() ? "" : biography.getAsString();
+        user.profilePic = userJsonObject.get("profile_pic_url_hd").getAsString();
+        user.count = userJsonObject.get("media").getAsJsonObject().get("count").getAsInt();
+        user.isVerified = userJsonObject.get("is_verified").getAsBoolean();
+        return user;
     }
 
     private boolean isValidUsername(String username) {

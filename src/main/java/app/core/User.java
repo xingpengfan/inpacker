@@ -2,7 +2,7 @@ package app.core;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserInfo {
+public class User {
 
     @SerializedName("instagramId")
     public String instagramId;

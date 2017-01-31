@@ -79,10 +79,6 @@ public class UserMediaProviderImpl implements UserMediaProvider {
                    .get("url").getAsString();
     }
 
-    private String getIdOfLastItem(JsonArray items) {
-        return items.get(items.size() - 1).getAsJsonObject().get("id").getAsString();
-    }
-
     private String getUrl(String username, String queryString) {
         return String.format("https://www.instagram.com/%s/media/%s", username, queryString);
     }

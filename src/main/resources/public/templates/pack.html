@@ -1,8 +1,8 @@
 <div class="col-md-10 offset-md-1 collect-status-block text-center ">
-    <h3 ng-show="!vm.showDownloadUrl">Collecting <b>{{vm.userInfo.username}}</b> data</h3>
+    <h3 ng-show="!vm.showDownloadUrl">Collecting <b>{{vm.user.username}}</b> data</h3>
     <h4 ng-show="!vm.showDownloadUrl">it may take some time</h4>
     <a class="btn btn-success btn-lg" ng-show="vm.showDownloadUrl" href="{{vm.downloadUrl}}"
        type="application/zip" target="_blank" download>
-        <i class="fa fa-download" aria-hidden="true"></i> Download {{vm.userInfo.username}}.zip
+        <i class="fa fa-download" aria-hidden="true"></i> Download {{vm.user.username}}.zip
     </a>
 </div>

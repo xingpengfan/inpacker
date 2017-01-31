@@ -1,25 +1,25 @@
 <div class="user-info-contents">
-    <img class="col-md-4 img-circle" src="{{vm.userInfo.profilePic}}">
+    <img class="col-md-4 img-circle" src="{{vm.user.profilePic}}">
     <div class="col-md-7 user-info-holder">
-        <h3 class="private-user-text" ng-show="vm.userInfo.isPrivate">
+        <h3 class="private-user-text" ng-show="vm.user.isPrivate">
             This user is private
         </h3>
         <h1>
-            <a href="{{vm.userInfo.instagramPageLink}}" target="_blank">
-                {{vm.userInfo.username}}
+            <a href="{{vm.user.instagramPageLink}}" target="_blank">
+                {{vm.user.username}}
             </a>
-            <span class="fa-stack verified-stack" ng-show="vm.userInfo.isVerified">
+            <span class="fa-stack verified-stack" ng-show="vm.user.isVerified">
                 <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
                 <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
             </span>
         </h1>
         <h2>
             <i class="fa fa-user-circle" aria-hidden="true"></i>
-            {{vm.userInfo.fullName}}
+            {{vm.user.fullName}}
         </h2>
         <h2>
             <i class="fa fa-file-image-o" aria-hidden="true"></i>
-            <b>{{vm.userInfo.count}}</b> posts
+            <b>{{vm.user.count}}</b> posts
         </h2>
 
         <div class="btn-group" role="group" aria-label="Choose next action">
@@ -28,9 +28,9 @@
                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
             </button>
             <button type="button" class="btn btn-secondary go-btn" ng-click="vm.createZip()"
-                    ng-show="!vm.userInfo.isPrivate" ng-disabled="vm.userInfo.count === 0"
-                    title="{{vm.userInfo.count === 0 ? 'No data to download'
-                                                     : 'Download ' + vm.userInfo.username + ' data'}}">
+                    ng-show="!vm.user.isPrivate" ng-disabled="vm.user.count === 0"
+                    title="{{vm.user.count === 0 ? 'No data to download'
+                                                     : 'Download ' + vm.user.username + ' data'}}">
                 Download <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
         </div>
