@@ -22,9 +22,6 @@ public class Item {
     @SerializedName("id")
     public String id;
 
-    @SerializedName("captionText")
-    public String captionText;
-
     public boolean isVideo() {
         return "video".equals(type);
     }
