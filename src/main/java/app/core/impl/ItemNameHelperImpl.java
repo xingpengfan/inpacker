@@ -1,7 +1,7 @@
-package app.impl;
+package app.core.impl;
 
-import app.Item;
-import app.ItemNameHelper;
+import app.core.Item;
+import app.core.ItemNameHelper;
 
 import org.springframework.stereotype.Service;
 

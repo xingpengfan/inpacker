@@ -1,7 +1,7 @@
-package app.impl;
+package app.core.impl;
 
-import app.UserInfo;
-import app.UserInfoProvider;
+import app.core.UserInfo;
+import app.core.UserInfoProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.Gson;

@@ -1,10 +1,10 @@
 package app.controller;
 
-import app.MainService;
-import app.ZipService;
+import app.core.MainService;
+import app.core.ZipService;
 import app.dto.MessageResponse;
-import app.UserInfo;
-import app.UserInfoProvider;
+import app.core.UserInfo;
+import app.core.UserInfoProvider;
 import app.dto.PackDto;
 
 import org.springframework.beans.factory.annotation.Autowired;

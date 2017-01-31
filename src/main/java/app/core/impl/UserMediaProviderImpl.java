@@ -1,7 +1,7 @@
-package app.impl;
+package app.core.impl;
 
-import app.Item;
-import app.UserMediaProvider;
+import app.core.Item;
+import app.core.UserMediaProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonArray;
