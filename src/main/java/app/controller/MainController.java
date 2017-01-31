@@ -28,7 +28,7 @@ public class MainController {
         zipService = service;
     }
 
-    @RequestMapping(value = "api/user/{username}", method = GET)
+    @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUserInfo(@PathVariable String username) {
         final UserInfo userInfo = userInfoProvider.getUserInfo(username);
         if (userInfo == null) {
