@@ -1,9 +1,9 @@
 package app.core.impl;
 
 import app.core.InpackerService;
-import app.core.Item;
+import app.core.model.Item;
 import app.core.Packer;
-import app.core.User;
+import app.core.model.User;
 import app.core.UserMediaProvider;
 import app.core.UserProvider;
 

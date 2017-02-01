@@ -1,6 +1,6 @@
 package app.core.impl;
 
-import app.core.Item;
+import app.core.model.Item;
 import app.core.UserMediaProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;

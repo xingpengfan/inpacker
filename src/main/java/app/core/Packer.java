@@ -1,5 +1,7 @@
 package app.core;
 
+import app.core.model.Item;
+
 import java.io.File;
 import java.util.concurrent.BlockingDeque;
 import java.util.function.Function;

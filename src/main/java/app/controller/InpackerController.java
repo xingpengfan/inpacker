@@ -1,7 +1,7 @@
 package app.controller;
 
 import app.core.InpackerService;
-import app.core.User;
+import app.core.model.User;
 import app.dto.MessageResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;

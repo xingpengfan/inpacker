@@ -1,5 +1,7 @@
 package app.core;
 
+import app.core.model.Item;
+
 import java.util.concurrent.BlockingDeque;
 
 public interface UserMediaProvider {

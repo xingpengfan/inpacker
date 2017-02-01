@@ -1,5 +1,7 @@
 package app.core;
 
+import app.core.model.User;
+
 public interface UserProvider {
 
     /**

@@ -1,6 +1,6 @@
 package app.core.impl;
 
-import app.core.User;
+import app.core.model.User;
 import app.core.UserProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
