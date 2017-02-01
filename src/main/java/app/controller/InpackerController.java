@@ -24,8 +24,8 @@ public class InpackerController {
         service = inpackerService;
     }
 
-    @RequestMapping(value = "api/user/{username:.+}", method = GET)
-    public ResponseEntity<?> getUserUser(@PathVariable String username) {
+    @RequestMapping(value = "api/users/{username:.+}", method = GET)
+    public ResponseEntity<?> getUser(@PathVariable String username) {
         final User user = service.getUser(username);
         if (user == null) {
             return ResponseEntity.status(404).body(new MessageResponse("Not Found"));

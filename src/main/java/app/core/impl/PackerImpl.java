@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.BlockingDeque;
@@ -27,6 +28,7 @@ public class PackerImpl implements Packer {
             newItem(item, name, zos);
             item = item(itemsDeque);
         }
+        completePack(zos);
     }
 
     private void newItem(Item item, String filename, ZipOutputStream zos) {
@@ -59,6 +61,15 @@ public class PackerImpl implements Packer {
         try {
             return new ZipOutputStream(new FileOutputStream(path));
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private void completePack(ZipOutputStream zos) {
+        try {
+            zos.close();
+        } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }

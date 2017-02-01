@@ -1,9 +1,8 @@
 package app.controller;
 
-import app.core.ZipService;
+import app.core.InpackerService;
 import app.dto.MessageResponse;
 import app.core.User;
-import app.core.UserProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,18 +16,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class MainController {
 
-    private final UserProvider userProvider;
-    private final ZipService   zipService;
+    private final InpackerService service;
 
     @Autowired
-    public MainController(UserProvider userProvider, ZipService zipService) {
-        this.userProvider = userProvider;
-        this.zipService = zipService;
+    public MainController(InpackerService inpackerService) {
+        this.service = inpackerService;
     }
 
     @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUserUser(@PathVariable String username) {
-        final User user = userProvider.getUser(username);
+        final User user = service.getUser(username);
         if (user == null) {
             return ResponseEntity.status(404).body(new MessageResponse("Not Found"));
         } else {
@@ -39,7 +36,7 @@ public class MainController {
     @RequestMapping(value = "api/zip/{username:.+}", method = POST)
     public ResponseEntity<?> createZip(@PathVariable String username) {
         try {
-            zipService.createZip(username);
+            service.createPack(username, true, true);
             return ResponseEntity.ok(new MessageResponse("created"));
         } catch (Exception e) {
             e.printStackTrace();

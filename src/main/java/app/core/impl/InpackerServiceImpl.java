@@ -51,6 +51,6 @@ public class InpackerServiceImpl implements InpackerService {
 
         new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque)).start();
 
-        packer.pack(itemsDeque, new File(packsDir, username), (item) -> item.id + (item.isVideo() ? ".mp4" : ".jpg"));
+        packer.pack(itemsDeque, new File(packsDir, username + ".zip"), (item) -> item.id + (item.isVideo() ? ".mp4" : ".jpg"));
     }
 }

@@ -14,12 +14,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class DownloadZipController {
 
-    @Value("${zip.dir.path}")
-    private String zipDirPath;
+    @Value("${packs.dir.path}")
+    private String packsDirPath;
 
     @RequestMapping(value = "zip/{username}.zip", method = GET, produces = "application/zip")
     @ResponseBody
     public FileSystemResource getZip(@PathVariable String username) {
-        return new FileSystemResource(new File(zipDirPath + username + ".zip"));
+        return new FileSystemResource(new File(packsDirPath + username + ".zip"));
     }
 }
