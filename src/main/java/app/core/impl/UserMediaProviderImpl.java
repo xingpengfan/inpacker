@@ -25,7 +25,7 @@ public class UserMediaProviderImpl implements UserMediaProvider {
     }
 
     @Override
-    public void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter) {
+    public void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount) {
         Objects.requireNonNull(username, "username is null");
         Objects.requireNonNull(deque, "deque is null");
         if (username.isEmpty()) {
@@ -35,19 +35,21 @@ public class UserMediaProviderImpl implements UserMediaProvider {
         JsonObject resp;
         boolean moreAvailable;
         String queryString = "";
+        int packedItemsAmount = 0;
         do {
             final HttpRequest req = HttpRequest.get(getUrl(username, queryString));
             resp = jsonParser.parse(req.body()).getAsJsonObject();
             moreAvailable = resp.get("more_available").getAsBoolean();
             final Item[] items = retrieveItems(resp.getAsJsonArray("items"));
             for (Item item : items) {
-                if (itemsFilter.test(item))
+                if (itemsFilter.test(item)) {
                     deque.addLast(item);
+                    if (++packedItemsAmount > itemsAmount) break;
+                }
             }
             queryString = "?max_id=" + items[items.length - 1].id;
-        } while (moreAvailable);
+        } while (moreAvailable && packedItemsAmount < itemsAmount);
         Item last = new Item();
-        last.createdTime = -1;
         last.id = "end";
         deque.addLast(last);
     }

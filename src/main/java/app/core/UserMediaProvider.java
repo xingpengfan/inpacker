@@ -16,6 +16,6 @@ public interface UserMediaProvider {
      * @throws NullPointerException if the specified deque is {@code null}
      * @throws IllegalArgumentException if the specified username is not valid
      */
-    void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter);
+    void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount);
 
 }

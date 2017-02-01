@@ -26,6 +26,10 @@ public class InpackerServiceImpl implements InpackerService {
 
     @Value("${packs.dir.path}")
     private String packsDirPath;
+
+    @Value("${max.items.amount}")
+    private int maxItemsImount;
+
     private File packsDir;
 
     @Autowired
@@ -51,7 +55,7 @@ public class InpackerServiceImpl implements InpackerService {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
 
         Predicate<Item> itemsFilter = item -> item.isVideo() && includeVideos || item.isImage() && includeImages;
-        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter)).start();
+        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter, maxItemsImount)).start();
 
         packer.pack(itemsDeque, new File(packsDir, username + ".zip"), (item) -> item.id + (item.isVideo() ? ".mp4" : ".jpg"));
     }

@@ -39,10 +39,11 @@ public class InpackerController {
     }
 
     @RequestMapping(value = "api/pack/{username:.+}", method = POST)
-    public ResponseEntity<MessageResponse> createPack(@PathVariable String username,
-                                                      @RequestParam(required = false) boolean includeImages,
-                                                      @RequestParam(required = false) boolean includeVideos) {
-        service.createPack(username, true, true);
+    public ResponseEntity<MessageResponse> createPack(
+            @PathVariable String username,
+            @RequestParam(required = false, defaultValue = "true") boolean includeImages,
+            @RequestParam(required = false, defaultValue = "true") boolean includeVideos) {
+        service.createPack(username, includeImages, includeVideos);
         return ResponseEntity.ok(new MessageResponse(String.format("Started creating %s's pack", username)));
     }
 
