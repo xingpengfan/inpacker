@@ -1,5 +1,6 @@
 package app.core;
 
+import java.io.File;
 import java.util.concurrent.BlockingDeque;
 import java.util.function.Function;
 
@@ -10,7 +11,8 @@ public interface Packer {
      * Pack is done when itemsDeque.takeLast() returns item with id "end"
      *
      * @param itemsDeque deque with items
+     * @param packPath path to pack
      * @param getFileName function that returns file name for item
      */
-    void pack(BlockingDeque<Item> itemsDeque, Function<Item, String> getFileName);
+    void pack(BlockingDeque<Item> itemsDeque, File packPath, Function<Item, String> getFileName);
 }

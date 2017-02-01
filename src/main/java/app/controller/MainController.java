@@ -1,6 +1,5 @@
 package app.controller;
 
-import app.core.InpackerService;
 import app.core.MainService;
 import app.core.ZipService;
 import app.dto.MessageResponse;
@@ -26,14 +25,12 @@ public class MainController {
     private final UserProvider userProvider;
     private final ZipService   zipService;
     private final MainService  mainService;
-    private final InpackerService inpackerService;
 
     @Autowired
-    public MainController(UserProvider userProvider, ZipService zipService, MainService mainService, InpackerService inpackerService) {
+    public MainController(UserProvider userProvider, ZipService zipService, MainService mainService) {
         this.userProvider = userProvider;
         this.zipService = zipService;
         this.mainService = mainService;
-        this.inpackerService = inpackerService;
     }
 
     @RequestMapping(value = "api/user/{username:.+}", method = GET)

@@ -46,6 +46,7 @@ public class UserMediaProviderImpl implements UserMediaProvider {
         } while (moreAvailable);
         Item last = new Item();
         last.createdTime = -1;
+        last.id = "end";
         deque.addLast(last);
     }
 
