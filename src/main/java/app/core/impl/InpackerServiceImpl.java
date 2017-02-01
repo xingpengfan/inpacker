@@ -3,7 +3,9 @@ package app.core.impl;
 import app.core.InpackerService;
 import app.core.Item;
 import app.core.Packer;
+import app.core.User;
 import app.core.UserMediaProvider;
+import app.core.UserProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,21 +21,28 @@ public class InpackerServiceImpl implements InpackerService {
 
     private final UserMediaProvider mediaProvider;
     private final Packer            packer;
+    private final UserProvider userProvider;
 
     @Value("${packs.dir.path}")
     private String packsDirPath;
     private File packsDir;
 
     @Autowired
-    public InpackerServiceImpl(UserMediaProvider userMediaProvider, Packer packer) {
+    public InpackerServiceImpl(UserMediaProvider userMediaProvider, Packer packer, UserProvider userProvider) {
         this.mediaProvider = userMediaProvider;
         this.packer = packer;
+        this.userProvider = userProvider;
     }
 
     @PostConstruct
     private boolean createPacksDir() {
         packsDir = new File(packsDirPath);
         return !packsDir.exists() && packsDir.mkdirs();
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userProvider.getUser(username);
     }
 
     @Override
