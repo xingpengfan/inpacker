@@ -53,4 +53,13 @@ public class InpackerServiceImpl implements InpackerService {
 
         packer.pack(itemsDeque, new File(packsDir, username + ".zip"), (item) -> item.id + (item.isVideo() ? ".mp4" : ".jpg"));
     }
+
+    @Override
+    public File getPackFile(String username) {
+        File packFile = new File(packsDirPath + "/" + username + ".zip");
+        if (!packFile.exists())
+            return null;
+        else
+            return packFile;
+    }
 }

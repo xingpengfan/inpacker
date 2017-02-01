@@ -66,7 +66,7 @@
 
             showCogIcon();
             vm.showDownloadUrl = false;
-            vm.downloadUrl = '/zip/' + vm.user.username + '.zip';
+            vm.downloadUrl = '/packs/' + vm.user.username + '.zip';
         }
         // -----------------------
 

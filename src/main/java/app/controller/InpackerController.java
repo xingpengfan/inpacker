@@ -5,11 +5,15 @@ import app.core.model.User;
 import app.dto.MessageResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.File;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -40,5 +44,15 @@ public class InpackerController {
                                                       @RequestParam(required = false) boolean includeVideos) {
         service.createPack(username, includeImages, includeVideos);
         return ResponseEntity.ok(new MessageResponse(String.format("Started creating %s's pack", username)));
+    }
+
+    @RequestMapping(value = "packs/{username:.+}.zip", method = GET, produces = "application/zip")
+    @ResponseBody
+    public ResponseEntity<FileSystemResource> getPack(@PathVariable String username) {
+        final File packFile = service.getPackFile(username);
+        if (packFile == null)
+            return ResponseEntity.status(404).body(null);
+        else
+            return ResponseEntity.ok(new FileSystemResource(packFile));
     }
 }
