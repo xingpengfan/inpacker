@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.function.Predicate;
 
 @Service
 public class InpackerServiceImpl implements InpackerService {
@@ -49,7 +50,8 @@ public class InpackerServiceImpl implements InpackerService {
     public void createPack(String username, boolean includeImages, boolean includeVideos) {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
 
-        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque)).start();
+        Predicate<Item> itemsFilter = item -> item.isVideo() && includeVideos || item.isImage() && includeImages;
+        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter)).start();
 
         packer.pack(itemsDeque, new File(packsDir, username + ".zip"), (item) -> item.id + (item.isVideo() ? ".mp4" : ".jpg"));
     }
@@ -57,9 +59,9 @@ public class InpackerServiceImpl implements InpackerService {
     @Override
     public File getPackFile(String username) {
         File packFile = new File(packsDirPath + "/" + username + ".zip");
-        if (!packFile.exists())
-            return null;
-        else
+        if (packFile.exists())
             return packFile;
+        else
+            return null;
     }
 }

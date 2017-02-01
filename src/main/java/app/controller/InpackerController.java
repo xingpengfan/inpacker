@@ -42,7 +42,7 @@ public class InpackerController {
     public ResponseEntity<MessageResponse> createPack(@PathVariable String username,
                                                       @RequestParam(required = false) boolean includeImages,
                                                       @RequestParam(required = false) boolean includeVideos) {
-        service.createPack(username, includeImages, includeVideos);
+        service.createPack(username, true, true);
         return ResponseEntity.ok(new MessageResponse(String.format("Started creating %s's pack", username)));
     }
 

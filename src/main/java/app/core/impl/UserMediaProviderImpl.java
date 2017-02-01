@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
+import java.util.function.Predicate;
 
 @Service
 public class UserMediaProviderImpl implements UserMediaProvider {
@@ -24,7 +25,7 @@ public class UserMediaProviderImpl implements UserMediaProvider {
     }
 
     @Override
-    public void getUserMedia(String username, BlockingDeque<Item> deque) {
+    public void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter) {
         Objects.requireNonNull(username, "username is null");
         Objects.requireNonNull(deque, "deque is null");
         if (username.isEmpty()) {
@@ -40,7 +41,8 @@ public class UserMediaProviderImpl implements UserMediaProvider {
             moreAvailable = resp.get("more_available").getAsBoolean();
             final Item[] items = retrieveItems(resp.getAsJsonArray("items"));
             for (Item item : items) {
-                deque.addLast(item);
+                if (itemsFilter.test(item))
+                    deque.addLast(item);
             }
             queryString = "?max_id=" + items[items.length - 1].id;
         } while (moreAvailable);
