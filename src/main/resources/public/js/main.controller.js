@@ -111,7 +111,7 @@
 
         function createZip() {
             showPack();
-            $http.post('/api/zip/' + vm.user.username)
+            $http.post('/api/pack/' + vm.user.username)
                 .then((resp) => {
                     showDownloadUrl();
                     showCheckIcon();

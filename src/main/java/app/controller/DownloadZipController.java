@@ -17,7 +17,7 @@ public class DownloadZipController {
     @Value("${packs.dir.path}")
     private String packsDirPath;
 
-    @RequestMapping(value = "zip/{username}.zip", method = GET, produces = "application/zip")
+    @RequestMapping(value = "packs/{username}.zip", method = GET, produces = "application/zip")
     @ResponseBody
     public FileSystemResource getZip(@PathVariable String username) {
         return new FileSystemResource(new File(packsDirPath + username + ".zip"));

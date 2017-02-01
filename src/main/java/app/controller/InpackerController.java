@@ -24,7 +24,7 @@ public class InpackerController {
         service = inpackerService;
     }
 
-    @RequestMapping(value = "api/users/{username:.+}", method = GET)
+    @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUser(@PathVariable String username) {
         final User user = service.getUser(username);
         if (user == null) {
