@@ -44,7 +44,7 @@ public class InpackerController {
             @RequestParam(required = false, defaultValue = "true") boolean includeImages,
             @RequestParam(required = false, defaultValue = "true") boolean includeVideos) {
         service.createPack(username, includeImages, includeVideos);
-        return ResponseEntity.ok(new MessageResponse(String.format("Started creating %s's pack", username)));
+        return ResponseEntity.ok(new MessageResponse(String.format("/packs/%s.zip", username)));
     }
 
     @RequestMapping(value = "packs/{username:.+}.zip", method = GET, produces = "application/zip")
