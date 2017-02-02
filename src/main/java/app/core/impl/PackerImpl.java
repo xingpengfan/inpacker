@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.BlockingDeque;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -20,13 +20,15 @@ import java.util.zip.ZipOutputStream;
 public class PackerImpl implements Packer {
 
     @Override
-    public void pack(BlockingDeque<Item> itemsDeque, File packPath, Function<Item, String> getFileName) {
+    public void pack(BlockingDeque<Item> itemsDeque, File packPath, BiFunction<Item, Integer, String> fileNameCreator) {
         final ZipOutputStream zos = createZipOutputStream(packPath);
         Item item = item(itemsDeque);
+        int index = 1;
         while (!item.id.equals("end")) {
-            final String name = getFileName.apply(item);
+            final String name = fileNameCreator.apply(item, index);
             newItem(item, name, zos);
             item = item(itemsDeque);
+            index++;
         }
         completePack(zos);
     }

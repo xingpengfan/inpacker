@@ -4,7 +4,7 @@ import app.core.model.Item;
 
 import java.io.File;
 import java.util.concurrent.BlockingDeque;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public interface Packer {
 
@@ -14,7 +14,7 @@ public interface Packer {
      *
      * @param itemsDeque deque with items
      * @param packPath path to pack
-     * @param getFileName function that returns file name for item
+     * @param fileNameCreator function that consumes item and index and returns file name for item
      */
-    void pack(BlockingDeque<Item> itemsDeque, File packPath, Function<Item, String> getFileName);
+    void pack(BlockingDeque<Item> itemsDeque, File packPath, BiFunction<Item, Integer, String> fileNameCreator);
 }

@@ -3,6 +3,7 @@ package app.core.impl;
 import app.core.InpackerService;
 import app.core.model.Item;
 import app.core.Packer;
+import app.core.model.PackSettings;
 import app.core.model.User;
 import app.core.UserMediaProvider;
 import app.core.UserProvider;
@@ -15,6 +16,8 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Service
@@ -51,13 +54,13 @@ public class InpackerServiceImpl implements InpackerService {
     }
 
     @Override
-    public void createPack(String username, boolean includeImages, boolean includeVideos) {
+    public void createPack(String username, PackSettings packSettings) {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
 
-        Predicate<Item> itemsFilter = item -> item.isVideo() && includeVideos || item.isImage() && includeImages;
+        Predicate<Item> itemsFilter = getItemsFilter(packSettings);
         new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter, maxItemsImount)).start();
 
-        packer.pack(itemsDeque, new File(packsDir, username + ".zip"), (item) -> item.id + (item.isVideo() ? ".mp4" : ".jpg"));
+        packer.pack(itemsDeque, new File(packsDir, username + ".zip"), getItemNameCreator(packSettings));
     }
 
     @Override
@@ -67,5 +70,22 @@ public class InpackerServiceImpl implements InpackerService {
             return packFile;
         else
             return null;
+    }
+
+    private Predicate<Item> getItemsFilter(PackSettings ps) {
+        return item -> item.isVideo() && ps.includeVideos || item.isImage() && ps.includeImages;
+    }
+
+    private BiFunction<Item, Integer, String> getItemNameCreator(PackSettings ps) {
+        switch (ps.fileNamePattern) {
+            case "numbers":
+                return (item, index) -> index + fileNameExtension(item);
+            default:
+                return (item, index) -> item.id + fileNameExtension(item);
+        }
+    }
+
+    private String fileNameExtension(Item item) {
+        return item.isVideo() ? ".mp4" : item.isImage() ? ".jpg" : "";
     }
 }
