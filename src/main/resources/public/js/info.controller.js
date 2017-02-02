@@ -12,7 +12,8 @@
         vm.user = ac.user;
 
         vm.showSearch = showSearch;
-        vm.createZip = createZip;
+
+        vm.next = next;
 
         activate();
 
@@ -24,12 +25,12 @@
             ac.showSearch();
         }
 
-        function createZip() {
-            ac.showPack();
-            $http.post('/api/pack/' + vm.user.username)
-                .then((resp) => {
-                    ac.packUrl = resp.data.message;
-                }, (resp) => {});
+        function next() {
+            showSettings();
+        }
+
+        function showSettings() {
+            ac.showSettings();
         }
 
     }

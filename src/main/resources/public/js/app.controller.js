@@ -14,15 +14,18 @@
         vm.show = {
             search: false,
             info: false,
+            settings: false,
             pack: false
         };
         vm.showSearch = showSearch;
         vm.showInfo = showInfo;
+        vm.showSettings = showSettings;
         vm.showPack = showPack;
         vm.showInstagramIcon = showInstagramIcon;
         vm.showCogIcon = showCogIcon;
         vm.showCheckIcon = showCheckIcon;
         vm.showSecretIcon = showSecretIcon;
+        vm.showCogsIcon = showCogsIcon;
 
         vm.packUrl = '';
 
@@ -34,21 +37,26 @@
 
         // views
         function showSearch() {
-            setShow(true, false, false);
+            setShow(true, false, false, false);
         }
 
         function showInfo() {
-            setShow(false, true, false);
+            setShow(false, true, false, false);
+        }
+
+        function showSettings() {
+            setShow(false, false, true, false)
         }
 
         function showPack() {
-            setShow(false, false, true);
+            setShow(false, false, false, true);
         }
 
-        function setShow(v1, v2, v3) {
+        function setShow(v1, v2, v3, v4) {
             vm.show.search = v1;
             vm.show.info = v2;
-            vm.show.pack = v3;
+            vm.show.settings = v3;
+            vm.show.pack = v4;
         }
 
         // main icon
@@ -66,6 +74,10 @@
 
         function showSecretIcon() {
             vm.mainIconClass = 'fa fa-lg fa-user-secret';
+        }
+
+        function showCogsIcon() {
+            vm.mainIconClass = 'fa fa-lg fa-cogs';
         }
 
     }

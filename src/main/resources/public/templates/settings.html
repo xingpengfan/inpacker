@@ -1,0 +1,33 @@
+<div class="settings-contents">
+    <img class="col-md-4 img-circle" src="{{sc.userPicUrl}}">
+    <div class="col-md-7 settings-block">
+        <h2>Settings</h2>
+        <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">include images</span>
+        </label>
+        <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeVideos">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">include videos</span>
+        </label>
+        <br>File names:<br>
+        <label class="custom-control custom-radio">
+            <input id="radio1" name="radio" type="radio" class="custom-control-input"
+                   ng-model="sc.settings.fileNamePattern" value="numbers">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">1,2,3...</span>
+        </label>
+        <label class="custom-control custom-radio">
+            <input id="radio2" name="radio" type="radio" class="custom-control-input"
+                   ng-model="sc.settings.fileNamePattern" value="id">
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">id</span>
+        </label>
+        <button type="button" class="btn btn-secondary go-btn" ng-click="sc.pack()"
+                ng-show="!ic.user.isPrivate" ng-disabled="!sc.settings.includeImages && !sc.settings.includeVideos">
+            Go <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>

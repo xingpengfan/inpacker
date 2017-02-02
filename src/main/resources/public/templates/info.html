@@ -27,11 +27,11 @@
                     ng-click="ic.showSearch()">
                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
             </button>
-            <button type="button" class="btn btn-secondary go-btn" ng-click="ic.createZip()"
+            <button type="button" class="btn btn-secondary go-btn" ng-click="ic.next()"
                     ng-show="!ic.user.isPrivate" ng-disabled="ic.user.count === 0"
                     title="{{ic.user.count === 0 ? 'No data to download'
                                                      : 'Download ' + ic.user.username + ' data'}}">
-                Download <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                Next <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
         </div>
     </div>

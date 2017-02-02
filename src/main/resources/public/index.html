@@ -23,6 +23,7 @@
 
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/settings.view.css">
 
     <link rel="icon" href="/favicon.ico">
 
@@ -58,6 +59,10 @@
              ng-controller="InfoController as ic" ng-cloak>
         </div>
 
+        <div ng-include="'/templates/settings.html'" ng-if="ac.show.settings"
+             ng-controller="SettingsController as sc" ng-cloak>
+        </div>
+
         <div ng-include="'/templates/pack.html'" ng-if="ac.show.pack"
              ng-controller="PackController as pc" ng-cloak>
         </div>
@@ -73,6 +78,7 @@
 <script src="/js/app.controller.js"></script>
 <script src="/js/search.controller.js"></script>
 <script src="/js/info.controller.js"></script>
+<script src="/js/settings.controller.js"></script>
 <script src="/js/pack.controller.js"></script>
 
 </body>
