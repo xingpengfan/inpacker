@@ -97,7 +97,7 @@
         // controlling info view
         function getUser() {
             vm.searching = true;
-            $http.get('/api/user/' + vm.searchInput)
+            $http.get('http://localhost:8080/api/user/' + vm.searchInput)
                 .then((resp) => {
                     vm.user = resp.data;
                     vm.user.instagramPageLink = 'https://www.instagram.com/' + vm.user.username + '/';

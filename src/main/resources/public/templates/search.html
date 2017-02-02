@@ -1,20 +1,20 @@
-<form ng-submit="vm.search()">
+<form ng-submit="sc.search()">
     <div class="input-group col-md-10 offset-md-1">
         <button class="input-group-addon search-button" type="button" id="basic-addon2"
-                ng-click="vm.search()">
-            <i class="fa fa-search" aria-hidden="true" title="Search {{vm.searchInput}}"
-               ng-show="!vm.searching"></i>
+                ng-click="sc.search()">
+            <i class="fa fa-search" aria-hidden="true" title="Search {{sc.searchInput}}"
+               ng-show="!sc.searching"></i>
             <i class="fa fa-spinner fa-spin fa-fw"
-               ng-show="vm.searching"></i>
+               ng-show="sc.searching"></i>
         </button>
         <input class="col-md-11" type="text" placeholder="Search Instagram User"
                aria-describedby="basic-addon2"
-               maxlength="30" ng-model="vm.searchInput" autofocus ng-disabled="vm.searching">
+               maxlength="30" ng-model="sc.searchInput" autofocus ng-disabled="sc.searching">
     </div>
     <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
-         ng-show="vm.showNotFound()">
-        <strong>User not found!</strong> {{vm.userNotFoundMessage}}
-        <span style="float: right;" ng-click="vm.closeUserNotFoundMessage()">
+         ng-show="sc.showNotFound()">
+        <strong>User not found!</strong> {{sc.userNotFoundMessage}}
+        <span style="float: right;" ng-click="sc.closeUserNotFoundMessage()">
                 <i class="fa fa-close" aria-hidden="true" title="Close"></i>
             </span>
     </div>

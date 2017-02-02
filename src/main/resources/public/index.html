@@ -27,14 +27,14 @@
     <link rel="icon" href="/favicon.ico">
 
 </head>
-<body ng-app="inpacker" ng-controller="MainController as vm">
+<body ng-app="inpacker" ng-controller="AppController as ac">
 
 <!-- Header -->
 <div class="header">
     <div class="container">
         <div class="col-md-8 offset-md-2 header-contents">
             <h4 class="col-md-8 offset-md-2 inpacker-header-title">
-                <a href="/" ng-click="vm.showSearch()">
+                <a href="/" ng-click="ac.showSearch()">
                     Inpacker
                 </a>
             </h4>
@@ -47,16 +47,19 @@
     <div class="col-md-8 offset-md-2 content-holder">
 
         <h1 class="logo">
-            <i ng-class="vm.mainIconClass" aria-hidden="true"></i>
+            <i ng-class="ac.mainIconClass" aria-hidden="true"></i>
         </h1>
 
-        <div ng-include="'/templates/search.html'" ng-show="vm.show.search" ng-cloak>
+        <div ng-include="'/templates/search.html'" ng-if="ac.show.search"
+             ng-controller="SearchController as sc" ng-cloak>
         </div>
 
-        <div ng-include="'/templates/info.html'" ng-show="vm.show.info" ng-cloak>
+        <div ng-include="'/templates/info.html'" ng-if="ac.show.info"
+             ng-controller="InfoController as ic" ng-cloak>
         </div>
 
-        <div ng-include="'/templates/pack.html'" ng-show="vm.show.pack" ng-cloak>
+        <div ng-include="'/templates/pack.html'" ng-if="ac.show.pack"
+             ng-controller="PackController as pc" ng-cloak>
         </div>
 
     </div>
@@ -66,7 +69,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
 
 <!-- scripts -->
-<script src="/js/main.controller.js"></script>
+<!--<script src="/js/main.controller.js"></script>-->
+<script src="/js/app.controller.js"></script>
+<script src="/js/search.controller.js"></script>
+<script src="/js/info.controller.js"></script>
+<script src="/js/pack.controller.js"></script>
 
 </body>
 </html>
