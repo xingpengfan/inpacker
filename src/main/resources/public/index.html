@@ -27,8 +27,18 @@
 
     <link rel="icon" href="/favicon.ico">
 
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+    <!-- scripts -->
+    <script src="/js/app.controller.js"></script>
+    <script src="/js/search.controller.js"></script>
+    <script src="/js/info.controller.js"></script>
+    <script src="/js/settings.controller.js"></script>
+    <script src="/js/pack.controller.js"></script>
+
 </head>
-<body ng-app="inpacker" ng-controller="AppController as ac">
+<body ng-app="inpacker" ng-controller="AppController as ac" ng-cloak>
 
 <!-- Header -->
 <div class="header">
@@ -51,34 +61,124 @@
             <i ng-class="ac.mainIconClass" aria-hidden="true"></i>
         </h1>
 
-        <div ng-include="'/templates/search.html'" ng-if="ac.show.search"
-             ng-controller="SearchController as sc" ng-cloak>
+        <div ng-if="ac.show.search" ng-controller="SearchController as sc">
+            <form ng-submit="sc.search()">
+                <div class="input-group col-md-10 offset-md-1">
+                    <button class="input-group-addon search-button" type="button" id="basic-addon2"
+                            ng-click="sc.search()">
+                        <i class="fa fa-search" aria-hidden="true" title="Search {{sc.searchInput}}"
+                           ng-show="!sc.searching"></i>
+                        <i class="fa fa-spinner fa-spin fa-fw"
+                           ng-show="sc.searching"></i>
+                    </button>
+                    <input class="col-md-11" type="text" placeholder="Search Instagram User"
+                           aria-describedby="basic-addon2"
+                           maxlength="30" ng-model="sc.searchInput" autofocus ng-disabled="sc.searching">
+                </div>
+                <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
+                     ng-show="sc.showNotFound()">
+                    <strong>User not found!</strong> {{sc.userNotFoundMessage}}
+                    <span style="float: right;" ng-click="sc.closeUserNotFoundMessage()">
+                <i class="fa fa-close" aria-hidden="true" title="Close"></i>
+            </span>
+                </div>
+            </form>
         </div>
 
-        <div ng-include="'/templates/info.html'" ng-if="ac.show.info"
-             ng-controller="InfoController as ic" ng-cloak>
+        <div ng-if="ac.show.info" ng-controller="InfoController as ic">
+            <div class="user-info-contents">
+                <img class="col-md-4 img-circle" ng-src="{{ic.user.profilePic}}">
+                <div class="col-md-7 user-info-holder">
+                    <h3 class="private-user-text" ng-show="ic.user.isPrivate">
+                        This user is private
+                    </h3>
+                    <h1>
+                        <a href="{{ic.user.instagramPageLink}}" target="_blank">
+                            {{ic.user.username}}
+                        </a>
+                        <span class="fa-stack verified-stack" ng-show="ic.user.isVerified">
+                            <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
+                            <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
+                        </span>
+                    </h1>
+                    <h2>
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        {{ic.user.fullName}}
+                    </h2>
+                    <h2>
+                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                        <b>{{ic.user.count}}</b> posts
+                    </h2>
+
+                    <div class="btn-group" role="group" aria-label="Choose next action">
+                        <button type="button" class="btn btn-secondary go-btn" title="Search another user"
+                                ng-click="ic.showSearch()">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
+                        </button>
+                        <button type="button" class="btn btn-secondary go-btn" ng-click="ic.next()"
+                                ng-show="!ic.user.isPrivate" ng-disabled="ic.user.count === 0"
+                                title="{{ic.user.count === 0 ? 'No data to download'
+                                                     : 'Download ' + ic.user.username + ' data'}}">
+                            Next <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div ng-include="'/templates/settings.html'" ng-if="ac.show.settings"
-             ng-controller="SettingsController as sc" ng-cloak>
+        <div ng-if="ac.show.settings" ng-controller="SettingsController as sc" ng-cloak>
+            <div class="settings-contents">
+                <img class="col-md-4 img-circle" ng-src="{{sc.userPicUrl}}">
+                <div class="col-md-7 settings-block">
+                    <h2>Settings</h2>
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">include images</span>
+                    </label>
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeVideos">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">include videos</span>
+                    </label>
+                    <br>File names:<br>
+                    <label class="custom-control custom-radio">
+                        <input id="radio1" name="radio" type="radio" class="custom-control-input"
+                               ng-model="sc.settings.fileNamePattern" value="index">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">1,2,3...</span>
+                    </label>
+                    <label class="custom-control custom-radio">
+                        <input id="radio2" name="radio" type="radio" class="custom-control-input"
+                               ng-model="sc.settings.fileNamePattern" value="id">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">id</span>
+                    </label>
+                    <button type="button" class="btn btn-secondary go-btn" ng-click="sc.pack()"
+                            ng-show="!ic.user.isPrivate"
+                            ng-disabled="!sc.settings.includeImages && !sc.settings.includeVideos">
+                        Go <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
-        <div ng-include="'/templates/pack.html'" ng-if="ac.show.pack"
-             ng-controller="PackController as pc" ng-cloak>
+        <div ng-if="ac.show.pack" ng-controller="PackController as pc" ng-cloak>
+            <div class="col-md-10 offset-md-1 collect-status-block text-center ">
+                <h3 ng-show="!ac.pack.packStatus">Collecting <b>{{pc.user.username}}</b> data</h3>
+                <h4 ng-show="!ac.pack.packStatus">it may take some time</h4>
+                <a class="btn btn-success btn-lg" ng-show="ac.pack.packStatus"
+                   href="{{'/packs/' + ac.pack.packName + '.zip'}}" type="application/zip" target="_blank" download>
+                    <i class="fa fa-download" aria-hidden="true"></i> Download {{pc.user.username}}.zip
+                </a>
+            </div>
+
         </div>
 
     </div>
 </div>
-
-<!-- Angular -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-
-<!-- scripts -->
-<script src="/js/app.controller.js"></script>
-<script src="/js/search.controller.js"></script>
-<script src="/js/info.controller.js"></script>
-<script src="/js/settings.controller.js"></script>
-<script src="/js/pack.controller.js"></script>
 
 </body>
 </html>
