@@ -4,6 +4,7 @@ import app.core.model.PackSettings;
 import app.core.model.User;
 
 import java.io.File;
+import java.util.Map;
 
 public interface    InpackerService {
 
@@ -14,6 +15,8 @@ public interface    InpackerService {
     File getPackFile(String packName);
 
     Boolean getPackStatus(String packName);
+
+    Map<String, Boolean> getPacks();
 
     String getPackName(String username, PackSettings packSettings);
 }

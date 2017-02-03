@@ -85,6 +85,11 @@ public class InpackerServiceImpl implements InpackerService {
     }
 
     @Override
+    public Map<String, Boolean> getPacks() {
+        return packs;
+    }
+
+    @Override
     public String getPackName(String username, PackSettings packSettings) {
         return username + "_" + packSettings.hashCode();
     }

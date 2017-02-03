@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
@@ -59,6 +62,16 @@ public class InpackerController {
     public ResponseEntity<?> getPackStatus(@PathVariable String packName) {
         final boolean packStatus = service.getPackStatus(packName);
         return ok(new PackStatusResponse(packName, packStatus));
+    }
+
+    @RequestMapping(value = "api/packs", method = GET)
+    public ResponseEntity<List<PackStatusResponse>> getPacksList() {
+        final Map<String, Boolean> packs = service.getPacks();
+        List<PackStatusResponse> list = new ArrayList<>(packs.size());
+        for (Map.Entry<String, Boolean> entry : packs.entrySet()) {
+            list.add(new PackStatusResponse(entry.getKey(), entry.getValue()));
+        }
+        return ok(list);
     }
 
     @RequestMapping(value = "packs/{packName:.+}.zip", method = GET, produces = "application/zip")
