@@ -123,7 +123,7 @@
 
         </div>
 
-        <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc" ng-cloak>
+        <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc">
             <div class="settings-contents">
                 <img class="col-md-4 img-circle" ng-src="{{sc.userPicUrl}}">
                 <div class="col-md-7 settings-block">
@@ -161,7 +161,7 @@
 
         </div>
 
-        <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc" ng-cloak>
+        <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc">
             <div class="col-md-10 offset-md-1 collect-status-block text-center ">
                 <h3 ng-show="!ac.pack.packStatus">Collecting <b>{{pc.user.username}}</b> data</h3>
                 <h4 ng-show="!ac.pack.packStatus">it may take some time</h4>
