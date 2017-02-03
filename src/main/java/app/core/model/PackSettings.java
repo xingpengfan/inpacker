@@ -1,8 +1,25 @@
 package app.core.model;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
-public class PackSettings {
+public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, String> {
+
+    @Override
+    public String apply(Item item, Integer index) {
+        switch (fileNamePattern) {
+            case INDEX:
+                return index + fileNameExtension(item);
+            case ID: default:
+                return item.id + fileNameExtension(item);
+        }
+    }
+
+    @Override
+    public boolean test(Item item) {
+        return item.isImage() && includeImages || item.isVideo() && includeVideos;
+    }
 
     public enum FileNamePattern {
         INDEX, ID
@@ -17,6 +34,10 @@ public class PackSettings {
         includeVideos = videos;
         fileNamePattern = pattern;
 
+    }
+
+    private String fileNameExtension(Item item) {
+        return item.isVideo() ? ".mp4" : item.isImage() ? ".jpg" : "";
     }
 
     @Override

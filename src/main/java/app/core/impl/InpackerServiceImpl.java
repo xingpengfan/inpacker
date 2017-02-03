@@ -18,8 +18,6 @@ import java.util.Map;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.function.BiFunction;
-import java.util.function.Predicate;
 
 @Service
 public class InpackerServiceImpl implements InpackerService {
@@ -62,11 +60,11 @@ public class InpackerServiceImpl implements InpackerService {
     @Override
     public void createPack(String username, PackSettings packSettings) {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
-        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter(packSettings), maxItemsAmount))
+        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, packSettings, maxItemsAmount))
                 .start();
         final String packName = getPackName(username, packSettings);
         packs.put(packName, false);
-        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"), itemNameCreator(packSettings));
+        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"), packSettings);
         packs.put(packName, true);
     }
 
@@ -92,22 +90,5 @@ public class InpackerServiceImpl implements InpackerService {
     @Override
     public String getPackName(String username, PackSettings packSettings) {
         return username + "_" + packSettings.hashCode();
-    }
-
-    private Predicate<Item> itemsFilter(PackSettings ps) {
-        return item -> item.isVideo() && ps.includeVideos || item.isImage() && ps.includeImages;
-    }
-
-    private BiFunction<Item, Integer, String> itemNameCreator(PackSettings ps) {
-        switch (ps.fileNamePattern) {
-            case INDEX:
-                return (item, index) -> index + fileNameExtension(item);
-            case ID: default:
-                return (item, index) -> item.id + fileNameExtension(item);
-        }
-    }
-
-    private String fileNameExtension(Item item) {
-        return item.isVideo() ? ".mp4" : item.isImage() ? ".jpg" : "";
     }
 }
