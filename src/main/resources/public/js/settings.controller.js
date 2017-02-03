@@ -27,7 +27,7 @@
             ac.showPack();
             $http.post('/api/pack/' + ac.user.username, vm.settings)
                 .then((resp) => {
-                    ac.packUrl = resp.data.message;
+                    ac.pack = resp.data;
                 }, (resp) => {});
         }
 

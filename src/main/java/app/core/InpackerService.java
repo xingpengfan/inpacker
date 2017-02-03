@@ -11,5 +11,9 @@ public interface    InpackerService {
 
     void createPack(String username, PackSettings packSettings);
 
-    File getPackFile(String username);
+    File getPackFile(String packName);
+
+    Boolean getPackStatus(String packName);
+
+    String getPackName(String username, PackSettings packSettings);
 }

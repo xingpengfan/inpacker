@@ -1,8 +1,8 @@
 <div class="col-md-10 offset-md-1 collect-status-block text-center ">
-    <h3 ng-show="ac.packUrl === ''">Collecting <b>{{pc.user.username}}</b> data</h3>
-    <h4 ng-show="ac.packUrl === ''">it may take some time</h4>
-    <a class="btn btn-success btn-lg" ng-show="ac.packUrl !== ''" href="{{ac.packUrl}}"
-       type="application/zip" target="_blank" download>
+    <h3 ng-show="!ac.pack.packStatus">Collecting <b>{{pc.user.username}}</b> data</h3>
+    <h4 ng-show="!ac.pack.packStatus">it may take some time</h4>
+    <a class="btn btn-success btn-lg" ng-show="ac.pack.packStatus"
+       href="{{'/packs/' + ac.pack.packName + '.zip'}}" type="application/zip" target="_blank" download>
         <i class="fa fa-download" aria-hidden="true"></i> Download {{pc.user.username}}.zip
     </a>
 </div>

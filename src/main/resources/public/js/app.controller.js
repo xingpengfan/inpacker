@@ -27,7 +27,10 @@
         vm.showSecretIcon = showSecretIcon;
         vm.showCogsIcon = showCogsIcon;
 
-        vm.packUrl = '';
+        vm.pack = {
+            packName: '',
+            packStatus: false
+        };
 
         activate();
 

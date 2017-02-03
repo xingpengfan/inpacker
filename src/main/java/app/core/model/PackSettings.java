@@ -1,15 +1,44 @@
 package app.core.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
 
 public class PackSettings {
 
-    @SerializedName("includeVideos")
-    public boolean includeVideos;
+    public enum FileNamePattern {
+        INDEX, ID
+    }
 
-    @SerializedName("includeImages")
-    public boolean includeImages;
+    public final boolean         includeImages;
+    public final boolean         includeVideos;
+    public final FileNamePattern fileNamePattern;
 
-    @SerializedName("fileNamePattern")
-    public String fileNamePattern;
+    public PackSettings(boolean images, boolean videos, FileNamePattern pattern) {
+        includeImages = images;
+        includeVideos = videos;
+        fileNamePattern = pattern;
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof PackSettings)) {
+            return false;
+        }
+        final PackSettings that = (PackSettings)obj;
+        return includeImages == that.includeImages
+               && includeVideos == that.includeVideos
+               && Objects.equals(fileNamePattern, that.fileNamePattern);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Boolean.hashCode(includeImages);
+        hash = 31 * hash + Boolean.hashCode(includeVideos);
+        hash = 31 * hash + Objects.hashCode(fileNamePattern);
+        return hash;
+    }
 }

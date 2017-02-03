@@ -14,10 +14,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.util.Map;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Service
@@ -25,13 +26,15 @@ public class InpackerServiceImpl implements InpackerService {
 
     private final UserMediaProvider mediaProvider;
     private final Packer            packer;
-    private final UserProvider userProvider;
+    private final UserProvider      userProvider;
+
+    private final Map<String, Boolean> packs;
 
     @Value("${packs.dir.path}")
     private String packsDirPath;
 
     @Value("${max.items.amount}")
-    private int maxItemsImount;
+    private int maxItemsAmount;
 
     private File packsDir;
 
@@ -40,12 +43,15 @@ public class InpackerServiceImpl implements InpackerService {
         this.mediaProvider = userMediaProvider;
         this.packer = packer;
         this.userProvider = userProvider;
+        packs = new ConcurrentHashMap<>();
     }
 
     @PostConstruct
-    private boolean createPacksDir() {
+    private void createPacksDir() {
         packsDir = new File(packsDirPath);
-        return !packsDir.exists() && packsDir.mkdirs();
+        if (!packsDir.exists()) {
+            packsDir.mkdirs();
+        }
     }
 
     @Override
@@ -56,31 +62,42 @@ public class InpackerServiceImpl implements InpackerService {
     @Override
     public void createPack(String username, PackSettings packSettings) {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
-
-        Predicate<Item> itemsFilter = getItemsFilter(packSettings);
-        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter, maxItemsImount)).start();
-
-        packer.pack(itemsDeque, new File(packsDir, username + ".zip"), getItemNameCreator(packSettings));
+        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, itemsFilter(packSettings), maxItemsAmount))
+                .start();
+        final String packName = getPackName(username, packSettings);
+        packs.put(packName, false);
+        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"), itemNameCreator(packSettings));
+        packs.put(packName, true);
     }
 
     @Override
-    public File getPackFile(String username) {
-        File packFile = new File(packsDirPath + "/" + username + ".zip");
+    public File getPackFile(String packName) {
+        File packFile = new File(packsDirPath + "/" + packName + ".zip");
         if (packFile.exists())
             return packFile;
         else
             return null;
     }
 
-    private Predicate<Item> getItemsFilter(PackSettings ps) {
+    @Override
+    public Boolean getPackStatus(String packName) {
+        return packs.get(packName);
+    }
+
+    @Override
+    public String getPackName(String username, PackSettings packSettings) {
+        return username + "_" + packSettings.hashCode();
+    }
+
+    private Predicate<Item> itemsFilter(PackSettings ps) {
         return item -> item.isVideo() && ps.includeVideos || item.isImage() && ps.includeImages;
     }
 
-    private BiFunction<Item, Integer, String> getItemNameCreator(PackSettings ps) {
+    private BiFunction<Item, Integer, String> itemNameCreator(PackSettings ps) {
         switch (ps.fileNamePattern) {
-            case "numbers":
+            case INDEX:
                 return (item, index) -> index + fileNameExtension(item);
-            default:
+            case ID: default:
                 return (item, index) -> item.id + fileNameExtension(item);
         }
     }
