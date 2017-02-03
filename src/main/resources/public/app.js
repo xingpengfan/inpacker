@@ -5,18 +5,11 @@
     angular.module('inpacker')
            .controller('AppController', AppController);
 
-    AppController.$inject = [];
-
     function AppController() {
         var vm = this;
 
         vm.user = null;
-        vm.show = {
-            search: false,
-            info: false,
-            settings: false,
-            pack: false
-        };
+        vm.view = 'search';
         vm.showSearch = showSearch;
         vm.showInfo = showInfo;
         vm.showSettings = showSettings;
@@ -24,6 +17,7 @@
         vm.showInstagramIcon = showInstagramIcon;
         vm.showCogIcon = showCogIcon;
         vm.showCheckIcon = showCheckIcon;
+        vm.showUserIcon = showUserIcon;
         vm.showSecretIcon = showSecretIcon;
         vm.showCogsIcon = showCogsIcon;
 
@@ -40,26 +34,19 @@
 
         // views
         function showSearch() {
-            setShow(true, false, false, false);
+            vm.view = 'search';
         }
 
         function showInfo() {
-            setShow(false, true, false, false);
+            vm.view = 'info';
         }
 
         function showSettings() {
-            setShow(false, false, true, false)
+            vm.view = 'settings';
         }
 
         function showPack() {
-            setShow(false, false, false, true);
-        }
-
-        function setShow(v1, v2, v3, v4) {
-            vm.show.search = v1;
-            vm.show.info = v2;
-            vm.show.settings = v3;
-            vm.show.pack = v4;
+            vm.view = 'pack';
         }
 
         // main icon
@@ -73,6 +60,10 @@
 
         function showCheckIcon() {
             vm.mainIconClass = 'fa fa-lg fa-check green-check';
+        }
+
+        function showUserIcon() {
+            vm.mainIconClass = 'fa fa-lg fa-user-circle-o';
         }
 
         function showSecretIcon() {
@@ -172,7 +163,11 @@
         activate();
 
         function activate() {
-
+            if (vm.user.isPrivate) {
+                ac.showSecretIcon();
+            } else {
+                ac.showUserIcon();
+            }
         }
 
         function showSearch() {

@@ -57,7 +57,7 @@
             <i ng-class="ac.mainIconClass" aria-hidden="true"></i>
         </h1>
 
-        <div ng-if="ac.show.search" ng-controller="SearchController as sc">
+        <div ng-if="ac.view === 'search'" ng-controller="SearchController as sc">
             <form ng-submit="sc.search()">
                 <div class="input-group col-md-10 offset-md-1">
                     <button class="input-group-addon search-button" type="button" id="basic-addon2"
@@ -81,7 +81,7 @@
             </form>
         </div>
 
-        <div ng-if="ac.show.info" ng-controller="InfoController as ic">
+        <div ng-if="ac.view === 'info'" ng-controller="InfoController as ic">
             <div class="user-info-contents">
                 <img class="col-md-4 img-circle" ng-src="{{ic.user.profilePic}}">
                 <div class="col-md-7 user-info-holder">
@@ -123,7 +123,7 @@
 
         </div>
 
-        <div ng-if="ac.show.settings" ng-controller="SettingsController as sc" ng-cloak>
+        <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc" ng-cloak>
             <div class="settings-contents">
                 <img class="col-md-4 img-circle" ng-src="{{sc.userPicUrl}}">
                 <div class="col-md-7 settings-block">
@@ -161,7 +161,7 @@
 
         </div>
 
-        <div ng-if="ac.show.pack" ng-controller="PackController as pc" ng-cloak>
+        <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc" ng-cloak>
             <div class="col-md-10 offset-md-1 collect-status-block text-center ">
                 <h3 ng-show="!ac.pack.packStatus">Collecting <b>{{pc.user.username}}</b> data</h3>
                 <h4 ng-show="!ac.pack.packStatus">it may take some time</h4>
