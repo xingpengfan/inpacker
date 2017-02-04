@@ -1,26 +1,23 @@
 package app.core.model;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * User media item: image or video
  */
 public class Item {
 
-    @SerializedName("username")
-    public String username;
+    public final String username;
+    public final String url;
+    public final long createdTime;
+    public final String type; // image or video
+    public final String id;
 
-    @SerializedName("url")
-    public String url;
-
-    @SerializedName("createdTime")
-    public long createdTime;
-
-    @SerializedName("type")
-    public String type; // image or video
-
-    @SerializedName("id")
-    public String id;
+    public Item(String username, String url, long createdTime, String type, String id) {
+        this.username = username;
+        this.url = url;
+        this.createdTime = createdTime;
+        this.type = type;
+        this.id = id;
+    }
 
     public boolean isVideo() {
         return "video".equals(type);

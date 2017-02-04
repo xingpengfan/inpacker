@@ -44,13 +44,12 @@ public class UserMediaProviderImpl implements UserMediaProvider {
             for (Item item : items) {
                 if (itemsFilter.test(item)) {
                     deque.addLast(item);
-                    if (++packedItemsAmount > itemsAmount) break;
+                    if (++packedItemsAmount >= itemsAmount) break;
                 }
             }
             queryString = "?max_id=" + items[items.length - 1].id;
         } while (moreAvailable && packedItemsAmount < itemsAmount);
-        Item last = new Item();
-        last.id = "end";
+        Item last = new Item("end", "end", 0, "end", "end");
         deque.addLast(last);
     }
 
@@ -64,18 +63,21 @@ public class UserMediaProviderImpl implements UserMediaProvider {
         Item[] items = new Item[jsonItems.size()];
         for (int i = 0; i < jsonItems.size(); i++) {
             final JsonObject jsonItem = jsonItems.get(i).getAsJsonObject();
-            Item item = new Item();
-            item.username = jsonItem.get("user").getAsJsonObject().get("username").getAsString();
-            item.createdTime = jsonItem.get("created_time").getAsLong();
-            item.id = jsonItem.get("id").getAsString();
-            item.type = jsonItem.get("type").getAsString();
-            String urlsObj = item.isVideo() ? "videos" : "images";
-            item.url = jsonItem.get(urlsObj).getAsJsonObject()
-                               .get("standard_resolution").getAsJsonObject()
-                               .get("url").getAsString();
-            items[i] = item;
+            items[i] = parseItem(jsonItem);
         }
         return items;
+    }
+
+    private Item parseItem(JsonObject itemJson) {
+        final String username = itemJson.get("user").getAsJsonObject().get("username").getAsString();
+        final long createdTime = itemJson.get("created_time").getAsLong();
+        final String id = itemJson.get("id").getAsString();
+        final String type = itemJson.get("type").getAsString();
+        String urlsObj = "image".equals(type) ? "images" : "videos";
+        final String url = itemJson.get(urlsObj).getAsJsonObject()
+                                   .get("standard_resolution").getAsJsonObject()
+                                   .get("url").getAsString();
+        return new Item(username, url, createdTime, type, id);
     }
 
     private String getUrlFromItem(JsonObject item) {
