@@ -142,6 +142,7 @@ button {
     border: 1px solid #919191;
     border-radius: 10px;
     padding: 20px;
+    display: flex;
 }
 
 .primary-content-block p {
@@ -154,6 +155,10 @@ button {
 
 .user-info-block, .settings-block {
     float: right;
+}
+
+.user-pic {
+    float: left;
 }
 
 .verified-stack {
