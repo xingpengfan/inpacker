@@ -21,9 +21,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/settings.view.css">
+    <link rel="stylesheet" href="/main.css">
 
     <link rel="icon" href="/favicon.ico">
 
@@ -34,61 +32,55 @@
     <script src="/app.js"></script>
 
 </head>
-<body ng-app="inpacker" ng-controller="AppController as ac" ng-cloak>
+<body class="light-bg" ng-app="inpacker" ng-controller="AppController as ac" ng-cloak>
 
-<!-- Header -->
-<div class="header">
+<div class="header dark-bg middle-font">
     <div class="container">
-        <div class="col-md-8 offset-md-2 header-contents">
-            <h4 class="col-md-8 offset-md-2 inpacker-header-title">
-                <a href="/" ng-click="ac.showSearch()">
-                    Inpacker
-                </a>
-            </h4>
+        <div class="col-md-8 offset-md-2 header-content centered">
+            <a href="/" ng-click="ac.showSearch()">Inpacker</a>
         </div>
     </div>
 </div>
 
 <div class="container">
 
-    <div class="col-md-8 offset-md-2 content-holder">
+    <div class="col-md-8 offset-md-2 content">
 
-        <h1 class="logo">
+        <div class="centered large-font dark-font">
             <i ng-class="ac.mainIconClass" aria-hidden="true"></i>
-        </h1>
+        </div>
 
         <div ng-if="ac.view === 'search'" ng-controller="SearchController as sc">
             <form ng-submit="sc.search()">
-                <div class="input-group col-md-10 offset-md-1">
+                <div class="input-group col-md-10 offset-md-1 search-input-group">
                     <button class="input-group-addon search-button" type="button" id="basic-addon2"
                             ng-click="sc.search()">
                         <i class="fa fa-search" aria-hidden="true" title="Search {{sc.searchInput}}"
                            ng-show="!sc.searching"></i>
-                        <i class="fa fa-spinner fa-spin fa-fw"
-                           ng-show="sc.searching"></i>
+                        <i class="fa fa-spinner fa-spin fa-fw" ng-show="sc.searching"></i>
                     </button>
-                    <input class="col-md-11" type="text" placeholder="Search Instagram User"
-                           aria-describedby="basic-addon2"
+                    <input class="col-md-11 primary-input" type="text"
+                           placeholder="Search Instagram User" aria-describedby="basic-addon2"
                            maxlength="30" ng-model="sc.searchInput" autofocus ng-disabled="sc.searching">
                 </div>
                 <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
                      ng-show="sc.showNotFound()">
-                    <strong>User not found!</strong> {{sc.userNotFoundMessage}}
-                    <span style="float: right;" ng-click="sc.closeUserNotFoundMessage()">
-                <i class="fa fa-close" aria-hidden="true" title="Close"></i>
-            </span>
+                    <strong>{{sc.userNotFoundMessage}}</strong>
+                    <span ng-click="sc.closeUserNotFoundMessage()">
+                        <i class="fa fa-close" aria-hidden="true" title="Close"></i>
+                    </span>
                 </div>
             </form>
         </div>
 
         <div ng-if="ac.view === 'info'" ng-controller="InfoController as ic">
-            <div class="user-info-contents">
+            <div class="lighter-bg primary-content-block">
                 <img class="col-md-4 img-circle" ng-src="{{ic.user.profilePic}}">
-                <div class="col-md-7 user-info-holder">
-                    <h3 class="private-user-text" ng-show="ic.user.isPrivate">
+                <div class="col-md-7 middle-font user-info-block">
+                    <p class="red-font" ng-show="ic.user.isPrivate">
                         This user is private
-                    </h3>
-                    <h1>
+                    </p>
+                    <p>
                         <a href="{{ic.user.instagramPageLink}}" target="_blank">
                             {{ic.user.username}}
                         </a>
@@ -96,15 +88,15 @@
                             <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
                             <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
                         </span>
-                    </h1>
-                    <h2>
+                    </p>
+                    <p>
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         {{ic.user.fullName}}
-                    </h2>
-                    <h2>
+                    </p>
+                    <p>
                         <i class="fa fa-file-image-o" aria-hidden="true"></i>
                         <b>{{ic.user.count}}</b> posts
-                    </h2>
+                    </p>
 
                     <div class="btn-group" role="group" aria-label="Choose next action">
                         <button type="button" class="btn btn-secondary go-btn" title="Search another user"
@@ -124,10 +116,10 @@
         </div>
 
         <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc">
-            <div class="settings-contents">
+            <div class="lighter-bg regular-font primary-content-block">
                 <img class="col-md-4 img-circle" ng-src="{{sc.userPicUrl}}">
                 <div class="col-md-7 settings-block">
-                    <h2>Settings</h2>
+                    <p class="middle-font">Settings</p>
                     <label class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
                         <span class="custom-control-indicator"></span>
@@ -138,7 +130,7 @@
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">include videos</span>
                     </label>
-                    <br>File names:<br>
+                    <p>File names:</p>
                     <label class="custom-control custom-radio">
                         <input id="radio1" name="radio" type="radio" class="custom-control-input"
                                ng-model="sc.settings.fileNamePattern" value="index">
@@ -151,21 +143,27 @@
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">id</span>
                     </label>
-                    <button type="button" class="btn btn-secondary go-btn" ng-click="sc.pack()"
-                            ng-show="!ic.user.isPrivate"
-                            ng-disabled="!sc.settings.includeImages && !sc.settings.includeVideos">
-                        Go <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                    </button>
+                    <p>
+                        <button type="button" class="btn btn-secondary" ng-click="sc.pack()"
+                                ng-show="!ic.user.isPrivate"
+                                ng-disabled="!sc.settings.includeImages && !sc.settings.includeVideos">
+                            Go <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </p>
                 </div>
             </div>
 
         </div>
 
         <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc">
-            <div class="col-md-10 offset-md-1 collect-status-block text-center ">
-                <h3 ng-show="!ac.pack.packStatus">Collecting <b>{{pc.user.username}}</b> data</h3>
-                <h4 ng-show="!ac.pack.packStatus">it may take some time</h4>
-                <a class="btn btn-success btn-lg" ng-show="ac.pack.packStatus"
+            <div class="col-md-10 offset-md-1 lighter-bg middle-font centered primary-content-block">
+                <p ng-show="!ac.pack.packStatus">
+                    Collecting <b>{{pc.user.username}}</b> data
+                </p>
+                <p class="passive-font regular-font" ng-show="!ac.pack.packStatus">
+                    it may take some time
+                </p>
+                <a class="btn btn-primary btn-lg" ng-show="ac.pack.packStatus"
                    href="{{'/packs/' + ac.pack.packName + '.zip'}}" type="application/zip" target="_blank" download>
                     <i class="fa fa-download" aria-hidden="true"></i> Download {{pc.user.username}}.zip
                 </a>

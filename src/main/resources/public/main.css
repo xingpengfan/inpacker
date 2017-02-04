@@ -1,0 +1,134 @@
+.dark-bg {
+    background: #353239;
+}
+
+.light-bg {
+    background: #C5C2C9;
+    //background: #F7F7F7;
+}
+
+.lighter-bg {
+    background: #EFEFEF;
+}
+
+.centered {
+    text-align: center;
+}
+
+.middle-font {
+    font-size: 24px;
+}
+
+.regular-font {
+    font-size: 18px;
+}
+
+.large-font {
+    font-size: 48px;
+}
+
+.dark-font {
+    color: #353239;
+}
+
+.red-font {
+    color: darkred;
+}
+
+.passive-font {
+    color: #818181;
+}
+
+.header {
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.header a {
+    color: #fff;
+}
+
+.header-content {
+    height: 50px;
+    padding: 8px 0px 16px 0px;
+}
+
+.header-content a {
+    text-decoration: none;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.search-input-group {
+    margin-top: 30px;
+}
+
+.primary-input {
+    padding: 10px 0 10px 0;
+    font-size: 22px;
+    font-weight: 300;
+    color: #888;
+    outline: none;
+    border: none;
+    border-radius: 0 7px 7px 0;
+}
+
+.primary-input:disabled {
+    background: #fff;
+}
+
+.search-input-group button {
+    color: #888;
+    background: white;
+    font-size: 22px;
+    padding-left: 12px;
+    padding-bottom: 12px;
+    border: none;
+    border-radius: 7px 0 0 7px;
+}
+
+.search-input-group button:focus {
+    outline: none;
+}
+
+.user-not-found-alert {
+     margin-top: 10px;
+}
+
+.user-not-found-alert span {
+    float: right;
+}
+
+.primary-content-block {
+    margin-top: 30px;
+    border: 1px solid #919191;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.primary-content-block p {
+    margin: 4px;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.user-info-block, .settings-block {
+    float: right;
+}
+
+.verified-stack {
+    font-size: 14px;
+}
+
+.verified-stack .fa-certificate {
+    color: #4D9AD8;
+}
+
+.verified-stack .fa-check {
+    color: #fff;
+}

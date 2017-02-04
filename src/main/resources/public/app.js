@@ -59,7 +59,7 @@
         }
 
         function showCheckIcon() {
-            vm.mainIconClass = 'fa fa-lg fa-check green-check';
+            vm.mainIconClass = 'fa fa-lg fa-check';
         }
 
         function showUserIcon() {

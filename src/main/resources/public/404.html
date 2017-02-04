@@ -20,23 +20,35 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/general.css">
-    <link rel="stylesheet" href="/css/404.css">
+    <link rel="stylesheet" href="/main.css">
     <link rel="icon" href="/favicon.ico">
 
 </head>
-<body>
+<style>
+.content {
+    margin-top: 10px;
+}
 
-<!-- Header -->
-<div class="header">
+.content h1 {
+    font-size: 82px;
+    font-weight: bold;
+    text-align: center;
+    color: #717171;
+}
+
+.content h2 {
+    font-size: 42px;
+    text-align: center;
+    color: #313131;
+}
+
+</style>
+<body class="light-bg">
+
+<div class="header dark-bg middle-font">
     <div class="container">
-        <div class="col-md-8 offset-md-2 header-contents">
-            <h4 class="col-md-8 offset-md-2 inpacker-header-title">
-                <a href="/">
-                    Inpacker
-                </a>
-            </h4>
+        <div class="col-md-8 offset-md-2 header-content centered">
+            <a href="/" ng-click="ac.showSearch()">Inpacker</a>
         </div>
     </div>
 </div>
