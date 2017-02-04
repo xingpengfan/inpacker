@@ -1,10 +1,14 @@
+button {
+    cursor: pointer;
+}
+
 .dark-bg {
     background: #353239;
 }
 
 .light-bg {
     background: #C5C2C9;
-    //background: #F7F7F7;
+    //background: #D1D1D1;
 }
 
 .lighter-bg {
@@ -31,6 +35,10 @@
     color: #353239;
 }
 
+.white-font {
+    color: #fff;
+}
+
 .red-font {
     color: darkred;
 }
@@ -49,8 +57,33 @@
     color: #fff;
 }
 
+.header-links {
+    float: right;
+    color: green;
+    padding: 16px 0px 16px 0px;
+}
+
+.header-links a {
+    color: #B1B1B1;
+}
+
+.header-links a:hover {
+    color: #E1E1E1;
+}
+
+.header-links ul {
+    list-style-type: none;
+}
+
+.header-links li {
+    float: right;
+}
+
 .header-content {
     height: 50px;
+}
+
+.header-title {
     padding: 8px 0px 16px 0px;
 }
 
@@ -88,6 +121,7 @@
     padding-bottom: 12px;
     border: none;
     border-radius: 7px 0 0 7px;
+    cursor: auto;
 }
 
 .search-input-group button:focus {
