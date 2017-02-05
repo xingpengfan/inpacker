@@ -172,3 +172,12 @@ button {
 .verified-stack .fa-check {
     color: #fff;
 }
+
+.collecting-block {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.collecting-block p {
+    margin: 4px;
+}
