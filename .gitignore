@@ -3,3 +3,6 @@ IgnoredController.java
 .idea/
 .gradle/
 build/
+gradlew.bat
+gradlew
+gradle/
