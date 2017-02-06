@@ -21,10 +21,10 @@ public class PackSettingsDto {
 
     private PackSettings.FileNamePattern getPattern() {
         switch (fileNamePattern) {
-            case "index":
-                return PackSettings.FileNamePattern.INDEX;
-            default:
+            case "id":
                 return PackSettings.FileNamePattern.ID;
+            case "index": default:
+                return PackSettings.FileNamePattern.INDEX;
         }
     }
 }

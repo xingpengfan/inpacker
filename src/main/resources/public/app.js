@@ -222,20 +222,16 @@
 
         function preview() {
             let p = '';
-            if (vm.settings.includeImages) {
-                if (vm.settings.fileNamePattern === 'id') {
+            if (vm.settings.includeImages)
+                if (vm.settings.fileNamePattern === 'id')
                     p += '1756364.jpg, ';
-                } else if (vm.settings.fileNamePattern === 'index') {
+                else if (vm.settings.fileNamePattern === 'index')
                     p += '1.jpg, ';
-                }
-            }
-            if (vm.settings.includeVideos) {
-                if (vm.settings.fileNamePattern === 'id') {
-                    p += '1235053.mp4';
-                } else if (vm.settings.fileNamePattern === 'index') {
+            if (vm.settings.includeVideos)
+                if (vm.settings.fileNamePattern === 'id')
+                    p += '4606591.mp4';
+                else if (vm.settings.fileNamePattern === 'index')
                     p += '2.mp4';
-                }
-            }
             return p;
         }
 

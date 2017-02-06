@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Inpacker</title>
 
     <!-- Bootstrap v4-alpha -->
@@ -18,21 +19,16 @@
             integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
             crossorigin="anonymous"></script>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/main.css">
-
     <link rel="icon" href="/favicon.ico">
 
-    <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-
-    <!-- scripts -->
     <script src="/app.js"></script>
 
 </head>
-<body class="light-bg" ng-app="inpacker" ng-controller="AppController as ac" ng-cloak>
+<body ng-app="inpacker" ng-controller="AppController as ac" ng-cloak>
 
 <div class="header dark-bg middle-font">
     <div class="container">
@@ -60,7 +56,7 @@
 
     <div class="col-md-8 offset-md-2 content">
 
-        <div class="centered large-font dark-font">
+        <div class="centered large-font passive-font">
             <i ng-class="ac.mainIconClass" aria-hidden="true"></i>
         </div>
 
@@ -89,10 +85,10 @@
 
         <div ng-if="ac.view === 'info'" ng-controller="InfoController as ic">
             <div class="lighter-bg primary-content-block">
-                <div class="col-md-6 user-pic">
+                <div class="col-md-5 user-pic">
                     <img class="col-md-12 img-circle" src="" ng-src="{{ic.user.profilePic}}">
                 </div>
-                <div class="col-md-6 middle-font user-info-block">
+                <div class="col-md-7 middle-font user-info-block">
                     <p class="red-font" ng-show="ic.user.isPrivate">
                         This user is private
                     </p>
@@ -133,27 +129,28 @@
 
         <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc">
             <div class="lighter-bg regular-font primary-content-block">
-                <div class="col-md-6 user-pic">
+                <div class="col-md-5 user-pic">
                     <img class="col-md-12 img-circle" src="" ng-src="{{sc.userPicUrl}}">
                 </div>
-                <div class="col-md-6 settings-block">
-                    <p class="middle-font">Settings</p>
+                <div class="col-md-7 settings-block">
+                    <p class="middle-font passive-font">Settings</p>
+                    <p class="passive-font">Include:</p>
                     <label class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
                         <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">include images</span>
+                        <span class="custom-control-description">images</span>
                     </label>
                     <label class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeVideos">
                         <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">include videos</span>
+                        <span class="custom-control-description">videos</span>
                     </label>
-                    <p>File names:</p>
+                    <p class="passive-font">File names:</p>
                     <label class="custom-control custom-radio">
                         <input id="radio1" name="radio" type="radio" class="custom-control-input"
                                ng-model="sc.settings.fileNamePattern" value="index">
                         <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">1,2,3...</span>
+                        <span class="custom-control-description">1,2,3..</span>
                     </label>
                     <label class="custom-control custom-radio">
                         <input id="radio2" name="radio" type="radio" class="custom-control-input"
@@ -162,7 +159,7 @@
                         <span class="custom-control-description">id</span>
                     </label>
                     <p>
-                        {{sc.preview()}}
+                        <span class="passive-font">Example: </span>{{sc.preview()}}
                     </p>
                     <p>
                         <button type="button" class="btn btn-secondary" ng-click="sc.pack()"
@@ -189,7 +186,6 @@
                     <i class="fa fa-download" aria-hidden="true"></i> Download {{pc.user.username}}.zip
                 </a>
             </div>
-
         </div>
 
     </div>

@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var proxy = require('http-proxy-middleware');
 
-var apiProxy = proxy('/api', {
+var apiProxy = proxy(['/api', '/packs'], {
     target: 'http://localhost:8080',
     changeOrigin: false,
     logLevel: 'debug'
