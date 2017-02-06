@@ -22,8 +22,8 @@
         vm.showCogsIcon = showCogsIcon;
 
         vm.pack = {
-            packName: '',
-            packStatus: false
+            name: '',
+            status: false
         };
 
         activate();
@@ -266,11 +266,11 @@
         }
 
         function getPackStatus() {
-            if (ac.pack.packName === '') return;
-            $http.get('/api/pack/' + ac.pack.packName + '/status')
+            if (ac.pack.name === '') return;
+            $http.get('/api/pack/' + ac.pack.name + '/status')
                 .then((resp) => {
-                    ac.pack.packStatus = resp.data.packStatus;
-                    if (ac.pack.packStatus) {
+                    ac.pack.status = resp.data.status;
+                    if (ac.pack.status) {
                        packIsDone();
                     }
                 }, (resp) => {})

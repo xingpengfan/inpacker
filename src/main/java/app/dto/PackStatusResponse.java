@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class PackStatusResponse {
 
-    @SerializedName("packName")
-    public String packName;
+    @SerializedName("name")
+    public String name;
 
-    @SerializedName("packStatus")
-    public boolean packStatus;
+    @SerializedName("status")
+    public boolean status;
 
 
     public PackStatusResponse() {}
 
     public PackStatusResponse(String packName, boolean packStatus) {
-        this.packName = packName;
-        this.packStatus = packStatus;
+        this.name = packName;
+        this.status = packStatus;
     }
 }
