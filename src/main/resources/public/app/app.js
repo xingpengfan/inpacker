@@ -258,10 +258,6 @@
 
         function activate() {
             ac.showCogIcon();
-            ping();
-        }
-
-        function ping() {
             timer = $interval(() => getPackStatus(), 3000);
         }
 
@@ -269,14 +265,14 @@
             if (ac.pack.name === '') return;
             $http.get('/api/pack/' + ac.pack.name + '/status')
                 .then((resp) => {
-                    ac.pack.status = resp.data.status;
+                    ac.pack = resp.data;
                     if (ac.pack.status) {
-                       packIsDone();
+                       done();
                     }
                 }, (resp) => {})
         }
 
-        function packIsDone() {
+        function done() {
             $interval.cancel(timer);
             ac.showCheckIcon();
         }

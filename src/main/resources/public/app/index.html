@@ -65,7 +65,7 @@
                 <div class="input-group col-md-10 offset-md-1 search-input-group">
                     <button class="input-group-addon search-button" type="button" id="basic-addon2"
                             ng-click="sc.search()">
-                        <i class="fa fa-search" aria-hidden="true" title="Search {{sc.searchInput}}"
+                        <i class="fa fa-search" aria-hidden="true" title="Search {{ sc.searchInput }}"
                            ng-show="!sc.searching"></i>
                         <i class="fa fa-spinner fa-spin fa-fw" ng-show="sc.searching"></i>
                     </button>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
                      ng-show="sc.showNotFound()">
-                    <strong>{{sc.userNotFoundMessage}}</strong>
+                    <strong>{{ sc.userNotFoundMessage }}</strong>
                     <span ng-click="sc.closeUserNotFoundMessage()">
                         <i class="fa fa-close" aria-hidden="true" title="Close"></i>
                     </span>
@@ -86,15 +86,15 @@
         <div ng-if="ac.view === 'info'" ng-controller="InfoController as ic">
             <div class="lighter-bg primary-content-block">
                 <div class="col-md-5 user-pic">
-                    <img class="col-md-12 img-circle" src="" ng-src="{{ic.user.profilePic}}">
+                    <img class="col-md-12 img-circle" src="" ng-src="{{ ic.user.profilePic }}">
                 </div>
                 <div class="col-md-7 middle-font user-info-block">
                     <p class="red-font" ng-show="ic.user.isPrivate">
                         This user is private
                     </p>
                     <p>
-                        <a href="{{ic.user.instagramPageLink}}" target="_blank">
-                            {{ic.user.username}}
+                        <a href="{{ ic.user.instagramPageLink }}" target="_blank">
+                            {{ ic.user.username }}
                         </a>
                         <span class="fa-stack verified-stack" ng-show="ic.user.isVerified">
                             <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
@@ -103,11 +103,11 @@
                     </p>
                     <p>
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        {{ic.user.fullName}}
+                        {{ ic.user.fullName }}
                     </p>
                     <p>
                         <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                        <b>{{ic.user.count}}</b> posts
+                        <b>{{ ic.user.count }}</b> posts
                     </p>
 
                     <div class="btn-group" role="group" aria-label="Choose next action">
@@ -117,8 +117,8 @@
                         </button>
                         <button type="button" class="btn btn-secondary go-btn" ng-click="ic.next()"
                                 ng-show="!ic.user.isPrivate" ng-disabled="ic.user.count === 0"
-                                title="{{ic.user.count === 0 ? 'No data to download'
-                                                     : 'Download ' + ic.user.username + ' data'}}">
+                                title="{{ ic.user.count === 0 ? 'No data to download'
+                                                     : 'Download ' + ic.user.username + ' data' }}">
                             Next <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -130,7 +130,7 @@
         <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc">
             <div class="lighter-bg regular-font primary-content-block">
                 <div class="col-md-5 user-pic">
-                    <img class="col-md-12 img-circle" src="" ng-src="{{sc.userPicUrl}}">
+                    <img class="col-md-12 img-circle" src="" ng-src="{{ sc.userPicUrl }}">
                 </div>
                 <div class="col-md-7 settings-block">
                     <p class="middle-font passive-font">Settings</p>
@@ -159,7 +159,7 @@
                         <span class="custom-control-description">id</span>
                     </label>
                     <p>
-                        <span class="passive-font">Example: </span>{{sc.preview()}}
+                        <span class="passive-font">Example: </span>{{ sc.preview() }}
                     </p>
                     <p>
                         <button type="button" class="btn btn-secondary" ng-click="sc.pack()"
@@ -176,14 +176,14 @@
         <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc">
             <div class="col-md-10 offset-md-1 middle-font centered collecting-block">
                 <p ng-show="!ac.pack.status">
-                    Collecting <b>{{pc.user.username}}</b> data
+                    Collecting <b>{{ pc.user.username }}</b> data
                 </p>
                 <p class="passive-font middle-font" ng-show="!ac.pack.status">
                     it may take some time
                 </p>
                 <a class="btn btn-primary btn-lg" ng-show="ac.pack.status"
-                   href="{{'/packs/' + ac.pack.name + '.zip'}}" type="application/zip" target="_blank" download>
-                    <i class="fa fa-download" aria-hidden="true"></i> Download {{pc.user.username}}.zip
+                   href="{{ '/packs/' + ac.pack.name + '.zip' }}" type="application/zip" target="_blank" download>
+                    <i class="fa fa-download" aria-hidden="true"></i> Download {{ pc.user.username }}.zip
                 </a>
             </div>
         </div>
