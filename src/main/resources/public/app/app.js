@@ -132,54 +132,11 @@
                     user.instagramPageLink = 'https://www.instagram.com/' + user.username + '/';
                     vm.searching = false;
                     ac.user = user;
-                    ac.showInfo();
+                    ac.showSettings();
                 }, (resp) => {
                     vm.searching = false;
                     showUserNotFound();
                 });
-        }
-
-    }
-
-})();
-
-(function() {
-
-    angular.module('inpacker')
-           .controller('InfoController', InfoController);
-
-    InfoController.$inject = ['$http', '$scope'];
-
-    function InfoController($http, $scope) {
-        var vm = this;
-        var ac = $scope.ac;
-
-        vm.user = ac.user;
-
-        vm.showSearch = showSearch;
-
-        vm.next = next;
-
-        activate();
-
-        function activate() {
-            if (vm.user.isPrivate) {
-                ac.showSecretIcon();
-            } else {
-                ac.showUserIcon();
-            }
-        }
-
-        function showSearch() {
-            ac.showSearch();
-        }
-
-        function next() {
-            showSettings();
-        }
-
-        function showSettings() {
-            ac.showSettings();
         }
 
     }
@@ -198,6 +155,7 @@
         var ac = $scope.ac;
 
         vm.pack = pack;
+        vm.searchAnotherUser = searchAnotherUser;
         vm.settings = {
             includeImages: true,
             includeVideos: true,
@@ -209,7 +167,10 @@
 
         function activate() {
             vm.userPicUrl = ac.user.profilePic;
-            ac.showCogsIcon();
+            if (ac.user.isPrivate)
+                ac.showSecretIcon();
+            else
+                ac.showCogsIcon();
         }
 
         function pack() {
@@ -220,16 +181,20 @@
                 }, (resp) => {});
         }
 
+        function searchAnotherUser() {
+            ac.showSearch();
+        }
+
         function preview() {
             let p = '';
             if (vm.settings.includeImages)
                 if (vm.settings.fileNamePattern === 'id')
-                    p += '1756364.jpg, ';
+                    p += '1756...364.jpg, ';
                 else if (vm.settings.fileNamePattern === 'index')
                     p += '1.jpg, ';
             if (vm.settings.includeVideos)
                 if (vm.settings.fileNamePattern === 'id')
-                    p += '4606591.mp4';
+                    p += '4606...591.mp4';
                 else if (vm.settings.fileNamePattern === 'index')
                     p += '2.mp4';
             return p;

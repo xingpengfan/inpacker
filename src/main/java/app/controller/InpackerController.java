@@ -59,7 +59,7 @@ public class InpackerController {
     }
 
     @RequestMapping(value = "api/pack/{packName:.+}/status", method = GET)
-    public ResponseEntity<?> getPackStatus(@PathVariable String packName) {
+    public ResponseEntity<PackStatusResponse> getPackStatus(@PathVariable String packName) {
         final boolean packStatus = service.getPackStatus(packName);
         return ok(new PackStatusResponse(packName, packStatus));
     }

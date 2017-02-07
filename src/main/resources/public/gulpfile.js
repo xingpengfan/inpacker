@@ -11,7 +11,7 @@ var apiProxy = proxy(['/api', '/packs'], {
 gulp.task('serve', [], function() {
   // .init starts the server
   browserSync.init({
-    server: "./",
+    server: "./app",
     port: 3000,
     middleware: [apiProxy],
   });

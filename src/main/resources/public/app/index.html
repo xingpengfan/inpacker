@@ -83,91 +83,71 @@
             </form>
         </div>
 
-        <div ng-if="ac.view === 'info'" ng-controller="InfoController as ic">
-            <div class="lighter-bg primary-content-block">
-                <div class="col-md-5 user-pic">
-                    <img class="col-md-12 img-circle" src="" ng-src="{{ ic.user.profilePic }}">
-                </div>
-                <div class="col-md-7 middle-font user-info-block">
-                    <p class="red-font" ng-show="ic.user.isPrivate">
-                        This user is private
-                    </p>
-                    <p>
-                        <a href="{{ ic.user.instagramPageLink }}" target="_blank">
-                            {{ ic.user.username }}
-                        </a>
-                        <span class="fa-stack verified-stack" ng-show="ic.user.isVerified">
-                            <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
-                            <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
-                        </span>
-                    </p>
-                    <p>
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                        {{ ic.user.fullName }}
-                    </p>
-                    <p>
-                        <i class="fa fa-file-image-o" aria-hidden="true"></i>
-                        <b>{{ ic.user.count }}</b> posts
-                    </p>
-
-                    <div class="btn-group" role="group" aria-label="Choose next action">
-                        <button type="button" class="btn btn-secondary go-btn" title="Search another user"
-                                ng-click="ic.showSearch()">
-                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Search
-                        </button>
-                        <button type="button" class="btn btn-secondary go-btn" ng-click="ic.next()"
-                                ng-show="!ic.user.isPrivate" ng-disabled="ic.user.count === 0"
-                                title="{{ ic.user.count === 0 ? 'No data to download'
-                                                     : 'Download ' + ic.user.username + ' data' }}">
-                            Next <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
         <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc">
             <div class="lighter-bg regular-font primary-content-block">
                 <div class="col-md-5 user-pic">
                     <img class="col-md-12 img-circle" src="" ng-src="{{ sc.userPicUrl }}">
                 </div>
-                <div class="col-md-7 settings-block">
-                    <p class="middle-font passive-font">Settings</p>
-                    <p class="passive-font">Include:</p>
-                    <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">images</span>
-                    </label>
-                    <label class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeVideos">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">videos</span>
-                    </label>
-                    <p class="passive-font">File names:</p>
-                    <label class="custom-control custom-radio">
-                        <input id="radio1" name="radio" type="radio" class="custom-control-input"
-                               ng-model="sc.settings.fileNamePattern" value="index">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">1,2,3..</span>
-                    </label>
-                    <label class="custom-control custom-radio">
-                        <input id="radio2" name="radio" type="radio" class="custom-control-input"
-                               ng-model="sc.settings.fileNamePattern" value="id">
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">id</span>
-                    </label>
-                    <p>
-                        <span class="passive-font">Example: </span>{{ sc.preview() }}
+                <div class="col-md-7">
+                    <p class="red-font" ng-show="ac.user.isPrivate">
+                        This user is private
+                    </p>
+                    <p class="middle-font">
+                        <a href="{{ ac.user.instagramPageLink }}" target="_blank">
+                            {{ ac.user.username.length > 25 ? ac.user.username.substring(0, 24) + '..' :
+                            ac.user.username}}
+                        </a>
+                        <span class="fa-stack verified-stack" ng-show="ac.user.isVerified">
+                            <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
+                            <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
+                        </span>
+                        <span class="regular-font">
+                            <b>{{ ac.user.count }}</b> posts
+                        </span>
                     </p>
                     <p>
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        {{ ac.user.fullName }}
+                    </p>
+                    <div class="regular-font" ng-show="!ac.user.isPrivate">
+                        <p class="passive-font">Include:</p>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">images</span>
+                        </label>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeVideos">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">videos</span>
+                        </label>
+                        <p class="passive-font">File names:</p>
+                        <label class="custom-control custom-radio">
+                            <input id="radio1" name="radio" type="radio" class="custom-control-input"
+                                   ng-model="sc.settings.fileNamePattern" value="index">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">1,2,3..</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input id="radio2" name="radio" type="radio" class="custom-control-input"
+                                   ng-model="sc.settings.fileNamePattern" value="id">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">id</span>
+                        </label>
+                        <p>
+                            {{ sc.preview() }}
+                        </p>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Choose next action">
+                        <button type="button" class="btn btn-secondary" ng-click="sc.searchAnotherUser()">
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Search another user
+                        </button>
                         <button type="button" class="btn btn-secondary" ng-click="sc.pack()"
-                                ng-show="!ic.user.isPrivate"
+                                ng-show="!ac.user.isPrivate"
                                 ng-disabled="!sc.settings.includeImages && !sc.settings.includeVideos">
                             Go <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </button>
-                    </p>
+                    </div>
                 </div>
             </div>
 

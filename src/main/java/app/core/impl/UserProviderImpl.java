@@ -27,29 +27,27 @@ public class UserProviderImpl implements UserProvider {
         if (!isValidUsername(username)) {
             throw new IllegalArgumentException("username is empty");
         }
-
         final String url = getUrl(username);
         final HttpRequest req = HttpRequest.get(url);
-        if (req.code() != 200) {
+        if (!req.ok())
             return null;
-        }
-
-        return parseUser(req.body());
+        else
+            return parseUser(req.body());
     }
 
     private User parseUser(String json) {
-        final JsonObject userJsonObject = parser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
+        final JsonObject uj = parser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
         final User user = new User();
-        user.instagramId = userJsonObject.get("id").getAsString();
-        user.username = userJsonObject.get("username").getAsString();
-        user.isPrivate = userJsonObject.get("is_private").getAsBoolean();
-        final JsonElement fullName = userJsonObject.get("full_name");
+        user.instagramId = uj.get("id").getAsString();
+        user.username = uj.get("username").getAsString();
+        user.isPrivate = uj.get("is_private").getAsBoolean();
+        final JsonElement fullName = uj.get("full_name");
         user.fullName = fullName.isJsonNull() ? user.username : fullName.getAsString();
-        final JsonElement biography = userJsonObject.get("biography");
+        final JsonElement biography = uj.get("biography");
         user.biography = biography.isJsonNull() ? "" : biography.getAsString();
-        user.profilePic = userJsonObject.get("profile_pic_url_hd").getAsString();
-        user.count = userJsonObject.get("media").getAsJsonObject().get("count").getAsInt();
-        user.isVerified = userJsonObject.get("is_verified").getAsBoolean();
+        user.profilePic = uj.get("profile_pic_url_hd").getAsString();
+        user.count = uj.get("media").getAsJsonObject().get("count").getAsInt();
+        user.isVerified = uj.get("is_verified").getAsBoolean();
         return user;
     }
 
