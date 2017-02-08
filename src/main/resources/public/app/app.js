@@ -11,7 +11,6 @@
         vm.user = null;
         vm.view = 'search';
         vm.showSearch = showSearch;
-        vm.showInfo = showInfo;
         vm.showSettings = showSettings;
         vm.showPack = showPack;
         vm.showInstagramIcon = showInstagramIcon;
@@ -23,7 +22,8 @@
 
         vm.pack = {
             name: '',
-            status: false
+            ready: false,
+            amount: 0
         };
 
         activate();
@@ -35,10 +35,6 @@
         // views
         function showSearch() {
             vm.view = 'search';
-        }
-
-        function showInfo() {
-            vm.view = 'info';
         }
 
         function showSettings() {
@@ -222,7 +218,10 @@
         activate();
 
         function activate() {
-            ac.showCogIcon();
+            if (ac.pack.ready)
+                ac.showCheckIcon();
+            else
+                ac.showCogIcon();
             timer = $interval(() => getPackStatus(), 3000);
         }
 
@@ -231,7 +230,7 @@
             $http.get('/api/pack/' + ac.pack.name + '/status')
                 .then((resp) => {
                     ac.pack = resp.data;
-                    if (ac.pack.status) {
+                    if (ac.pack.ready) {
                        done();
                     }
                 }, (resp) => {})

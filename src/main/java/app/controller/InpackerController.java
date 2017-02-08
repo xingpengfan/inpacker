@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.core.InpackerService;
+import app.core.model.Pack;
 import app.core.model.PackSettings;
 import app.core.model.User;
 import app.dto.PackStatusResponse;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
@@ -46,32 +48,26 @@ public class InpackerController {
     }
 
     @RequestMapping(value = "api/pack/{username:.+}", method = POST)
-    public ResponseEntity<PackStatusResponse> createPack(@PathVariable String username,
+    public ResponseEntity<Pack> createPack(@PathVariable String username,
                                                          @RequestBody PackSettingsDto packSettingsDto) {
         final PackSettings packSettings = packSettingsDto.getPackSettings();
         final String packName = service.getPackName(username, packSettings);
-        final Boolean packStatus = service.getPackStatus(packName);
-        if (packStatus == null) {
+        final Pack pack = service.getPack(packName);
+        if (pack == null) {
             new Thread(() -> service.createPack(username, packSettings)).start();
-            return ok(new PackStatusResponse(packName, false));
+            return ok(new Pack(packName));
         } else
-            return ok(new PackStatusResponse(packName, packStatus));
+            return ok(pack);
     }
 
     @RequestMapping(value = "api/pack/{packName:.+}/status", method = GET)
-    public ResponseEntity<PackStatusResponse> getPackStatus(@PathVariable String packName) {
-        final boolean packStatus = service.getPackStatus(packName);
-        return ok(new PackStatusResponse(packName, packStatus));
+    public ResponseEntity<Pack> getPackStatus(@PathVariable String packName) {
+        return ok(service.getPack(packName));
     }
 
     @RequestMapping(value = "api/packs", method = GET)
-    public ResponseEntity<List<PackStatusResponse>> getPacksList() {
-        final Map<String, Boolean> packs = service.getPacks();
-        List<PackStatusResponse> list = new ArrayList<>(packs.size());
-        for (Map.Entry<String, Boolean> entry : packs.entrySet()) {
-            list.add(new PackStatusResponse(entry.getKey(), entry.getValue()));
-        }
-        return ok(list);
+    public ResponseEntity<List<Pack>> getPacksList() {
+        return ok(service.getPacks());
     }
 
     @RequestMapping(value = "packs/{packName:.+}.zip", method = GET, produces = "application/zip")

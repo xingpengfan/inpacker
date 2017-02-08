@@ -3,6 +3,7 @@ package app.core.impl;
 import app.core.InpackerService;
 import app.core.model.Item;
 import app.core.Packer;
+import app.core.model.Pack;
 import app.core.model.PackSettings;
 import app.core.model.User;
 import app.core.UserMediaProvider;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,7 +29,7 @@ public class InpackerServiceImpl implements InpackerService {
     private final Packer            packer;
     private final UserProvider      userProvider;
 
-    private final Map<String, Boolean> packs;
+    private final List<Pack> packs;
 
     @Value("${packs.dir.path}")
     private String packsDirPath;
@@ -41,7 +44,7 @@ public class InpackerServiceImpl implements InpackerService {
         this.mediaProvider = userMediaProvider;
         this.packer = packer;
         this.userProvider = userProvider;
-        packs = new ConcurrentHashMap<>();
+        packs = new ArrayList<>();
     }
 
     @PostConstruct
@@ -63,9 +66,10 @@ public class InpackerServiceImpl implements InpackerService {
         new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, packSettings, maxItemsAmount))
                 .start();
         final String packName = getPackName(username, packSettings);
-        packs.put(packName, false);
-        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"), packSettings);
-        packs.put(packName, true);
+        Pack pack = new Pack(packName);
+        packs.add(pack);
+        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"), packSettings, pack::newItem);
+        pack.ready();
     }
 
     @Override
@@ -78,12 +82,16 @@ public class InpackerServiceImpl implements InpackerService {
     }
 
     @Override
-    public Boolean getPackStatus(String packName) {
-        return packs.get(packName);
+    public Pack getPack(String packName) {
+        for (Pack pack : packs) {
+            if (pack.getName().equals(packName))
+                return pack;
+        }
+        return null;
     }
 
     @Override
-    public Map<String, Boolean> getPacks() {
+    public List<Pack> getPacks() {
         return packs;
     }
 

@@ -15,6 +15,8 @@ public interface Packer {
      * @param itemsDeque deque with items
      * @param packPath path to pack
      * @param fileNameCreator function that consumes item and index and returns file name for item
+     * @param newItemCallback Runnable object that will be called after each item is added to pack
      */
-    void pack(BlockingDeque<Item> itemsDeque, File packPath, BiFunction<Item, Integer, String> fileNameCreator);
+    void pack(BlockingDeque<Item> itemsDeque, File packPath, BiFunction<Item, Integer, String> fileNameCreator,
+              Runnable newItemCallback);
 }

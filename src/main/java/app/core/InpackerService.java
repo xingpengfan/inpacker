@@ -1,10 +1,11 @@
 package app.core;
 
+import app.core.model.Pack;
 import app.core.model.PackSettings;
 import app.core.model.User;
 
 import java.io.File;
-import java.util.Map;
+import java.util.List;
 
 public interface InpackerService {
 
@@ -14,9 +15,9 @@ public interface InpackerService {
 
     File getPackFile(String packName);
 
-    Boolean getPackStatus(String packName);
+    Pack getPack(String packName);
 
-    Map<String, Boolean> getPacks();
+    List<Pack> getPacks();
 
     String getPackName(String username, PackSettings packSettings);
 }

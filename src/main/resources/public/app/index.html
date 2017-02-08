@@ -155,13 +155,16 @@
 
         <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc">
             <div class="col-md-10 offset-md-1 middle-font centered collecting-block">
-                <p ng-show="!ac.pack.status">
+                <p ng-show="!ac.pack.ready">
                     Collecting <b>{{ pc.user.username }}</b> data
                 </p>
-                <p class="passive-font middle-font" ng-show="!ac.pack.status">
+                <p ng-show="!ac.pack.ready" class="centered middle-font">
+                    <b>{{ ac.pack.amount }}</b> items done
+                </p>
+                <p class="passive-font middle-font" ng-show="!ac.pack.ready">
                     it may take some time
                 </p>
-                <a class="btn btn-primary btn-lg" ng-show="ac.pack.status"
+                <a class="btn btn-primary btn-lg" ng-show="ac.pack.ready"
                    href="{{ '/packs/' + ac.pack.name + '.zip' }}" type="application/zip" target="_blank" download>
                     <i class="fa fa-download" aria-hidden="true"></i> Download {{ pc.user.username }}.zip
                 </a>

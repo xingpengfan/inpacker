@@ -20,7 +20,10 @@ import java.util.zip.ZipOutputStream;
 public class PackerImpl implements Packer {
 
     @Override
-    public void pack(BlockingDeque<Item> itemsDeque, File packPath, BiFunction<Item, Integer, String> fileNameCreator) {
+    public void pack(BlockingDeque<Item> itemsDeque,
+                     File packPath,
+                     BiFunction<Item, Integer, String> fileNameCreator,
+                     Runnable newItemCallback) {
         final ZipOutputStream zos = createZipOutputStream(packPath);
         Item item = item(itemsDeque);
         int index = 1;
@@ -29,6 +32,7 @@ public class PackerImpl implements Packer {
             newItem(item, name, zos);
             item = item(itemsDeque);
             index++;
+            newItemCallback.run();
         }
         completePack(zos);
     }
