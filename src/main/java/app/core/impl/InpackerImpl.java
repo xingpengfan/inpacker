@@ -1,6 +1,6 @@
 package app.core.impl;
 
-import app.core.InpackerService;
+import app.core.Inpacker;
 import app.core.model.Item;
 import app.core.Packer;
 import app.core.model.Pack;
@@ -17,13 +17,11 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingDeque;
 
 @Service
-public class InpackerServiceImpl implements InpackerService {
+public class InpackerImpl implements Inpacker {
 
     private final UserMediaProvider mediaProvider;
     private final Packer            packer;
@@ -40,7 +38,7 @@ public class InpackerServiceImpl implements InpackerService {
     private File packsDir;
 
     @Autowired
-    public InpackerServiceImpl(UserMediaProvider userMediaProvider, Packer packer, UserProvider userProvider) {
+    public InpackerImpl(UserMediaProvider userMediaProvider, Packer packer, UserProvider userProvider) {
         this.mediaProvider = userMediaProvider;
         this.packer = packer;
         this.userProvider = userProvider;

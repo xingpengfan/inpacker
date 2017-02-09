@@ -7,7 +7,7 @@ import app.core.model.User;
 import java.io.File;
 import java.util.List;
 
-public interface InpackerService {
+public interface Inpacker {
 
     User getUser(String username);
 

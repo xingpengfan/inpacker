@@ -1,6 +1,9 @@
 (function() {
+    'use strict';
 
     angular.module('inpacker', []);
+
+    angular.module('inpacker').constant('CHECK_STATUS_INTERVAL', 3000);
 
     angular.module('inpacker')
            .controller('AppController', AppController);
@@ -87,7 +90,7 @@
 
         vm.search = search;
         vm.showNotFound = showNotFound;
-        vm.closeUserNotFoundMessage = closeUserNotFoundMessage;
+        vm.closeUserNotFoundAlert = closeUserNotFoundAlert;
         vm.searching = false;
 
         activate();
@@ -99,30 +102,30 @@
         // stuff
 
         function search() {
-            if (!isValidSearchInput()) return;
-            closeUserNotFoundMessage();
+            if (!isValidInput()) return;
+            closeUserNotFoundAlert();
             getUser();
         }
 
-        function isValidSearchInput() {
-            return vm.searchInput && vm.searchInput !== '';
+        function isValidInput() {
+            return vm.input && vm.input !== '';
         }
 
         function showUserNotFound() {
-            vm.userNotFoundMessage = 'User ' + vm.searchInput + ' not found';
+            vm.userNotFoundMessage = 'User ' + vm.input + ' not found';
         }
 
         function showNotFound() {
             return vm.userNotFoundMessage && vm.userNotFoundMessage !== '';
         }
 
-        function closeUserNotFoundMessage() {
+        function closeUserNotFoundAlert() {
             vm.userNotFoundMessage = '';
         }
 
         function getUser() {
             vm.searching = true;
-            $http.get('/api/user/' + vm.searchInput)
+            $http.get('/api/user/' + vm.input)
                 .then((resp) => {
                     let user = resp.data;
                     user.instagramPageLink = 'https://www.instagram.com/' + user.username + '/';
@@ -152,6 +155,7 @@
 
         vm.pack = pack;
         vm.searchAnotherUser = searchAnotherUser;
+        vm.shortenedUsername = shortenedUsername;
         vm.settings = {
             includeImages: true,
             includeVideos: true,
@@ -181,6 +185,13 @@
             ac.showSearch();
         }
 
+        function shortenedUsername() {
+            if (ac.user.username.length > 22)
+                return ac.user.username.substring(0, 22) + '..';
+            else
+                return ac.user.username;
+        }
+
         function preview() {
             let p = '';
             if (vm.settings.includeImages)
@@ -205,9 +216,9 @@
     angular.module('inpacker')
            .controller('PackController', PackController);
 
-    PackController.$inject = ['$scope', '$http', '$interval'];
+    PackController.$inject = ['$scope', '$http', '$interval', 'CHECK_STATUS_INTERVAL'];
 
-    function PackController($scope, $http, $interval) {
+    function PackController($scope, $http, $interval, checkStatusInterval) {
         var vm = this;
         var ac = $scope.ac;
 
@@ -222,7 +233,7 @@
                 ac.showCheckIcon();
             else
                 ac.showCogIcon();
-            timer = $interval(() => getPackStatus(), 3000);
+            timer = $interval(() => getPackStatus(), checkStatusInterval);
         }
 
         function getPackStatus() {

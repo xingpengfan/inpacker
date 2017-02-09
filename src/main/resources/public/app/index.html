@@ -65,18 +65,18 @@
                 <div class="input-group col-md-10 offset-md-1 search-input-group">
                     <button class="input-group-addon search-button" type="button" id="basic-addon2"
                             ng-click="sc.search()">
-                        <i class="fa fa-search" aria-hidden="true" title="Search {{ sc.searchInput }}"
-                           ng-show="!sc.searching"></i>
+                        <i class="fa fa-search" aria-hidden="true" title="Search {{ sc.input }}"
+                           ng-hide="sc.searching"></i>
                         <i class="fa fa-spinner fa-spin fa-fw" ng-show="sc.searching"></i>
                     </button>
                     <input class="col-md-11 primary-input" type="text"
                            placeholder="Instagram username" aria-describedby="basic-addon2"
-                           maxlength="30" ng-model="sc.searchInput" autofocus ng-disabled="sc.searching">
+                           maxlength="30" ng-model="sc.input" autofocus ng-disabled="sc.searching">
                 </div>
                 <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
                      ng-show="sc.showNotFound()">
                     <strong>{{ sc.userNotFoundMessage }}</strong>
-                    <span ng-click="sc.closeUserNotFoundMessage()">
+                    <span ng-click="sc.closeUserNotFoundAlert()">
                         <i class="fa fa-close" aria-hidden="true" title="Close"></i>
                     </span>
                 </div>
@@ -94,8 +94,7 @@
                     </p>
                     <p class="middle-font">
                         <a href="{{ ac.user.instagramPageLink }}" target="_blank">
-                            {{ ac.user.username.length > 25 ? ac.user.username.substring(0, 24) + '..' :
-                            ac.user.username}}
+                            {{ shortenedUsername() }}
                         </a>
                         <span class="fa-stack verified-stack" ng-show="ac.user.isVerified">
                             <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
@@ -109,7 +108,7 @@
                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                         {{ ac.user.fullName }}
                     </p>
-                    <div class="regular-font" ng-show="!ac.user.isPrivate">
+                    <div class="regular-font" ng-hide="ac.user.isPrivate">
                         <p class="passive-font">Include:</p>
                         <label class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeImages">
@@ -143,7 +142,7 @@
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Search another user
                         </button>
                         <button type="button" class="btn btn-secondary" ng-click="sc.pack()"
-                                ng-show="!ac.user.isPrivate"
+                                ng-hide="ac.user.isPrivate"
                                 ng-disabled="!sc.settings.includeImages && !sc.settings.includeVideos">
                             Go <i class="fa fa-arrow-right" aria-hidden="true"></i>
                         </button>
@@ -155,14 +154,11 @@
 
         <div ng-if="ac.view === 'pack'" ng-controller="PackController as pc">
             <div class="col-md-10 offset-md-1 middle-font centered collecting-block">
-                <p ng-show="!ac.pack.ready">
-                    Collecting <b>{{ pc.user.username }}</b> data
+                <p ng-hide="ac.pack.ready">
+                    Collecting <b>{{ pc.user.username }}</b>'s data
                 </p>
-                <p ng-show="!ac.pack.ready" class="centered middle-font">
+                <p ng-hide="ac.pack.ready" class="centered middle-font">
                     <b>{{ ac.pack.amount }}</b> items done
-                </p>
-                <p class="passive-font middle-font" ng-show="!ac.pack.ready">
-                    it may take some time
                 </p>
                 <a class="btn btn-primary btn-lg" ng-show="ac.pack.ready"
                    href="{{ '/packs/' + ac.pack.name + '.zip' }}" type="application/zip" target="_blank" download>
