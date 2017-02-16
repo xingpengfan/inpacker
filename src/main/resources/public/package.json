@@ -2,11 +2,11 @@
   "name": "inpacker",
   "version": "0.0.1",
   "description": "app for downloading pictures from instagram",
-  "main": "js/main.controller.js",
+  "main": "app/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Namyerd Dreyman",
+  "author": "Igor Lychak",
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.18.5",

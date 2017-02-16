@@ -61,8 +61,7 @@ public class InpackerImpl implements Inpacker {
     @Override
     public void createPack(String username, PackSettings packSettings) {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
-        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, packSettings, maxItemsAmount))
-                .start();
+        new Thread(() -> mediaProvider.getUserMedia(username, itemsDeque, packSettings, maxItemsAmount)).start();
         final String packName = getPackName(username, packSettings);
         Pack pack = new Pack(packName);
         packs.add(pack);

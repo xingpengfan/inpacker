@@ -2,22 +2,38 @@ body {
     background-color: #ccc;
 }
 
+#in {
+    color: rgba(255,255,255,0.75);
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#packer {
+    font-weight: bold;
+    font-size: 24px;
+    color: #24292e;
+    background-color: rgba(255,255,255,0.75);
+    border-radius: 7px;
+    padding: 0px 3px 3px 2px;
+}
+
 button {
     cursor: pointer;
 }
 
 .dark-bg {
-    background: #353239;
+    /*background: #353239;*/
+    background-color: #24292e;
 }
 
 .light-bg {
     background-color: #C5C2C9;
-    //background-color: #D1D1D1;
+    /*background-color: #D1D1D1;*/
 }
 
 .lighter-bg {
     background-color: #EFEFEF;
-    //background-color: #f7f7f7;
+    /*background-color: #f7f7f7;*/
 }
 
 .centered {
@@ -64,16 +80,15 @@ button {
 
 .header-links {
     float: right;
-    color: green;
-    padding: 16px 0px 16px 0px;
+    padding: 12px 0px 16px 0px;
 }
 
 .header-links a {
-    color: #B1B1B1;
+    color: rgba(255,255,255,0.75);
 }
 
 .header-links a:hover {
-    color: #E1E1E1;
+    color: rgba(255,255,255,1);
 }
 
 .header-links ul {
@@ -90,7 +105,7 @@ button {
 }
 
 .header-title {
-    padding: 8px 0px 16px 0px;
+    padding: 6px 0px 16px 0px;
 }
 
 .header-content a {

@@ -5,8 +5,7 @@
 
     angular.module('inpacker').constant('CHECK_STATUS_INTERVAL', 3000);
 
-    angular.module('inpacker')
-           .controller('AppController', AppController);
+    angular.module('inpacker').controller('AppController', AppController);
 
     function AppController() {
         var vm = this;
@@ -79,8 +78,7 @@
 
 (function() {
 
-    angular.module('inpacker')
-           .controller('SearchController', SearchController);
+    angular.module('inpacker').controller('SearchController', SearchController);
 
     SearchController.$inject = ['$http', '$scope'];
 
@@ -99,10 +97,9 @@
             ac.showInstagramIcon();
         }
 
-        // stuff
-
         function search() {
-            if (!isValidInput()) return;
+            if (!isValidInput())
+                return;
             closeUserNotFoundAlert();
             getUser();
         }
@@ -144,8 +141,7 @@
 
 (function() {
 
-    angular.module('inpacker')
-           .controller('SettingsController', SettingsController);
+    angular.module('inpacker').controller('SettingsController', SettingsController);
 
     SettingsController.$inject = ['$scope', '$http'];
 
@@ -213,8 +209,7 @@
 
 (function() {
 
-    angular.module('inpacker')
-           .controller('PackController', PackController);
+    angular.module('inpacker').controller('PackController', PackController);
 
     PackController.$inject = ['$scope', '$http', '$interval', 'CHECK_STATUS_INTERVAL'];
 
@@ -241,9 +236,8 @@
             $http.get('/api/pack/' + ac.pack.name + '/status')
                 .then((resp) => {
                     ac.pack = resp.data;
-                    if (ac.pack.ready) {
-                       done();
-                    }
+                    if (ac.pack.ready)
+                        done();
                 }, (resp) => {})
         }
 

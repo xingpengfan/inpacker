@@ -43,7 +43,6 @@ public class PackerImpl implements Packer {
             InputStream in = new URL(item.url).openStream();
             byte[] b = new byte[1024];
             int count;
-
             while ((count = in.read(b)) > 0) {
                 zos.write(b, 0, count);
             }
