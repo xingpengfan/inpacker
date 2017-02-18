@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.core.Inpacker;
+import app.core.InstagramUserProvider;
 import app.core.model.InstagramUser;
 import app.core.model.Pack;
 import app.core.model.PackSettings;
@@ -27,16 +28,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 public class InpackerController {
 
-    private final Inpacker inpacker;
+    private final Inpacker              inpacker;
+    private final InstagramUserProvider userProvider;
 
     @Autowired
-    public InpackerController(Inpacker inpacker) {
+    public InpackerController(Inpacker inpacker, InstagramUserProvider userProvider) {
         this.inpacker = inpacker;
+        this.userProvider = userProvider;
     }
 
     @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUser(@PathVariable String username) {
-        final InstagramUser user = inpacker.getInstagramUser(username);
+        final InstagramUser user = userProvider.getInstagramUser(username);
         if (user == null)
             return status(404).body(new MessageResponse("Not Found"));
         else
@@ -45,7 +48,7 @@ public class InpackerController {
 
     @RequestMapping(value = "api/pack/{username:.+}", method = POST)
     public ResponseEntity<Pack> createPack(@PathVariable String username,
-                                                         @RequestBody PackSettingsDto packSettingsDto) {
+                                           @RequestBody PackSettingsDto  packSettingsDto) {
         final PackSettings packSettings = packSettingsDto.getPackSettings();
         final String packName = inpacker.getPackName(username, packSettings);
         final Pack pack = inpacker.getPack(packName);

@@ -25,7 +25,8 @@ public class MediaProviderImpl implements MediaProvider {
     }
 
     @Override
-    public void getMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount) {
+    public void getMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter,
+                         boolean includeProfilePicture, int itemsAmount) {
         Objects.requireNonNull(username, "username is null");
         Objects.requireNonNull(deque, "deque is null");
         if (username.isEmpty()) {
@@ -40,13 +41,16 @@ public class MediaProviderImpl implements MediaProvider {
             final HttpRequest req = HttpRequest.get(getUrl(username, queryString));
             resp = jsonParser.parse(req.body()).getAsJsonObject();
             moreAvailable = resp.get("more_available").getAsBoolean();
-            final Item[] items = retrieveItems(resp.getAsJsonArray("items"));
-            for (Item item : items) {
+            final JsonArray itemsJsonArray = resp.getAsJsonArray("items");
+            final Item[] items = retrieveItems(itemsJsonArray);
+            if (includeProfilePicture && packedItemsAmount == 0) {
+                deque.addLast(profilePictureItem(itemsJsonArray.get(0).getAsJsonObject()));
+            }
+            for (Item item : items)
                 if (itemsFilter.test(item)) {
                     deque.addLast(item);
                     if (++packedItemsAmount >= itemsAmount) break;
                 }
-            }
             queryString = "?max_id=" + items[items.length - 1].id;
         } while (moreAvailable && packedItemsAmount < itemsAmount);
         Item last = new Item("end", "end", 0, "end", "end");
@@ -78,6 +82,20 @@ public class MediaProviderImpl implements MediaProvider {
                                    .get("standard_resolution").getAsJsonObject()
                                    .get("url").getAsString();
         return new Item(username, url, createdTime, type, id);
+    }
+
+    private Item profilePictureItem(JsonObject itemJson) {
+        final Item item = parseItem(itemJson);
+        String profilePicUrl = itemJson.get("user").getAsJsonObject().get("profile_picture").getAsString();
+        profilePicUrl = maxProfilePictureSize(profilePicUrl);
+        return new Item(item.username, profilePicUrl, item.createdTime + 1,
+                        "image", item.username + "_profile_picture");
+    }
+
+    private String maxProfilePictureSize(String str) {
+        final int beg = str.indexOf(".com/t") + 6;
+        final int end = str.lastIndexOf('/');
+        return str.substring(0, beg) + str.substring(end);
     }
 
     private String getUrlFromItem(JsonObject item) {

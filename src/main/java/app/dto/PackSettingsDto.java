@@ -12,11 +12,14 @@ public class PackSettingsDto {
     @SerializedName("includeImages")
     public boolean includeImages;
 
+//    @SerializedName("includeProfilePicture")
+//    public boolean includeProfilePicture;
+
     @SerializedName("fileNamePattern")
     public String fileNamePattern;
 
     public PackSettings getPackSettings() {
-        return new PackSettings(includeImages, includeVideos, getPattern());
+        return new PackSettings(includeImages, includeVideos, true, getPattern());
     }
 
     private PackSettings.FileNamePattern getPattern() {

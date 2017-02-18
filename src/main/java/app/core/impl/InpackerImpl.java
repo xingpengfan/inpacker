@@ -5,9 +5,7 @@ import app.core.model.Item;
 import app.core.Packer;
 import app.core.model.Pack;
 import app.core.model.PackSettings;
-import app.core.model.InstagramUser;
 import app.core.MediaProvider;
-import app.core.InstagramUserProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,9 +21,8 @@ import java.util.concurrent.LinkedBlockingDeque;
 @Service
 public class InpackerImpl implements Inpacker {
 
-    private final MediaProvider         mediaProvider;
-    private final Packer                packer;
-    private final InstagramUserProvider userProvider;
+    private final MediaProvider mediaProvider;
+    private final Packer        packer;
 
     private final List<Pack> packs;
 
@@ -38,10 +35,9 @@ public class InpackerImpl implements Inpacker {
     private File packsDir;
 
     @Autowired
-    public InpackerImpl(MediaProvider mediaProvider, Packer packer, InstagramUserProvider userProvider) {
+    public InpackerImpl(MediaProvider mediaProvider, Packer packer) {
         this.mediaProvider = mediaProvider;
         this.packer = packer;
-        this.userProvider = userProvider;
         packs = new ArrayList<>();
     }
 
@@ -54,14 +50,10 @@ public class InpackerImpl implements Inpacker {
     }
 
     @Override
-    public InstagramUser getInstagramUser(String username) {
-        return userProvider.getInstagramUser(username);
-    }
-
-    @Override
     public void createPack(String username, PackSettings packSettings) {
         BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
-        new Thread(() -> mediaProvider.getMedia(username, itemsDeque, packSettings, maxItemsAmount)).start();
+        new Thread(() -> mediaProvider.getMedia(username, itemsDeque, packSettings,
+                                                packSettings.includeProfilePicture, maxItemsAmount)).start();
         final String packName = getPackName(username, packSettings);
         Pack pack = new Pack(packName);
         packs.add(pack);

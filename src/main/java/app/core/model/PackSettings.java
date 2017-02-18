@@ -11,7 +11,8 @@ public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, 
         switch (fileNamePattern) {
             case INDEX:
                 return index + fileNameExtension(item);
-            case ID: default:
+            case ID:
+            default:
                 return item.id + fileNameExtension(item);
         }
     }
@@ -27,11 +28,13 @@ public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, 
 
     public final boolean         includeImages;
     public final boolean         includeVideos;
+    public final boolean         includeProfilePicture;
     public final FileNamePattern fileNamePattern;
 
-    public PackSettings(boolean images, boolean videos, FileNamePattern pattern) {
+    public PackSettings(boolean images, boolean videos, boolean profilePicture, FileNamePattern pattern) {
         includeImages = images;
         includeVideos = videos;
+        includeProfilePicture = profilePicture;
         fileNamePattern = pattern;
 
     }
