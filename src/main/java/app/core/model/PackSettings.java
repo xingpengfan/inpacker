@@ -54,6 +54,7 @@ public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, 
         final PackSettings that = (PackSettings)obj;
         return includeImages == that.includeImages
                && includeVideos == that.includeVideos
+               && includeProfilePicture == that.includeProfilePicture
                && Objects.equals(fileNamePattern, that.fileNamePattern);
     }
 
@@ -62,6 +63,7 @@ public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, 
         int hash = 7;
         hash = 31 * hash + Boolean.hashCode(includeImages);
         hash = 31 * hash + Boolean.hashCode(includeVideos);
+        hash = 31 * hash + Boolean.hashCode(includeProfilePicture);
         hash = 31 * hash + Objects.hashCode(fileNamePattern);
         return hash;
     }

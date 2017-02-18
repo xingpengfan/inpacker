@@ -155,6 +155,7 @@
         vm.settings = {
             includeImages: true,
             includeVideos: true,
+            includeProfilePicture: true,
             fileNamePattern: 'index'
         };
         vm.preview = preview;
