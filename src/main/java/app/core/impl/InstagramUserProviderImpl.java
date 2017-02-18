@@ -1,7 +1,7 @@
 package app.core.impl;
 
-import app.core.model.User;
-import app.core.UserProvider;
+import app.core.model.InstagramUser;
+import app.core.InstagramUserProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonElement;
@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class UserProviderImpl implements UserProvider {
+public class InstagramUserProviderImpl implements InstagramUserProvider {
 
     private JsonParser parser;
 
-    public UserProviderImpl() {
+    public InstagramUserProviderImpl() {
         parser = new JsonParser();
     }
 
     @Override
-    public User getUser(String username) {
+    public InstagramUser getInstagramUser(String username) {
         Objects.requireNonNull(username, "username is null");
         if (!isValidUsername(username)) {
             throw new IllegalArgumentException("username is empty");
@@ -35,9 +35,9 @@ public class UserProviderImpl implements UserProvider {
             return parseUser(req.body());
     }
 
-    private User parseUser(String json) {
+    private InstagramUser parseUser(String json) {
         final JsonObject uj = parser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
-        final User user = new User();
+        final InstagramUser user = new InstagramUser();
         user.instagramId = uj.get("id").getAsString();
         user.username = uj.get("username").getAsString();
         user.isPrivate = uj.get("is_private").getAsBoolean();

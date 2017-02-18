@@ -1,9 +1,9 @@
 package app.controller;
 
 import app.core.Inpacker;
+import app.core.model.InstagramUser;
 import app.core.model.Pack;
 import app.core.model.PackSettings;
-import app.core.model.User;
 import app.dto.MessageResponse;
 import app.dto.PackSettingsDto;
 
@@ -36,7 +36,7 @@ public class InpackerController {
 
     @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUser(@PathVariable String username) {
-        final User user = inpacker.getUser(username);
+        final InstagramUser user = inpacker.getInstagramUser(username);
         if (user == null)
             return status(404).body(new MessageResponse("Not Found"));
         else

@@ -1,7 +1,7 @@
 package app.core.model;
 
 /**
- * User media item: image or video
+ * InstagramUser media item: image or video
  */
 public class Item {
 

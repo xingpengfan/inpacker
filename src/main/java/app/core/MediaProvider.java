@@ -5,7 +5,7 @@ import app.core.model.Item;
 import java.util.concurrent.BlockingDeque;
 import java.util.function.Predicate;
 
-public interface UserMediaProvider {
+public interface MediaProvider {
 
     /**
      * Gets all media items of the specified user and puts them into the specified deque
@@ -16,6 +16,6 @@ public interface UserMediaProvider {
      * @throws NullPointerException if the specified deque is {@code null}
      * @throws IllegalArgumentException if the specified username is not valid
      */
-    void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount);
+    void getMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount);
 
 }

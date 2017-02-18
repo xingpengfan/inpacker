@@ -1,7 +1,7 @@
 package app.core.impl;
 
 import app.core.model.Item;
-import app.core.UserMediaProvider;
+import app.core.MediaProvider;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonArray;
@@ -16,16 +16,16 @@ import java.util.concurrent.BlockingDeque;
 import java.util.function.Predicate;
 
 @Service
-public class UserMediaProviderImpl implements UserMediaProvider {
+public class MediaProviderImpl implements MediaProvider {
 
     private JsonParser jsonParser;
 
-    public UserMediaProviderImpl() {
+    public MediaProviderImpl() {
         jsonParser = new JsonParser();
     }
 
     @Override
-    public void getUserMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount) {
+    public void getMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter, int itemsAmount) {
         Objects.requireNonNull(username, "username is null");
         Objects.requireNonNull(deque, "deque is null");
         if (username.isEmpty()) {
