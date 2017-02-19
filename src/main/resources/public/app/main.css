@@ -1,5 +1,6 @@
 body {
     background-color: #ccc;
+    font-family: 'Cabin', sans-serif;
 }
 
 #in {
@@ -21,19 +22,21 @@ button {
     cursor: pointer;
 }
 
+.download-btn {
+    background: #24292e;
+    border-color: #24292e;
+}
+
 .dark-bg {
-    /*background: #353239;*/
     background-color: #24292e;
 }
 
 .light-bg {
     background-color: #C5C2C9;
-    /*background-color: #D1D1D1;*/
 }
 
 .lighter-bg {
     background-color: #EFEFEF;
-    /*background-color: #f7f7f7;*/
 }
 
 .centered {

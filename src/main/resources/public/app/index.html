@@ -20,6 +20,7 @@
             crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
 
     <link rel="stylesheet" href="/main.css">
     <link rel="icon" href="/favicon.ico">
@@ -165,7 +166,7 @@
                 <p ng-hide="ac.pack.ready" class="centered middle-font">
                     <b>{{ ac.pack.amount }}</b> items done
                 </p>
-                <a class="btn btn-primary btn-lg" ng-show="ac.pack.ready"
+                <a class="btn btn-primary btn-lg download-btn" ng-show="ac.pack.ready"
                    href="{{ '/packs/' + ac.pack.name + '.zip' }}" type="application/zip" target="_blank" download>
                     <i class="fa fa-download" aria-hidden="true"></i> Download {{ pc.user.username }}.zip
                 </a>
