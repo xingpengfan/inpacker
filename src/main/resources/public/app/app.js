@@ -171,10 +171,11 @@
         }
 
         function pack() {
-            ac.showPack();
             $http.post('/api/pack/' + ac.user.username, vm.settings)
                 .then((resp) => {
                     ac.pack = resp.data;
+                    ac.packSettings = vm.settings;
+                    ac.showPack();
                 }, (resp) => {});
         }
 
@@ -183,8 +184,8 @@
         }
 
         function shortenedUsername() {
-            if (ac.user.username.length > 22)
-                return ac.user.username.substring(0, 22) + '..';
+            if (ac.user.username.length > 18)
+                return ac.user.username.substring(0, 18) + '..';
             else
                 return ac.user.username;
         }
@@ -201,7 +202,7 @@
                     p += '4606...591.mp4';
                 else if (vm.settings.fileNamePattern === 'index')
                     p += '2.mp4';
-            return p;
+            return p + '...';
         }
 
     }
@@ -225,6 +226,11 @@
         activate();
 
         function activate() {
+            vm.showProgressBar = isPossibleToShowProgressBar();
+            if (vm.showProgressBar)
+                vm.totalItemsAmount = ac.packSettings.includeProfilePicture ? ac.user.count + 1 : ac.user.count;
+            else
+                vm.totalItemsAmount = -1;
             if (ac.pack.ready)
                 ac.showCheckIcon();
             else
@@ -245,6 +251,10 @@
         function done() {
             $interval.cancel(timer);
             ac.showCheckIcon();
+        }
+
+        function isPossibleToShowProgressBar() {
+            return ac.packSettings.includeVideos && ac.packSettings.includeImages;
         }
     }
 

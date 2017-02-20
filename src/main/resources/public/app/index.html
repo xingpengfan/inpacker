@@ -163,9 +163,15 @@
                 <p ng-hide="ac.pack.ready">
                     Collecting <b>{{ pc.user.username }}</b>'s data
                 </p>
-                <p ng-hide="ac.pack.ready" class="centered middle-font">
+                <p ng-hide="ac.pack.ready || pc.showProgressBar" class="centered middle-font">
                     <b>{{ ac.pack.amount }}</b> items done
                 </p>
+                <div ng-hide="ac.pack.ready || !pc.showProgressBar" class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                         role="progressbar" aria-valuenow="{{ ac.pack.amount }}"
+                         aria-valuemin="0" aria-valuemax="{{ pc.totalItemsAmount }}"
+                         ng-style="{'width': ac.pack.amount/pc.totalItemsAmount*100 + '%'}"></div>
+                </div>
                 <a class="btn btn-primary btn-lg download-btn" ng-show="ac.pack.ready"
                    href="{{ '/packs/' + ac.pack.name + '.zip' }}" type="application/zip" target="_blank" download>
                     <i class="fa fa-download" aria-hidden="true"></i> Download {{ pc.user.username }}.zip
