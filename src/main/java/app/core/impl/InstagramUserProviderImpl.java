@@ -3,21 +3,27 @@ package app.core.impl;
 import app.core.model.InstagramUser;
 import app.core.InstagramUserProvider;
 
-import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.ListenableFuture;
+import org.asynchttpclient.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 @Service
 public class InstagramUserProviderImpl implements InstagramUserProvider {
 
+    private AsyncHttpClient asyncHttpClient;
     private JsonParser parser;
 
     public InstagramUserProviderImpl() {
+        asyncHttpClient = new DefaultAsyncHttpClient();
         parser = new JsonParser();
     }
 
@@ -27,12 +33,19 @@ public class InstagramUserProviderImpl implements InstagramUserProvider {
         if (!isValidUsername(username)) {
             throw new IllegalArgumentException("username is empty");
         }
+        final Response response;
         final String url = getUrl(username);
-        final HttpRequest req = HttpRequest.get(url);
-        if (!req.ok())
+        final ListenableFuture<Response> f = asyncHttpClient.prepareGet(url).execute();
+        try {
+            response = f.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+        if (response.getStatusCode() != 200)
             return null;
         else
-            return parseUser(req.body());
+            return parseUser(response.getResponseBody());
     }
 
     private InstagramUser parseUser(String json) {

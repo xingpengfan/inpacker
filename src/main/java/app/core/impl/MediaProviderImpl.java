@@ -3,26 +3,32 @@ package app.core.impl;
 import app.core.model.Item;
 import app.core.MediaProvider;
 
-import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.ListenableFuture;
+import org.asynchttpclient.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
 
 @Service
 public class MediaProviderImpl implements MediaProvider {
 
-    private JsonParser jsonParser;
+    private AsyncHttpClient asyncHttpClient;
+    private JsonParser      jsonParser;
 
     public MediaProviderImpl() {
+        asyncHttpClient = new DefaultAsyncHttpClient();
         jsonParser = new JsonParser();
     }
 
@@ -35,15 +41,23 @@ public class MediaProviderImpl implements MediaProvider {
             throw new IllegalArgumentException("username is not valid");
         }
 
-        JsonObject resp;
+        JsonObject respJson;
         boolean moreAvailable;
         String queryString = "";
         int packedItemsAmount = 0;
         do {
-            final HttpRequest req = HttpRequest.get(getUrl(username, queryString));
-            resp = jsonParser.parse(req.body()).getAsJsonObject();
-            moreAvailable = resp.get("more_available").getAsBoolean();
-            final JsonArray itemsJsonArray = resp.getAsJsonArray("items");
+            final ListenableFuture<Response> f =
+                    asyncHttpClient.prepareGet(getUrl(username, queryString)).execute();
+            final Response response;
+            try {
+                response = f.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+            respJson = jsonParser.parse(response.getResponseBody()).getAsJsonObject();
+            moreAvailable = respJson.get("more_available").getAsBoolean();
+            final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
             final List<Item> items = retrieveItems(itemsJsonArray);
             if (includeProfilePicture && packedItemsAmount == 0) {
                 deque.addLast(profilePictureItem(itemsJsonArray.get(0).getAsJsonObject()));
