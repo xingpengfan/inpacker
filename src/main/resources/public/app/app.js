@@ -197,12 +197,16 @@
                     p += '1756...364.jpg, ';
                 else if (vm.settings.fileNamePattern === 'index')
                     p += '1.jpg, ';
+                else if (vm.settings.fileNamePattern === 'date')
+                    p += '2017-02-25T15:36:59Z.jpg, ';
             if (vm.settings.includeVideos)
                 if (vm.settings.fileNamePattern === 'id')
                     p += '4606...591.mp4';
                 else if (vm.settings.fileNamePattern === 'index')
                     p += '2.mp4';
-            return p + '...';
+                else if (vm.settings.fileNamePattern === 'date')
+                    p += '2016-05-10T14:24:20Z.mp4';
+            return p + ' ...';
         }
 
     }

@@ -1,29 +1,49 @@
 package app.core.model;
 
+import java.time.Instant;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, String> {
 
+    /**
+     * Consumes an item and its index and creates a file name for the specified item.
+     * File name depends on the fileNamePattern field of the PackSettings instance this method is called on
+     *
+     * @param item item to be named
+     * @param index fetch index of the specified item; index of the newest user's item is 1
+     * @return file name with file extension e.g. 13.mp4
+     */
     @Override
     public String apply(Item item, Integer index) {
+        if (item.id.contains("profile_picture"))
+            return item.id + "." + item.extension();
         switch (fileNamePattern) {
             case INDEX:
-                return index + fileNameExtension(item);
+                return index + "." + item.extension(); // 1.jpg, 17.mp4
             case ID:
+                return item.id + "." + item.extension(); // 4154054931005.jpg, 23178444344138.mp4
+            case DATE:
             default:
-                return item.id + fileNameExtension(item);
+                return Instant.ofEpochSecond(item.createdTime) + "." + item.extension(); // 2017-02-25T15:36:59Z.mp4
         }
     }
 
+    /**
+     * Tests whether the specified item fits properties declared
+     * in the PackSettings instance this method is called on.
+     *
+     * @param item item to be tested
+     * @return {@code true} if the specified item is suitable, otherwise {@code false}
+     */
     @Override
     public boolean test(Item item) {
         return item.isImage() && includeImages || item.isVideo() && includeVideos;
     }
 
     public enum FileNamePattern {
-        INDEX, ID
+        INDEX, ID, DATE
     }
 
     public final boolean         includeImages;
@@ -37,10 +57,6 @@ public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, 
         includeProfilePicture = profilePicture;
         fileNamePattern = pattern;
 
-    }
-
-    private String fileNameExtension(Item item) {
-        return item.isVideo() ? ".mp4" : item.isImage() ? ".jpg" : "";
     }
 
     @Override

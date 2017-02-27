@@ -26,8 +26,10 @@ public class PackSettingsDto {
         switch (fileNamePattern) {
             case "id":
                 return PackSettings.FileNamePattern.ID;
-            case "index": default:
+            case "index":
                 return PackSettings.FileNamePattern.INDEX;
+            case "date": default:
+                return PackSettings.FileNamePattern.DATE;
         }
     }
 }

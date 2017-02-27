@@ -26,4 +26,8 @@ public class Item {
     public boolean isImage() {
         return "image".equals(type);
     }
+
+    public String extension() {
+        return isVideo() ? "mp4" : isImage() ? "jpg" : "";
+    }
 }
