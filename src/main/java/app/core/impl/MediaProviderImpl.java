@@ -116,10 +116,12 @@ public class MediaProviderImpl implements MediaProvider {
                         "image", item.username + "_profile_picture");
     }
 
-    private String maxProfilePictureSize(String str) {
-        final int beg = str.indexOf(".com/t") + 6;
-        final int end = str.lastIndexOf('/');
-        return str.substring(0, beg) + str.substring(end);
+    private String maxProfilePictureSize(String profilePicUrl) {
+        int beg = profilePicUrl.indexOf(".com/t");
+        if (beg == -1) beg = profilePicUrl.indexOf(".net/t");
+        beg += 6;
+        final int end = profilePicUrl.lastIndexOf('/');
+        return profilePicUrl.substring(0, beg) + profilePicUrl.substring(end);
     }
 
     private String getUrlFromItem(JsonObject item) {
