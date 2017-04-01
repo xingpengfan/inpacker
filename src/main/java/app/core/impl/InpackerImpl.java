@@ -9,7 +9,6 @@ import app.core.MediaProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-@Service
 public class InpackerImpl implements Inpacker {
 
     private final MediaProvider mediaProvider;

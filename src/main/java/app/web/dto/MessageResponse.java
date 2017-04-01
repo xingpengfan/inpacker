@@ -1,4 +1,4 @@
-package app.dto;
+package app.web.dto;
 
 import com.google.gson.annotations.SerializedName;
 

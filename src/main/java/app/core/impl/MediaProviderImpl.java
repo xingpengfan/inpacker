@@ -12,7 +12,6 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Predicate;
 
-@Service
 public class MediaProviderImpl implements MediaProvider {
 
     private AsyncHttpClient asyncHttpClient;

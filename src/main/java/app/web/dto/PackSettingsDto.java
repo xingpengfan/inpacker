@@ -1,4 +1,4 @@
-package app.dto;
+package app.web.dto;
 
 import app.core.model.PackSettings;
 

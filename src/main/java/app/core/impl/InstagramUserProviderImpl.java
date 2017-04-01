@@ -11,12 +11,10 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-@Service
 public class InstagramUserProviderImpl implements InstagramUserProvider {
 
     private AsyncHttpClient asyncHttpClient;

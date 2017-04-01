@@ -3,8 +3,6 @@ package app.core.impl;
 import app.core.model.Item;
 import app.core.Packer;
 
-import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,7 +14,6 @@ import java.util.function.BiFunction;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-@Service
 public class PackerImpl implements Packer {
 
     @Override
