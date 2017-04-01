@@ -1,6 +1,6 @@
-package app.web.dto;
+package inpacker.web.dto;
 
-import app.core.model.PackSettings;
+import inpacker.core.model.PackSettings;
 
 import com.google.gson.annotations.SerializedName;
 

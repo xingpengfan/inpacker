@@ -1,11 +1,11 @@
-package app.core.impl;
+package inpacker.core.impl;
 
-import app.core.Inpacker;
-import app.core.model.Item;
-import app.core.Packer;
-import app.core.model.Pack;
-import app.core.model.PackSettings;
-import app.core.MediaProvider;
+import inpacker.core.Inpacker;
+import inpacker.core.model.Item;
+import inpacker.core.Packer;
+import inpacker.core.model.Pack;
+import inpacker.core.model.PackSettings;
+import inpacker.core.MediaProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,7 @@
-package app.core;
+package inpacker.core;
 
-import app.core.model.Pack;
-import app.core.model.PackSettings;
+import inpacker.core.model.Pack;
+import inpacker.core.model.PackSettings;
 
 import java.io.File;
 import java.util.List;

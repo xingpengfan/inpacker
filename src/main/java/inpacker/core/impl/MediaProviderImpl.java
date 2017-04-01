@@ -1,7 +1,7 @@
-package app.core.impl;
+package inpacker.core.impl;
 
-import app.core.model.Item;
-import app.core.MediaProvider;
+import inpacker.core.model.Item;
+import inpacker.core.MediaProvider;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

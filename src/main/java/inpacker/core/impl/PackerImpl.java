@@ -1,7 +1,7 @@
-package app.core.impl;
+package inpacker.core.impl;
 
-import app.core.model.Item;
-import app.core.Packer;
+import inpacker.core.model.Item;
+import inpacker.core.Packer;
 
 import java.io.File;
 import java.io.FileNotFoundException;

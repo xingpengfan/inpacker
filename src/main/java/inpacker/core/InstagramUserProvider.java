@@ -1,6 +1,6 @@
-package app.core;
+package inpacker.core;
 
-import app.core.model.InstagramUser;
+import inpacker.core.model.InstagramUser;
 
 public interface InstagramUserProvider {
 

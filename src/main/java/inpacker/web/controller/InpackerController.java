@@ -1,12 +1,12 @@
-package app.web.controller;
+package inpacker.web.controller;
 
-import app.core.Inpacker;
-import app.core.InstagramUserProvider;
-import app.core.model.InstagramUser;
-import app.core.model.Pack;
-import app.core.model.PackSettings;
-import app.web.dto.MessageResponse;
-import app.web.dto.PackSettingsDto;
+import inpacker.core.Inpacker;
+import inpacker.core.InstagramUserProvider;
+import inpacker.core.model.InstagramUser;
+import inpacker.core.model.Pack;
+import inpacker.core.model.PackSettings;
+import inpacker.web.dto.MessageResponse;
+import inpacker.web.dto.PackSettingsDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;

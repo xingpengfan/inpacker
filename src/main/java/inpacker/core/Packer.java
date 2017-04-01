@@ -1,6 +1,6 @@
-package app.core;
+package inpacker.core;
 
-import app.core.model.Item;
+import inpacker.core.model.Item;
 
 import java.io.File;
 import java.util.concurrent.BlockingDeque;

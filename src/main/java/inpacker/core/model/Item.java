@@ -1,4 +1,4 @@
-package app.core.model;
+package inpacker.core.model;
 
 /**
  * InstagramUser media item: image or video

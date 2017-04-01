@@ -1,13 +1,13 @@
-package app.web;
+package inpacker.web;
 
-import app.core.Inpacker;
-import app.core.InstagramUserProvider;
-import app.core.MediaProvider;
-import app.core.Packer;
-import app.core.impl.InpackerImpl;
-import app.core.impl.InstagramUserProviderImpl;
-import app.core.impl.MediaProviderImpl;
-import app.core.impl.PackerImpl;
+import inpacker.core.Inpacker;
+import inpacker.core.InstagramUserProvider;
+import inpacker.core.MediaProvider;
+import inpacker.core.Packer;
+import inpacker.core.impl.InpackerImpl;
+import inpacker.core.impl.InstagramUserProviderImpl;
+import inpacker.core.impl.MediaProviderImpl;
+import inpacker.core.impl.PackerImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
