@@ -1,7 +1,8 @@
 package inpacker.core.impl;
 
+import inpacker.core.model.IgPackConfig;
 import inpacker.core.model.InstagramPost;
-import inpacker.core.MediaProvider;
+import inpacker.core.Repository;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,37 +16,28 @@ import org.asynchttpclient.Response;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Predicate;
 
-public class MediaProviderImpl implements MediaProvider {
+public class IgRepository implements Repository {
 
     private AsyncHttpClient asyncHttpClient;
     private JsonParser      jsonParser;
 
-    public MediaProviderImpl() {
+    public IgRepository() {
         asyncHttpClient = new DefaultAsyncHttpClient();
         jsonParser = new JsonParser();
     }
 
     @Override
-    public void getMedia(String username, BlockingDeque<InstagramPost> deque, Predicate<InstagramPost> itemsFilter,
-                         boolean includeProfilePicture, int itemsAmount) {
-        Objects.requireNonNull(username, "username is null");
-        Objects.requireNonNull(deque, "deque is null");
-        if (username.isEmpty()) {
-            throw new IllegalArgumentException("username is not valid");
-        }
-
+    public void getInstagramPosts(IgPackConfig conf, BlockingDeque<InstagramPost> deque) {
         JsonObject respJson;
         boolean moreAvailable;
         String queryString = "";
         int packedItemsAmount = 0;
         do {
             final ListenableFuture<Response> f =
-                    asyncHttpClient.prepareGet(getUrl(username, queryString)).execute();
+                    asyncHttpClient.prepareGet(getUrl(conf.username, queryString)).execute();
             final Response response;
             try {
                 response = f.get();
@@ -57,16 +49,16 @@ public class MediaProviderImpl implements MediaProvider {
             moreAvailable = respJson.get("more_available").getAsBoolean();
             final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
             final List<InstagramPost> posts = retrieveItems(itemsJsonArray);
-            if (includeProfilePicture && packedItemsAmount == 0) {
+            if (conf.includeProfilePicture && packedItemsAmount == 0) {
                 deque.addLast(profilePictureItem(itemsJsonArray.get(0).getAsJsonObject()));
             }
             for (InstagramPost post: posts)
-                if (itemsFilter.test(post)) {
+                if (conf.test(post)) {
                     deque.addLast(post);
-                    if (++packedItemsAmount >= itemsAmount) break;
+                    if (++packedItemsAmount >= conf.amount) break;
                 }
             queryString = "?max_id=" + posts.get(posts.size()-1).id;
-        } while (moreAvailable && packedItemsAmount < itemsAmount);
+        } while (moreAvailable && packedItemsAmount < conf.amount);
         final InstagramPost last = new InstagramPost("end", "end", 0, "end", "end");
         deque.addLast(last);
     }

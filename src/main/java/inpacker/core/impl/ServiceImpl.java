@@ -1,11 +1,12 @@
 package inpacker.core.impl;
 
 import inpacker.core.Service;
+import inpacker.core.model.IgPackConfig;
 import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 import inpacker.core.model.Pack;
 import inpacker.core.model.PackSettings;
-import inpacker.core.MediaProvider;
+import inpacker.core.Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +20,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class ServiceImpl implements Service {
 
-    private final MediaProvider mediaProvider;
+    private final Repository repository;
     private final Packer        packer;
 
     private final List<Pack> packs;
@@ -33,8 +34,8 @@ public class ServiceImpl implements Service {
     private File packsDir;
 
     @Autowired
-    public ServiceImpl(MediaProvider mediaProvider, Packer packer) {
-        this.mediaProvider = mediaProvider;
+    public ServiceImpl(Repository repository, Packer packer) {
+        this.repository = repository;
         this.packer = packer;
         packs = new ArrayList<>();
     }
@@ -48,11 +49,10 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public void createPack(String username, PackSettings packSettings) {
+    public void createPack(IgPackConfig conf) {
         BlockingDeque<InstagramPost> itemsDeque = new LinkedBlockingDeque<>();
-        new Thread(() -> mediaProvider.getMedia(username, itemsDeque, packSettings,
-                                                packSettings.includeProfilePicture, maxItemsAmount)).start();
-        final String packName = getPackName(username, packSettings);
+        new Thread(() -> repository.getInstagramPosts(conf, itemsDeque)).start();
+        final String packName = getPackName(conf);
         Pack pack = new Pack(packName);
         packs.add(pack);
         packer.pack(itemsDeque, new File(packsDir, packName + ".zip"),
@@ -86,5 +86,10 @@ public class ServiceImpl implements Service {
     @Override
     public String getPackName(String username, PackSettings packSettings) {
         return username + "_" + packSettings.hashCode();
+    }
+
+    @Override
+    public String getPackName(IgPackConfig conf) {
+        return conf.username + "_" + conf.hashCode();
     }
 }

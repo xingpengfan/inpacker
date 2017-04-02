@@ -2,9 +2,9 @@ package inpacker.web.controller;
 
 import inpacker.core.Service;
 import inpacker.core.InstagramUserProvider;
+import inpacker.core.model.IgPackConfig;
 import inpacker.core.model.InstagramUser;
 import inpacker.core.model.Pack;
-import inpacker.core.model.PackSettings;
 import inpacker.web.dto.MessageResponse;
 import inpacker.web.dto.PackSettingsDto;
 
@@ -31,7 +31,7 @@ public class InpackerController {
     private final Service service;
     private final InstagramUserProvider userProvider;
 
-    @Autowired
+                                     @Autowired
     public InpackerController(Service service, InstagramUserProvider userProvider) {
         this.service = service;
         this.userProvider = userProvider;
@@ -41,7 +41,7 @@ public class InpackerController {
     public ResponseEntity<?> getUser(@PathVariable String username) {
         final InstagramUser user = userProvider.getInstagramUser(username);
         if (user == null)
-            return status(404).body(new MessageResponse("Not Found"));
+            return status(404).body(new MessageResponse("not found"));
         else
             return ok(user);
     }
@@ -49,11 +49,11 @@ public class InpackerController {
     @RequestMapping(value = "api/pack/{username:.+}", method = POST)
     public ResponseEntity<Pack> createPack(@PathVariable String username,
                                            @RequestBody PackSettingsDto  packSettingsDto) {
-        final PackSettings packSettings = packSettingsDto.getPackSettings();
-        final String packName = service.getPackName(username, packSettings);
+        final IgPackConfig conf = new IgPackConfig(username, true, true, true, 1500);
+        final String packName = service.getPackName(conf);
         final Pack pack = service.getPack(packName);
         if (pack == null) {
-            new Thread(() -> service.createPack(username, packSettings)).start();
+            new Thread(() -> service.createPack(conf)).start();
             return ok(new Pack(packName));
         } else
             return ok(pack);
