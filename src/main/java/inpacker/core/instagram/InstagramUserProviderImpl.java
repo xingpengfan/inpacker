@@ -1,6 +1,5 @@
-package inpacker.core.impl;
+package inpacker.core.instagram;
 
-import inpacker.core.model.InstagramUser;
 import inpacker.core.InstagramUserProvider;
 
 import com.google.gson.JsonElement;

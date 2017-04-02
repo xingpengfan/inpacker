@@ -1,4 +1,4 @@
-package inpacker.core.model;
+package inpacker.core.instagram;
 
 import inpacker.core.PackItem;
 

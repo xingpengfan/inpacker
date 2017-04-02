@@ -4,10 +4,10 @@ import inpacker.core.Service;
 import inpacker.core.InstagramUserProvider;
 import inpacker.core.Repository;
 import inpacker.core.Packer;
-import inpacker.core.impl.ServiceImpl;
-import inpacker.core.impl.InstagramUserProviderImpl;
-import inpacker.core.impl.IgRepository;
-import inpacker.core.impl.ZipPacker;
+import inpacker.core.instagram.ServiceImpl;
+import inpacker.core.instagram.InstagramUserProviderImpl;
+import inpacker.core.instagram.IgRepository;
+import inpacker.core.instagram.ZipPacker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

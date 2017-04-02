@@ -1,7 +1,5 @@
-package inpacker.core.impl;
+package inpacker.core.instagram;
 
-import inpacker.core.model.IgPackConfig;
-import inpacker.core.model.InstagramPost;
 import inpacker.core.Repository;
 
 import com.google.gson.JsonArray;

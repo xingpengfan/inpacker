@@ -1,10 +1,7 @@
-package inpacker.core.impl;
+package inpacker.core.instagram;
 
 import inpacker.core.Service;
-import inpacker.core.model.IgPackConfig;
-import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
-import inpacker.core.model.Pack;
 import inpacker.core.Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;

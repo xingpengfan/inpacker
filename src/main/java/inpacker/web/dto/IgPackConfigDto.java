@@ -1,6 +1,6 @@
 package inpacker.web.dto;
 
-import inpacker.core.model.IgPackConfig;
+import inpacker.core.instagram.IgPackConfig;
 
 import com.google.gson.annotations.SerializedName;
 

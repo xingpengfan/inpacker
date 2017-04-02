@@ -1,7 +1,7 @@
 package inpacker.core;
 
-import inpacker.core.model.InstagramPost;
-import inpacker.core.model.IgPackConfig;
+import inpacker.core.instagram.InstagramPost;
+import inpacker.core.instagram.IgPackConfig;
 
 import java.util.concurrent.BlockingDeque;
 

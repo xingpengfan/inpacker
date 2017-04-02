@@ -1,6 +1,6 @@
 package inpacker.core;
 
-import inpacker.core.model.InstagramPost;
+import inpacker.core.instagram.InstagramPost;
 
 import java.io.File;
 import java.util.concurrent.BlockingDeque;

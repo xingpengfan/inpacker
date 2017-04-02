@@ -1,7 +1,7 @@
 package inpacker.core;
 
-import inpacker.core.model.IgPackConfig;
-import inpacker.core.model.Pack;
+import inpacker.core.instagram.IgPackConfig;
+import inpacker.core.instagram.Pack;
 
 import java.io.File;
 import java.util.List;

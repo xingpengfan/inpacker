@@ -1,7 +1,6 @@
-package inpacker.core.impl;
+package inpacker.core.instagram;
 
 import inpacker.core.PackSupport;
-import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 
 import java.io.File;
