@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class PackSettingsDto {
 
+    @SerializedName("username")
+    public String username;
+
     @SerializedName("includeVideos")
     public boolean includeVideos;
 

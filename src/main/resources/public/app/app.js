@@ -153,6 +153,7 @@
         vm.searchAnotherUser = searchAnotherUser;
         vm.shortenedUsername = shortenedUsername;
         vm.settings = {
+            username: ac.user.username,
             includeImages: true,
             includeVideos: true,
             includeProfilePicture: true,
@@ -171,7 +172,7 @@
         }
 
         function pack() {
-            $http.post('/api/pack/' + ac.user.username, vm.settings)
+            $http.post('/api/packs', vm.settings)
                 .then((resp) => {
                     ac.pack = resp.data;
                     ac.packSettings = vm.settings;

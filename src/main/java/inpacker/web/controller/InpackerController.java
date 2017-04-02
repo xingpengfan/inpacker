@@ -46,10 +46,9 @@ public class InpackerController {
             return ok(user);
     }
 
-    @RequestMapping(value = "api/pack/{username:.+}", method = POST)
-    public ResponseEntity<Pack> createPack(@PathVariable String username,
-                                           @RequestBody PackSettingsDto  packSettingsDto) {
-        final IgPackConfig conf = new IgPackConfig(username, true, true, true, 1500);
+    @RequestMapping(value = "api/packs", method = POST)
+    public ResponseEntity<Pack> createPack(@RequestBody PackSettingsDto  packSettingsDto) {
+        final IgPackConfig conf = new IgPackConfig(packSettingsDto.username, true, true, true, 1500);
         final String packName = service.getPackName(conf);
         final Pack pack = service.getPack(packName);
         if (pack == null) {
