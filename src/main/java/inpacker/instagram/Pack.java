@@ -1,4 +1,4 @@
-package inpacker.core.instagram;
+package inpacker.instagram;
 
 import com.google.gson.annotations.SerializedName;
 

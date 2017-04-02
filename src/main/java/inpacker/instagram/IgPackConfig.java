@@ -1,4 +1,4 @@
-package inpacker.core.instagram;
+package inpacker.instagram;
 
 import java.util.Objects;
 import java.util.function.Predicate;

@@ -2,9 +2,9 @@ package inpacker.web.controller;
 
 import inpacker.core.Service;
 import inpacker.core.InstagramUserProvider;
-import inpacker.core.instagram.IgPackConfig;
-import inpacker.core.instagram.InstagramUser;
-import inpacker.core.instagram.Pack;
+import inpacker.instagram.IgPackConfig;
+import inpacker.instagram.InstagramUser;
+import inpacker.instagram.Pack;
 import inpacker.web.dto.IgPackConfigDto;
 import inpacker.web.dto.MessageResponse;
 
