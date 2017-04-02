@@ -5,8 +5,8 @@ import inpacker.core.InstagramUserProvider;
 import inpacker.core.model.IgPackConfig;
 import inpacker.core.model.InstagramUser;
 import inpacker.core.model.Pack;
+import inpacker.web.dto.IgPackConfigDto;
 import inpacker.web.dto.MessageResponse;
-import inpacker.web.dto.PackSettingsDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -47,12 +47,12 @@ public class InpackerController {
     }
 
     @RequestMapping(value = "api/packs", method = POST)
-    public ResponseEntity<Pack> createPack(@RequestBody PackSettingsDto  packSettingsDto) {
-        final IgPackConfig conf = new IgPackConfig(packSettingsDto.username, true, true, true, 1500);
-        final String packName = service.getPackName(conf);
+    public ResponseEntity<Pack> createPack(@RequestBody IgPackConfigDto configDto) {
+        final IgPackConfig config = configDto.getIgPackConfig();
+        final String packName = service.getPackName(config);
         final Pack pack = service.getPack(packName);
         if (pack == null) {
-            new Thread(() -> service.createPack(conf)).start();
+            new Thread(() -> service.createPack(config)).start();
             return ok(new Pack(packName));
         } else
             return ok(pack);

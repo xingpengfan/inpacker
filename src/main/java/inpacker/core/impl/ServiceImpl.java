@@ -5,7 +5,6 @@ import inpacker.core.model.IgPackConfig;
 import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 import inpacker.core.model.Pack;
-import inpacker.core.model.PackSettings;
 import inpacker.core.Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,11 +80,6 @@ public class ServiceImpl implements Service {
     @Override
     public List<Pack> getPacks() {
         return packs;
-    }
-
-    @Override
-    public String getPackName(String username, PackSettings packSettings) {
-        return username + "_" + packSettings.hashCode();
     }
 
     @Override
