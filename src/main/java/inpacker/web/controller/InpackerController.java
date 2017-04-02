@@ -1,6 +1,6 @@
 package inpacker.web.controller;
 
-import inpacker.core.Inpacker;
+import inpacker.core.Service;
 import inpacker.core.InstagramUserProvider;
 import inpacker.core.model.InstagramUser;
 import inpacker.core.model.Pack;
@@ -28,12 +28,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 public class InpackerController {
 
-    private final Inpacker              inpacker;
+    private final Service service;
     private final InstagramUserProvider userProvider;
 
     @Autowired
-    public InpackerController(Inpacker inpacker, InstagramUserProvider userProvider) {
-        this.inpacker = inpacker;
+    public InpackerController(Service service, InstagramUserProvider userProvider) {
+        this.service = service;
         this.userProvider = userProvider;
     }
 
@@ -50,10 +50,10 @@ public class InpackerController {
     public ResponseEntity<Pack> createPack(@PathVariable String username,
                                            @RequestBody PackSettingsDto  packSettingsDto) {
         final PackSettings packSettings = packSettingsDto.getPackSettings();
-        final String packName = inpacker.getPackName(username, packSettings);
-        final Pack pack = inpacker.getPack(packName);
+        final String packName = service.getPackName(username, packSettings);
+        final Pack pack = service.getPack(packName);
         if (pack == null) {
-            new Thread(() -> inpacker.createPack(username, packSettings)).start();
+            new Thread(() -> service.createPack(username, packSettings)).start();
             return ok(new Pack(packName));
         } else
             return ok(pack);
@@ -61,18 +61,18 @@ public class InpackerController {
 
     @RequestMapping(value = "api/pack/{packName:.+}/status", method = GET)
     public ResponseEntity<Pack> getPackStatus(@PathVariable String packName) {
-        return ok(inpacker.getPack(packName));
+        return ok(service.getPack(packName));
     }
 
     @RequestMapping(value = "api/packs", method = GET)
     public ResponseEntity<List<Pack>> getPacksList() {
-        return ok(inpacker.getPacks());
+        return ok(service.getPacks());
     }
 
     @RequestMapping(value = "packs/{packName:.+}.zip", method = GET, produces = "application/zip")
     @ResponseBody
     public ResponseEntity<FileSystemResource> downloadPack(@PathVariable String packName) {
-        final File packFile = inpacker.getPackFile(packName);
+        final File packFile = service.getPackFile(packName);
         if (packFile == null)
             return status(404).body(null);
         else

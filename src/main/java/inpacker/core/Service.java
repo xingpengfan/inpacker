@@ -6,7 +6,7 @@ import inpacker.core.model.PackSettings;
 import java.io.File;
 import java.util.List;
 
-public interface Inpacker {
+public interface Service {
 
     void createPack(String username, PackSettings packSettings);
 

@@ -1,6 +1,6 @@
 package inpacker.core.impl;
 
-import inpacker.core.Inpacker;
+import inpacker.core.Service;
 import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 import inpacker.core.model.Pack;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class InpackerImpl implements Inpacker {
+public class ServiceImpl implements Service {
 
     private final MediaProvider mediaProvider;
     private final Packer        packer;
@@ -33,7 +33,7 @@ public class InpackerImpl implements Inpacker {
     private File packsDir;
 
     @Autowired
-    public InpackerImpl(MediaProvider mediaProvider, Packer packer) {
+    public ServiceImpl(MediaProvider mediaProvider, Packer packer) {
         this.mediaProvider = mediaProvider;
         this.packer = packer;
         packs = new ArrayList<>();

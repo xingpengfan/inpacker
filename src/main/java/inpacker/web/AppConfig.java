@@ -1,10 +1,10 @@
 package inpacker.web;
 
-import inpacker.core.Inpacker;
+import inpacker.core.Service;
 import inpacker.core.InstagramUserProvider;
 import inpacker.core.MediaProvider;
 import inpacker.core.Packer;
-import inpacker.core.impl.InpackerImpl;
+import inpacker.core.impl.ServiceImpl;
 import inpacker.core.impl.InstagramUserProviderImpl;
 import inpacker.core.impl.MediaProviderImpl;
 import inpacker.core.impl.ZipPacker;
@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public Inpacker inpacker() {
-        return new InpackerImpl(mediaProvider(), packer());
+    public Service service() {
+        return new ServiceImpl(mediaProvider(), packer());
     }
 
     @Bean
