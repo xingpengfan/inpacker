@@ -1,5 +1,6 @@
 package inpacker.core.impl;
 
+import inpacker.core.PackSupport;
 import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 
@@ -10,28 +11,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.BlockingDeque;
-import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class PackerImpl implements Packer {
+public class ZipPacker implements Packer {
 
     @Override
-    public void pack(BlockingDeque<InstagramPost> itemsDeque,
+    public void pack(BlockingDeque<InstagramPost> postsDeque,
                      File packPath,
-                     BiFunction<InstagramPost, Integer, String> fileNameCreator,
-                     Runnable newItemCallback) {
+                     Consumer<InstagramPost> newItemSuccess,
+                     Consumer<InstagramPost> newItemFail,
+                     Runnable done) {
         final ZipOutputStream zos = createZipOutputStream(packPath);
-        InstagramPost post = takePost(itemsDeque);
-        int index = 1;
-        while (!post.id.equals("end")) {
-            final String name = fileNameCreator.apply(post, index);
-            newItem(post, name, zos);
-            post = takePost(itemsDeque);
-            index++;
-            newItemCallback.run();
-        }
-        completePack(zos);
+        PackSupport.createZipPack(zos, postsDeque, newItemSuccess, newItemFail, done);
     }
 
     private void newItem(InstagramPost post, String filename, ZipOutputStream zos) {

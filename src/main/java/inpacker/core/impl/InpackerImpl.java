@@ -55,7 +55,8 @@ public class InpackerImpl implements Inpacker {
         final String packName = getPackName(username, packSettings);
         Pack pack = new Pack(packName);
         packs.add(pack);
-        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"), packSettings, pack::newItem);
+        packer.pack(itemsDeque, new File(packsDir, packName + ".zip"),
+                p -> pack.newItem(), p -> {}, () -> {});
         pack.ready();
     }
 

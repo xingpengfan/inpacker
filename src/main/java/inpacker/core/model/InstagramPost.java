@@ -1,6 +1,8 @@
 package inpacker.core.model;
 
-public class InstagramPost {
+import inpacker.core.PackItem;
+
+public class InstagramPost implements PackItem {
 
     public final String username;
     public final String url;
@@ -28,4 +30,13 @@ public class InstagramPost {
         return isVideo() ? ".mp4" : isImage() ? ".jpg" : "";
     }
 
+    @Override
+    public String getUrl() {
+        return url;
+    }
+
+    @Override
+    public String getFileName() {
+        return id + extension();
+    }
 }
