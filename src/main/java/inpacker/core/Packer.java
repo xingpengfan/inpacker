@@ -1,6 +1,6 @@
 package inpacker.core;
 
-import inpacker.core.model.Item;
+import inpacker.core.model.InstagramPost;
 
 import java.io.File;
 import java.util.concurrent.BlockingDeque;
@@ -17,6 +17,6 @@ public interface Packer {
      * @param fileNameCreator function that consumes item and index and returns file name for item
      * @param newItemCallback Runnable object that will be called after each item is added to pack
      */
-    void pack(BlockingDeque<Item> itemsDeque, File packPath, BiFunction<Item, Integer, String> fileNameCreator,
+    void pack(BlockingDeque<InstagramPost> itemsDeque, File packPath, BiFunction<InstagramPost, Integer, String> fileNameCreator,
               Runnable newItemCallback);
 }

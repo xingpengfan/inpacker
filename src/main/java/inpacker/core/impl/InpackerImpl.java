@@ -1,7 +1,7 @@
 package inpacker.core.impl;
 
 import inpacker.core.Inpacker;
-import inpacker.core.model.Item;
+import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 import inpacker.core.model.Pack;
 import inpacker.core.model.PackSettings;
@@ -49,7 +49,7 @@ public class InpackerImpl implements Inpacker {
 
     @Override
     public void createPack(String username, PackSettings packSettings) {
-        BlockingDeque<Item> itemsDeque = new LinkedBlockingDeque<>();
+        BlockingDeque<InstagramPost> itemsDeque = new LinkedBlockingDeque<>();
         new Thread(() -> mediaProvider.getMedia(username, itemsDeque, packSettings,
                                                 packSettings.includeProfilePicture, maxItemsAmount)).start();
         final String packName = getPackName(username, packSettings);

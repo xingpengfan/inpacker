@@ -5,40 +5,25 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-public class PackSettings implements Predicate<Item>, BiFunction<Item, Integer, String> {
+public class PackSettings implements Predicate<InstagramPost>, BiFunction<InstagramPost, Integer, String> {
 
-    /**
-     * Consumes an item and its index and creates a file name for the specified item.
-     * File name depends on the fileNamePattern field of the PackSettings instance this method is called on
-     *
-     * @param item item to be named
-     * @param index fetch index of the specified item; index of the newest user's item is 1
-     * @return file name with file extension e.g. 13.mp4
-     */
     @Override
-    public String apply(Item item, Integer index) {
-        if (item.id.contains("profile_picture"))
-            return item.id + "." + item.extension();
+    public String apply(InstagramPost post, Integer index) {
+        if (post.id.contains("profile_picture"))
+            return post.id + "." + post.extension();
         switch (fileNamePattern) {
             case INDEX:
-                return index + "." + item.extension(); // 1.jpg, 17.mp4
+                return index + post.extension(); // 1.jpg, 17.mp4
             case ID:
-                return item.id + "." + item.extension(); // 4154054931005.jpg, 23178444344138.mp4
+                return post.id + post.extension(); // 4154054931005.jpg, 23178444344138.mp4
             case DATE:
             default:
-                return Instant.ofEpochSecond(item.createdTime) + "." + item.extension(); // 2017-02-25T15:36:59Z.mp4
+                return Instant.ofEpochSecond(post.createdTime) + post.extension(); // 2017-02-25T15:36:59Z.mp4
         }
     }
 
-    /**
-     * Tests whether the specified item fits properties declared
-     * in the PackSettings instance this method is called on.
-     *
-     * @param item item to be tested
-     * @return {@code true} if the specified item is suitable, otherwise {@code false}
-     */
     @Override
-    public boolean test(Item item) {
+    public boolean test(InstagramPost item) {
         return item.isImage() && includeImages || item.isVideo() && includeVideos;
     }
 

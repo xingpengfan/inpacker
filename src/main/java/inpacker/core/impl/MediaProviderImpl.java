@@ -1,6 +1,6 @@
 package inpacker.core.impl;
 
-import inpacker.core.model.Item;
+import inpacker.core.model.InstagramPost;
 import inpacker.core.MediaProvider;
 
 import com.google.gson.JsonArray;
@@ -31,7 +31,7 @@ public class MediaProviderImpl implements MediaProvider {
     }
 
     @Override
-    public void getMedia(String username, BlockingDeque<Item> deque, Predicate<Item> itemsFilter,
+    public void getMedia(String username, BlockingDeque<InstagramPost> deque, Predicate<InstagramPost> itemsFilter,
                          boolean includeProfilePicture, int itemsAmount) {
         Objects.requireNonNull(username, "username is null");
         Objects.requireNonNull(deque, "deque is null");
@@ -56,18 +56,18 @@ public class MediaProviderImpl implements MediaProvider {
             respJson = jsonParser.parse(response.getResponseBody()).getAsJsonObject();
             moreAvailable = respJson.get("more_available").getAsBoolean();
             final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
-            final List<Item> items = retrieveItems(itemsJsonArray);
+            final List<InstagramPost> posts = retrieveItems(itemsJsonArray);
             if (includeProfilePicture && packedItemsAmount == 0) {
                 deque.addLast(profilePictureItem(itemsJsonArray.get(0).getAsJsonObject()));
             }
-            for (Item item : items)
-                if (itemsFilter.test(item)) {
-                    deque.addLast(item);
+            for (InstagramPost post: posts)
+                if (itemsFilter.test(post)) {
+                    deque.addLast(post);
                     if (++packedItemsAmount >= itemsAmount) break;
                 }
-            queryString = "?max_id=" + items.get(items.size()-1).id;
+            queryString = "?max_id=" + posts.get(posts.size()-1).id;
         } while (moreAvailable && packedItemsAmount < itemsAmount);
-        Item last = new Item("end", "end", 0, "end", "end");
+        final InstagramPost last = new InstagramPost("end", "end", 0, "end", "end");
         deque.addLast(last);
     }
 
@@ -77,8 +77,9 @@ public class MediaProviderImpl implements MediaProvider {
         }
     }
 
-    private List<Item> retrieveItems(JsonArray jsonItems) {
-        List<Item> items = new ArrayList<>(jsonItems.size());
+    private List<InstagramPost> retrieveItems(JsonArray jsonItems) {
+
+        List<InstagramPost> items = new ArrayList<>(jsonItems.size());
         for (int i = 0; i < jsonItems.size(); i++) {
             final JsonObject jsonItem = jsonItems.get(i).getAsJsonObject();
             try {
@@ -90,7 +91,7 @@ public class MediaProviderImpl implements MediaProvider {
         return items;
     }
 
-    private Item parseItem(JsonObject itemJson) {
+    private InstagramPost parseItem(JsonObject itemJson) {
         final String username = itemJson.get("user").getAsJsonObject().get("username").getAsString();
         final long createdTime = itemJson.get("created_time").getAsLong();
         final String id = itemJson.get("id").getAsString();
@@ -103,15 +104,15 @@ public class MediaProviderImpl implements MediaProvider {
         final String url = itemJson.get(urlsObj).getAsJsonObject()
                                    .get("standard_resolution").getAsJsonObject()
                                    .get("url").getAsString();
-        return new Item(username, url, createdTime, type, id);
+        return new InstagramPost(username, url, createdTime, type, id);
     }
 
-    private Item profilePictureItem(JsonObject itemJson) {
-        final Item item = parseItem(itemJson);
+    private InstagramPost profilePictureItem(JsonObject itemJson) {
+        final InstagramPost veryFirstPost = parseItem(itemJson);
         String profilePicUrl = itemJson.get("user").getAsJsonObject().get("profile_picture").getAsString();
         profilePicUrl = maxProfilePictureSize(profilePicUrl);
-        return new Item(item.username, profilePicUrl, item.createdTime + 1,
-                        "image", item.username + "_profile_picture");
+        return new InstagramPost(veryFirstPost.username, profilePicUrl, veryFirstPost.createdTime+1,
+                        "image", veryFirstPost.username + "_profile_picture");
     }
 
     private String maxProfilePictureSize(String profilePicUrl) {

@@ -1,6 +1,6 @@
 package inpacker.core.impl;
 
-import inpacker.core.model.Item;
+import inpacker.core.model.InstagramPost;
 import inpacker.core.Packer;
 
 import java.io.File;
@@ -17,27 +17,27 @@ import java.util.zip.ZipOutputStream;
 public class PackerImpl implements Packer {
 
     @Override
-    public void pack(BlockingDeque<Item> itemsDeque,
+    public void pack(BlockingDeque<InstagramPost> itemsDeque,
                      File packPath,
-                     BiFunction<Item, Integer, String> fileNameCreator,
+                     BiFunction<InstagramPost, Integer, String> fileNameCreator,
                      Runnable newItemCallback) {
         final ZipOutputStream zos = createZipOutputStream(packPath);
-        Item item = item(itemsDeque);
+        InstagramPost post = takePost(itemsDeque);
         int index = 1;
-        while (!item.id.equals("end")) {
-            final String name = fileNameCreator.apply(item, index);
-            newItem(item, name, zos);
-            item = item(itemsDeque);
+        while (!post.id.equals("end")) {
+            final String name = fileNameCreator.apply(post, index);
+            newItem(post, name, zos);
+            post = takePost(itemsDeque);
             index++;
             newItemCallback.run();
         }
         completePack(zos);
     }
 
-    private void newItem(Item item, String filename, ZipOutputStream zos) {
+    private void newItem(InstagramPost post, String filename, ZipOutputStream zos) {
         try {
-            zos.putNextEntry(new ZipEntry(item.username + "/" + filename));
-            InputStream in = new URL(item.url).openStream();
+            zos.putNextEntry(new ZipEntry(post.username + "/" + filename));
+            InputStream in = new URL(post.url).openStream();
             byte[] b = new byte[1024];
             int count;
             while ((count = in.read(b)) > 0) {
@@ -50,9 +50,9 @@ public class PackerImpl implements Packer {
         }
     }
 
-    private Item item(BlockingDeque<Item> items) {
+    private InstagramPost takePost(BlockingDeque<InstagramPost> posts) {
         try {
-            return items.takeFirst();
+            return posts.takeFirst();
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
