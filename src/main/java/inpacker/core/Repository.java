@@ -1,12 +1,9 @@
 package inpacker.core;
 
-import inpacker.instagram.InstagramPost;
-import inpacker.instagram.IgPackConfig;
-
 import java.util.concurrent.BlockingDeque;
 
-public interface Repository {
+public interface Repository<T extends PackConfig, R extends PackItem> {
 
-    void getInstagramPosts(IgPackConfig conf, BlockingDeque<InstagramPost> deque);
+    void getInstagramPosts(T config, BlockingDeque<R> deque);
 
 }

@@ -17,7 +17,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class ServiceImpl implements Service {
 
     private final Repository repository;
-    private final Packer        packer;
+    private final Packer packer;
 
     private final List<Pack> packs;
 
@@ -46,13 +46,15 @@ public class ServiceImpl implements Service {
 
     @Override
     public void createPack(IgPackConfig conf) {
-        BlockingDeque<InstagramPost> itemsDeque = new LinkedBlockingDeque<>();
+        BlockingDeque<IgPost> itemsDeque = new LinkedBlockingDeque<>();
         new Thread(() -> repository.getInstagramPosts(conf, itemsDeque)).start();
         final String packName = getPackName(conf);
         Pack pack = new Pack(packName);
         packs.add(pack);
         packer.pack(itemsDeque, new File(packsDir, packName + ".zip"),
-                p -> pack.newItem(), p -> {}, () -> {});
+                p -> pack.newItem(), p -> {
+                }, () -> {
+                });
         pack.ready();
     }
 

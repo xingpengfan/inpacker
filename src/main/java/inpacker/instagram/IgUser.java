@@ -2,7 +2,7 @@ package inpacker.instagram;
 
 import com.google.gson.annotations.SerializedName;
 
-public class InstagramUser {
+public class IgUser {
 
     @SerializedName("instagramId")
     public String instagramId;

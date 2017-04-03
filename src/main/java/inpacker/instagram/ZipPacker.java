@@ -14,19 +14,19 @@ import java.util.function.Consumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipPacker implements Packer {
+public class ZipPacker implements Packer<IgPackItem> {
 
     @Override
-    public void pack(BlockingDeque<InstagramPost> postsDeque,
+    public void pack(BlockingDeque<IgPackItem> postsDeque,
                      File packPath,
-                     Consumer<InstagramPost> newItemSuccess,
-                     Consumer<InstagramPost> newItemFail,
+                     Consumer<IgPackItem> newItemSuccess,
+                     Consumer<IgPackItem> newItemFail,
                      Runnable done) {
         final ZipOutputStream zos = createZipOutputStream(packPath);
         PackSupport.createZipPack(zos, postsDeque, newItemSuccess, newItemFail, done);
     }
 
-    private void newItem(InstagramPost post, String filename, ZipOutputStream zos) {
+    private void newItem(IgPost post, String filename, ZipOutputStream zos) {
         try {
             zos.putNextEntry(new ZipEntry(post.username + "/" + filename));
             InputStream in = new URL(post.url).openStream();
@@ -42,7 +42,7 @@ public class ZipPacker implements Packer {
         }
     }
 
-    private InstagramPost takePost(BlockingDeque<InstagramPost> posts) {
+    private IgPost takePost(BlockingDeque<IgPost> posts) {
         try {
             return posts.takeFirst();
         } catch (InterruptedException e) {

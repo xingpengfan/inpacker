@@ -1,11 +1,11 @@
 package inpacker.web;
 
 import inpacker.core.Service;
-import inpacker.core.InstagramUserProvider;
+import inpacker.instagram.IgUserProvider;
 import inpacker.core.Repository;
 import inpacker.core.Packer;
 import inpacker.instagram.ServiceImpl;
-import inpacker.instagram.InstagramUserProviderImpl;
+import inpacker.instagram.IgUserProviderImpl;
 import inpacker.instagram.IgRepository;
 import inpacker.instagram.ZipPacker;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,7 @@ public class AppConfig {
     }
 
     @Bean
-    public InstagramUserProvider instagramUserProvider() {
-        return new InstagramUserProviderImpl();
+    public IgUserProvider instagramUserProvider() {
+        return new IgUserProviderImpl();
     }
 }

@@ -1,8 +1,6 @@
 package inpacker.instagram;
 
-import inpacker.core.PackItem;
-
-public class InstagramPost implements PackItem {
+public class IgPost {
 
     public final String username;
     public final String url;
@@ -10,7 +8,7 @@ public class InstagramPost implements PackItem {
     public final String type;
     public final String id;
 
-    public InstagramPost(String username, String url, long createdTime, String type, String id) {
+    public IgPost(String username, String url, long createdTime, String type, String id) {
         this.username = username;
         this.url = url;
         this.createdTime = createdTime;
@@ -28,15 +26,5 @@ public class InstagramPost implements PackItem {
 
     public String extension() {
         return isVideo() ? ".mp4" : isImage() ? ".jpg" : "";
-    }
-
-    @Override
-    public String getUrl() {
-        return url;
-    }
-
-    @Override
-    public String getFileName() {
-        return id + extension();
     }
 }

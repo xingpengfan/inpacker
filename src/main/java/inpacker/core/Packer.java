@@ -1,16 +1,14 @@
 package inpacker.core;
 
-import inpacker.instagram.InstagramPost;
-
 import java.io.File;
 import java.util.concurrent.BlockingDeque;
 import java.util.function.Consumer;
 
-public interface Packer {
+public interface Packer<T extends PackItem> {
 
-    void pack(BlockingDeque<InstagramPost> postsDeque,
+    void pack(BlockingDeque<T> postsDeque,
               File packPath,
-              Consumer<InstagramPost> newItemSuccess,
-              Consumer<InstagramPost> newItemFail,
+              Consumer<T> newItemSuccess,
+              Consumer<T> newItemFail,
               Runnable done);
 }

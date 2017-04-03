@@ -1,9 +1,9 @@
 package inpacker.web.controller;
 
 import inpacker.core.Service;
-import inpacker.core.InstagramUserProvider;
+import inpacker.instagram.IgUserProvider;
 import inpacker.instagram.IgPackConfig;
-import inpacker.instagram.InstagramUser;
+import inpacker.instagram.IgUser;
 import inpacker.instagram.Pack;
 import inpacker.web.dto.IgPackConfigDto;
 import inpacker.web.dto.MessageResponse;
@@ -29,17 +29,17 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class InpackerController {
 
     private final Service service;
-    private final InstagramUserProvider userProvider;
+    private final IgUserProvider userProvider;
 
                                      @Autowired
-    public InpackerController(Service service, InstagramUserProvider userProvider) {
+    public InpackerController(Service service, IgUserProvider userProvider) {
         this.service = service;
         this.userProvider = userProvider;
     }
 
     @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUser(@PathVariable String username) {
-        final InstagramUser user = userProvider.getInstagramUser(username);
+        final IgUser user = userProvider.getInstagramUser(username);
         if (user == null)
             return status(404).body(new MessageResponse("not found"));
         else

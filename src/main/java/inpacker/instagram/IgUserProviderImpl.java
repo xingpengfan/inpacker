@@ -1,7 +1,5 @@
 package inpacker.instagram;
 
-import inpacker.core.InstagramUserProvider;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -14,18 +12,18 @@ import org.asynchttpclient.Response;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class InstagramUserProviderImpl implements InstagramUserProvider {
+public class IgUserProviderImpl implements IgUserProvider {
 
     private AsyncHttpClient asyncHttpClient;
     private JsonParser parser;
 
-    public InstagramUserProviderImpl() {
+    public IgUserProviderImpl() {
         asyncHttpClient = new DefaultAsyncHttpClient();
         parser = new JsonParser();
     }
 
     @Override
-    public InstagramUser getInstagramUser(String username) {
+    public IgUser getInstagramUser(String username) {
         Objects.requireNonNull(username, "username is null");
         if (!isValidUsername(username)) {
             throw new IllegalArgumentException("username is empty");
@@ -45,9 +43,9 @@ public class InstagramUserProviderImpl implements InstagramUserProvider {
             return parseUser(response.getResponseBody());
     }
 
-    private InstagramUser parseUser(String json) {
+    private IgUser parseUser(String json) {
         final JsonObject uj = parser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
-        final InstagramUser user = new InstagramUser();
+        final IgUser user = new IgUser();
         user.instagramId = uj.get("id").getAsString();
         user.username = uj.get("username").getAsString();
         user.isPrivate = uj.get("is_private").getAsBoolean();

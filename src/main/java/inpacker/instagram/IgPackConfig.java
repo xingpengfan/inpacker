@@ -1,9 +1,10 @@
 package inpacker.instagram;
 
-import java.util.Objects;
-import java.util.function.Predicate;
+import inpacker.core.PackConfig;
 
-public class IgPackConfig implements Predicate<InstagramPost> {
+import java.util.Objects;
+
+public class IgPackConfig implements PackConfig<IgPackItem> {
 
     public final String username;
     public final boolean includeProfilePicture;
@@ -21,7 +22,8 @@ public class IgPackConfig implements Predicate<InstagramPost> {
     }
 
     @Override
-    public boolean test(InstagramPost post) {
+    public boolean test(IgPackItem packItem) {
+        final IgPost post = packItem.getPost();
         return post.isImage() && includeImages || post.isVideo() && includeVideos;
     }
 
