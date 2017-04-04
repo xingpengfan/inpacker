@@ -13,4 +13,12 @@ public interface Packer<T extends PackItem> {
               Consumer<T> newItemFail,
               Runnable done,
               Runnable failed);
+
+    default void pack(BlockingDeque<T> itemsDeque, File packDir, Pack pack) {
+        pack(itemsDeque, packDir, pack.getName(),
+                pack::newSuccessItem,
+                pack::newFailedItem,
+                pack::done,
+                pack::failed);
+    }
 }

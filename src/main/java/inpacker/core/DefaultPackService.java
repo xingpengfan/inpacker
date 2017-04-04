@@ -29,11 +29,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
         final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
         executorService.submit(() -> repository.getPackItems(config, deque));
         pack.processing();
-        executorService.submit(() -> packer.pack(deque, packsDir, packName,
-                pack::newSuccessItem,
-                pack::newFailedItem,
-                pack::done,
-                pack::failed));
+        executorService.submit(() -> packer.pack(deque, packsDir, pack));
         return packName;
     }
 
