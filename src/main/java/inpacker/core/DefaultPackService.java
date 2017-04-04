@@ -2,9 +2,7 @@ package inpacker.core;
 
 import java.io.File;
 import java.util.Map;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.*;
 
 public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
 
@@ -12,6 +10,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
     private final Packer<I> packer;
     private final Map<String, Pack> packs;
     private final File packsDir;
+    private final ExecutorService executorService;
 
     public DefaultPackService(File packsDirectory, Repository<C, I> repository, Packer<I> packer) {
         packs = new ConcurrentHashMap<>();
@@ -19,6 +18,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
         this.packer = packer;
         packsDir = packsDirectory;
         packsDir.mkdirs();
+        this.executorService = Executors.newCachedThreadPool();
     }
 
     public String createPack(C config) {
@@ -27,13 +27,13 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
         final Pack pack = new Pack(packName);
         packs.put(packName, pack);
         final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
-        new Thread(() -> repository.getPackItems(config, deque)).start();
+        executorService.submit(() -> repository.getPackItems(config, deque));
         pack.processing();
-        new Thread(() -> packer.pack(deque, packsDir, packName,
+        executorService.submit(() -> packer.pack(deque, packsDir, packName,
                 pack::newSuccessItem,
                 pack::newFailedItem,
                 pack::done,
-                pack::failed)).start();
+                pack::failed));
         return packName;
     }
 

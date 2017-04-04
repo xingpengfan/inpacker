@@ -35,6 +35,7 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
             }
         } catch (IOException e) {
             failed.run();
+            return;
         }
         done.run();
     }

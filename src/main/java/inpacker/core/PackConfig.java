@@ -2,7 +2,10 @@ package inpacker.core;
 
 import java.util.function.Predicate;
 
-public interface PackConfig<T extends PackItem> extends Predicate<T> {
+public interface PackConfig<I extends PackItem> extends Predicate<I> {
+
+    @Override
+    boolean test(I item);
 
     String getPackName();
 }
