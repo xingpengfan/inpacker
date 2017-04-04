@@ -156,7 +156,6 @@
             username: ac.user.username,
             includeImages: true,
             includeVideos: true,
-            includeProfilePicture: true,
             fileNamePattern: 'index'
         };
         vm.preview = preview;
@@ -233,7 +232,7 @@
         function activate() {
             vm.showProgressBar = isPossibleToShowProgressBar();
             if (vm.showProgressBar)
-                vm.totalItemsAmount = ac.packSettings.includeProfilePicture ? ac.user.count + 1 : ac.user.count;
+                vm.totalItemsAmount = ac.user.count;
             else
                 vm.totalItemsAmount = -1;
             if (ac.pack.ready)

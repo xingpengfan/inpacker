@@ -2,12 +2,18 @@ package inpacker.instagram;
 
 import inpacker.core.PackItem;
 
+import java.util.function.BiFunction;
+
 public class IgPackItem implements PackItem {
 
     private final IgPost post;
+    private final int index;
+    private final BiFunction<Integer, IgPost, String> fileNameCreator;
 
-    public IgPackItem(IgPost post) {
+    public IgPackItem(IgPost post, int index, BiFunction<Integer, IgPost, String> fileNameCreator) {
         this.post = post;
+        this.index = index;
+        this.fileNameCreator = fileNameCreator;
     }
 
     public IgPost getPost() {
@@ -21,6 +27,6 @@ public class IgPackItem implements PackItem {
 
     @Override
     public String getFileName() {
-        return post.id + post.extension();
+        return fileNameCreator.apply(index, post);
     }
 }

@@ -87,8 +87,7 @@
         <div ng-if="ac.view === 'settings'" ng-controller="SettingsController as sc">
             <div class="lighter-bg regular-font primary-content-block">
                 <div class="col-md-5 user-pic">
-                    <img class="col-md-12 img-circle" src="" ng-style="{'opacity': sc.settings.includeProfilePicture ? 1 : 0.6}"
-                         ng-src="{{ sc.userPicUrl }}">
+                    <img class="col-md-12 img-circle" src="" ng-src="{{ sc.userPicUrl }}">
                 </div>
                 <div class="col-md-7">
                     <p class="red-font" ng-show="ac.user.isPrivate">
@@ -121,11 +120,6 @@
                             <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeVideos">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">videos</span>
-                        </label>
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" ng-model="sc.settings.includeProfilePicture">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">profile picture</span>
                         </label>
                         <p class="passive-font">File names:</p>
                         <label class="custom-control custom-radio">

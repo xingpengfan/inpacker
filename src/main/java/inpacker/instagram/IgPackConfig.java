@@ -3,22 +3,23 @@ package inpacker.instagram;
 import inpacker.core.PackConfig;
 
 import java.util.Objects;
+import java.util.function.BiFunction;
 
 public class IgPackConfig implements PackConfig<IgPackItem> {
 
     public final String username;
-    public final boolean includeProfilePicture;
     public final boolean includeVideos;
     public final boolean includeImages;
     public final int amount;
+    public final BiFunction<Integer, IgPost, String> fileNameCreator;
 
-    public IgPackConfig(String username, boolean includeProfilePicture,
-                        boolean includeVideos, boolean includeImages, int amount) {
+    public IgPackConfig(String username, boolean includeVideos, boolean includeImages,
+                        int amount, BiFunction<Integer, IgPost, String> itemFilenameCreator) {
         this.username = username;
-        this.includeProfilePicture = includeProfilePicture;
         this.includeVideos = includeVideos;
         this.includeImages = includeImages;
         this.amount = amount;
+        this.fileNameCreator = itemFilenameCreator;
     }
 
     @Override
@@ -41,21 +42,21 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
             return false;
         }
         final IgPackConfig that = (IgPackConfig) obj;
-        return includeProfilePicture == that.includeProfilePicture
-                && includeVideos == that.includeVideos
+        return includeVideos == that.includeVideos
                 && includeImages == that.includeImages
                 && amount == that.amount
-                && Objects.equals(username, that.username);
+                && Objects.equals(username, that.username)
+                && Objects.equals(fileNameCreator, that.fileNameCreator);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(username);
-        hash = 31 * hash + Boolean.hashCode(includeProfilePicture);
         hash = 31 * hash + Boolean.hashCode(includeVideos);
         hash = 31 * hash + Boolean.hashCode(includeImages);
         hash = 31 * hash + amount;
+        hash = 31 * hash + Objects.hashCode(fileNameCreator);
         return hash;
     }
 }

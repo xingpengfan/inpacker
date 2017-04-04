@@ -47,19 +47,19 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
             moreAvailable = respJson.get("more_available").getAsBoolean();
             final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
             final List<IgPost> posts = retrieveItems(itemsJsonArray);
-            if (conf.includeProfilePicture && packedItemsAmount == 0)
-                deque.addLast(new IgPackItem(profilePicturePost(itemsJsonArray.get(0).getAsJsonObject())));
+//            if (conf.includeProfilePicture && packedItemsAmount == 0)
+//                deque.addLast(new IgPackItem(profilePicturePost(itemsJsonArray.get(0).getAsJsonObject()), packedItemsAmount+1,conf.fileNameCreator));
             for (IgPost post: posts) {
-                final IgPackItem item = new IgPackItem(post);
+                final IgPackItem item = new IgPackItem(post, packedItemsAmount+1,conf.fileNameCreator);
                 if (conf.test(item)) {
-                    deque.addLast(new IgPackItem(post));
+                    deque.addLast(item);
                     if (++packedItemsAmount >= conf.amount) break;
                 }
             }
             query = "?max_id=" + posts.get(posts.size()-1).id;
         } while (moreAvailable && packedItemsAmount < conf.amount);
         final IgPost last = new IgPost("end", "end", 0, "end", "end");
-        deque.addLast(new IgPackItem(last));
+        deque.addLast(new IgPackItem(last, packedItemsAmount, (i, p) -> "end"));
     }
 
     private void retrieveUrls(JsonArray items, BlockingDeque<String> deque) {
