@@ -1,32 +1,25 @@
 package inpacker.web;
 
-import inpacker.core.Service;
-import inpacker.instagram.IgUserProvider;
-import inpacker.core.Repository;
-import inpacker.core.Packer;
-import inpacker.instagram.ServiceImpl;
-import inpacker.instagram.IgUserProviderImpl;
-import inpacker.instagram.IgRepository;
-import inpacker.instagram.ZipPacker;
+import inpacker.core.*;
+import inpacker.instagram.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.io.File;
 
 @Configuration
 public class AppConfig {
 
-    @Bean
-    public Service service() {
-        return new ServiceImpl(mediaProvider(), packer());
+    private static final File packsDir = new File("/app/tmp/");
+
+    @Bean("ig")
+    public DefaultPackService<IgPackConfig, IgPackItem> defaultPackService() {
+        return new DefaultPackService<>(packsDir, igRepository());
     }
 
     @Bean
-    public Repository mediaProvider() {
+    public Repository<IgPackConfig, IgPackItem> igRepository() {
         return new IgRepository();
-    }
-
-    @Bean
-    public Packer packer() {
-        return new ZipPacker();
     }
 
     @Bean

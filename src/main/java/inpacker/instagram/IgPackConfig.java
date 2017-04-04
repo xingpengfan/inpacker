@@ -28,6 +28,11 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
     }
 
     @Override
+    public String getPackName() {
+        return username + "_" + hashCode();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

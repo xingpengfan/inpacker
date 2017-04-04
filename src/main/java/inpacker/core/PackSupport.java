@@ -59,7 +59,7 @@ public class PackSupport {
         done.run();
     }
 
-    private static boolean addItemToZip(PackItem item, ZipOutputStream zos) {
+    public static boolean addItemToZip(PackItem item, ZipOutputStream zos) {
         try {
             zos.putNextEntry(new ZipEntry(item.getFileName()));
             saveFromUrl(zos, item.getUrl());

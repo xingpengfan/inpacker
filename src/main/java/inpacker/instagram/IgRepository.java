@@ -28,7 +28,7 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
     }
 
     @Override
-    public void getInstagramPosts(IgPackConfig conf, BlockingDeque<IgPackItem> deque) {
+    public void getPackItems(IgPackConfig conf, BlockingDeque<IgPackItem> deque) {
         JsonObject respJson;
         boolean moreAvailable;
         String query = "";
