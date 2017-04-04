@@ -25,21 +25,21 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-public class InpackerController {
+public class InstagramController {
 
-    private final IgUserProvider userProvider;
     private final DefaultPackService<IgPackConfig, IgPackItem> defaultPackService;
+    private final IgRepository instagramRepository;
 
     @Autowired
-    public InpackerController(IgUserProvider userProvider,
-                              @Qualifier("ig") DefaultPackService<IgPackConfig, IgPackItem> defaultPackService) {
-        this.userProvider = userProvider;
+    public InstagramController(@Qualifier("ig") DefaultPackService<IgPackConfig, IgPackItem> defaultPackService,
+                               IgRepository instagramRepository) {
         this.defaultPackService = defaultPackService;
+        this.instagramRepository = instagramRepository;
     }
 
     @RequestMapping(value = "api/user/{username:.+}", method = GET)
     public ResponseEntity<?> getUser(@PathVariable String username) {
-        final IgUser user = userProvider.getInstagramUser(username);
+        final IgUser user = instagramRepository.getInstagramUser(username);
         if (user == null)
             return status(404).body(new MessageResponse("not found"));
         else

@@ -31,9 +31,4 @@ public class AppConfig {
     public Repository<IgPackConfig, IgPackItem> igRepository() {
         return new IgRepository();
     }
-
-    @Bean
-    public IgUserProvider instagramUserProvider() {
-        return new IgUserProviderImpl();
-    }
 }

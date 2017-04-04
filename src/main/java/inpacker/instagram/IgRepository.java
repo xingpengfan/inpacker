@@ -1,5 +1,6 @@
 package inpacker.instagram;
 
+import com.google.gson.JsonElement;
 import inpacker.core.Repository;
 
 import com.google.gson.JsonArray;
@@ -13,6 +14,7 @@ import org.asynchttpclient.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ExecutionException;
 
@@ -45,7 +47,7 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
             respJson = jsonParser.parse(response.getResponseBody()).getAsJsonObject();
             moreAvailable = respJson.get("more_available").getAsBoolean();
             final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
-            final List<IgPost> posts = retrieveItems(itemsJsonArray);
+            final List<IgPost> posts = parseItems(itemsJsonArray);
             for (IgPost post: posts) {
                 final IgPackItem item = new IgPackItem(post, packedItemsAmount+1,conf.fileNameCreator);
                 if (conf.test(item)) {
@@ -59,16 +61,12 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
         deque.addLast(new IgPackItem(last, packedItemsAmount, (i, p) -> "end"));
     }
 
-    private List<IgPost> retrieveItems(JsonArray jsonItems) {
-
-        List<IgPost> items = new ArrayList<>(jsonItems.size());
-        for (int i = 0; i < jsonItems.size(); i++) {
-            final JsonObject jsonItem = jsonItems.get(i).getAsJsonObject();
+    private List<IgPost> parseItems(JsonArray itemsJsonArr) {
+        List<IgPost> items = new ArrayList<>(itemsJsonArr.size());
+        for (int i = 0; i < itemsJsonArr.size(); i++) {
             try {
-                items.add(parseItem(jsonItem));
-            } catch (RuntimeException parseItemException) {
-                System.out.println("Parse item exception: " + parseItemException.getMessage());
-            }
+                items.add(parseItem(itemsJsonArr.get(i).getAsJsonObject()));
+            } catch (RuntimeException parseItemException) {} // fixme
         }
         return items;
     }
@@ -91,6 +89,39 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
 
     private String getUrl(String username, String queryString) {
         return String.format("https://www.instagram.com/%s/media/%s", username, queryString);
+    }
+
+    public IgUser getInstagramUser(String username) {
+        Objects.requireNonNull(username, "username is null");
+        final Response response;
+        final String url = String.format("https://www.instagram.com/%s/?__a=1", username);
+        final ListenableFuture<Response> f = asyncHttpClient.prepareGet(url).execute();
+        try {
+            response = f.get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+        if (response.getStatusCode() != 200)
+            return null;
+        else
+            return parseUser(response.getResponseBody());
+    }
+
+    private IgUser parseUser(String json) {
+        final JsonObject uj = jsonParser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
+        final IgUser user = new IgUser();
+        user.instagramId = uj.get("id").getAsString();
+        user.username = uj.get("username").getAsString();
+        user.isPrivate = uj.get("is_private").getAsBoolean();
+        final JsonElement fullName = uj.get("full_name");
+        user.fullName = fullName.isJsonNull() ? user.username : fullName.getAsString();
+        final JsonElement biography = uj.get("biography");
+        user.biography = biography.isJsonNull() ? "" : biography.getAsString();
+        user.profilePic = uj.get("profile_pic_url_hd").getAsString();
+        user.count = uj.get("media").getAsJsonObject().get("count").getAsInt();
+        user.isVerified = uj.get("is_verified").getAsBoolean();
+        return user;
     }
 
 }
