@@ -51,14 +51,14 @@ public class InpackerController {
         final IgPackConfig config = configDto.getIgPackConfig();
         final String packName = defaultPackService.createPack(config);
         final Pack pack = defaultPackService.getPack(packName);
-        return ok(new PackStatusResponse(packName, pack.isDone(), pack.addedItemsAmount()));
+        return ok(new PackStatusResponse(pack));
     }
 
     @RequestMapping(value = "api/pack/{packName:.+}/status", method = GET)
     public ResponseEntity<?> getPackStatus(@PathVariable String packName) {
         final Pack pack = defaultPackService.getPack(packName);
         if (pack == null) return status(HttpStatus.NOT_FOUND).body(new MessageResponse("pack not found"));
-        else return ok(new PackStatusResponse(packName, pack.isDone(), pack.addedItemsAmount()));
+        else return ok(new PackStatusResponse(pack));
     }
 
     @RequestMapping(value = "packs/{packName:.+}.zip", method = GET, produces = "application/zip")

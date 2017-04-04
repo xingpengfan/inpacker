@@ -24,7 +24,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
     public String createPack(C config) {
         final String packName = config.getPackName();
         if (packs.get(packName) != null) return packName;
-        final Pack pack = new Pack();
+        final Pack pack = new Pack(packName);
         packs.put(packName, pack);
         final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
         new Thread(() -> repository.getPackItems(config, deque)).start();

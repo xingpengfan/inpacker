@@ -1,6 +1,5 @@
 package inpacker.core;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +7,20 @@ import static inpacker.core.PackStatus.*;
 
 public class Pack {
 
+    private final String name;
     private PackStatus status;
     private final List<PackItem> addedItems;
     private final List<PackItem> failedItems;
 
-    public Pack() {
+    public Pack(String packName) {
+        name = packName;
         status = PackStatus.INITIATED;
         addedItems = new ArrayList<>();
         failedItems = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public PackStatus getStatus() {
