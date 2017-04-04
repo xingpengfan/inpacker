@@ -5,9 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.BlockingDeque;
 import java.util.function.Consumer;
-import java.util.zip.ZipOutputStream;
 
-public class ZipPacker<I extends PackItem> implements Packer<I> {
+public class DirPacker<I extends PackItem> implements Packer<I> {
 
     @Override
     public void pack(BlockingDeque<I> itemsDeque,
@@ -17,24 +16,26 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
                      Consumer<I> newItemFail,
                      Runnable done,
                      Runnable failed) {
-        try (final ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(new File(packDir, packName + ".zip")))) {
-            I item = takeItem(itemsDeque);
-            if (item == null) {
-                failed.run();
-                return;
-            }
-            while (!item.getFileName().equals("end")) {
-                final boolean added = PackSupport.addItemToZip(item, zos);
-                if (added) newItemSuccess.accept(item);
-                else newItemFail.accept(item);
+        final File dir = new File(packDir, packName);
+        dir.mkdirs();
+        I item = takeItem(itemsDeque);
+        if (item == null) {
+            failed.run();
+            return;
+        }
+        while (!item.getFileName().equals("end")) {
+            try {
+                final File itemFile = new File(dir, item.getFileName());
+                PackSupport.saveFromUrl(new FileOutputStream(itemFile), item.getUrl());
+                newItemSuccess.accept(item);
                 item = takeItem(itemsDeque);
                 if (item == null) {
                     failed.run();
                     return;
                 }
+            } catch (IOException e) {
+                newItemFail.accept(item);
             }
-        } catch (IOException e) {
-            failed.run();
         }
         done.run();
     }

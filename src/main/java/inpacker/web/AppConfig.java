@@ -14,7 +14,17 @@ public class AppConfig {
 
     @Bean("ig")
     public DefaultPackService<IgPackConfig, IgPackItem> defaultPackService() {
-        return new DefaultPackService<>(packsDir, igRepository());
+        return new DefaultPackService<>(packsDir, igRepository(), igZipPacker());
+    }
+
+    @Bean("igZipPacker")
+    public Packer<IgPackItem> igZipPacker() {
+        return new ZipPacker<>();
+    }
+
+    @Bean("igDirPacker")
+    public Packer<IgPackItem> igDirPacker() {
+        return new DirPacker<>();
     }
 
     @Bean
