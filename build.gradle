@@ -17,6 +17,7 @@ dependencies {
     compile group: 'org.asynchttpclient', name: 'async-http-client', version: '2.0.29'
 
     testCompile 'org.testng:testng:6.9.13.8'
+    testCompile 'org.mockito:mockito-core:2.+'
 }
 
 test.useTestNG()

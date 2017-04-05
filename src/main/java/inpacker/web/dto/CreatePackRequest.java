@@ -4,12 +4,13 @@ import inpacker.instagram.IgPackConfig;
 
 import com.google.gson.annotations.SerializedName;
 import inpacker.instagram.IgPost;
+import inpacker.instagram.IgUser;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.function.BiFunction;
 
-public class IgPackConfigDto {
+public class CreatePackRequest {
 
     @SerializedName("username")
     public String username;
@@ -23,8 +24,8 @@ public class IgPackConfigDto {
     @SerializedName("fileNamePattern")
     public String fileNamePattern;
 
-    public IgPackConfig getIgPackConfig() {
-        return new IgPackConfig(username, includeVideos, includeImages, 1500, getFileNameCreator());
+    public IgPackConfig getIgPackConfig(IgUser user) {
+        return new IgPackConfig(user, includeVideos, includeImages, getFileNameCreator());
     }
 
     private BiFunction<Integer, IgPost, String> getFileNameCreator() {

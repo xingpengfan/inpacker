@@ -2,7 +2,7 @@ package inpacker.web.controller;
 
 import inpacker.core.*;
 import inpacker.instagram.*;
-import inpacker.web.dto.IgPackConfigDto;
+import inpacker.web.dto.CreatePackRequest;
 import inpacker.web.dto.MessageResponse;
 
 import inpacker.web.dto.PackStatusResponse;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.File;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -41,24 +42,28 @@ public class InstagramController {
     public ResponseEntity<?> getUser(@PathVariable String username) {
         final IgUser user = instagramRepository.getInstagramUser(username);
         if (user == null)
-            return status(404).body(new MessageResponse("not found"));
+            return status(NOT_FOUND).body(MessageResponse.userNotFound(username));
         else
             return ok(user);
     }
 
     @RequestMapping(value = "api/packs", method = POST)
-    public ResponseEntity<PackStatusResponse> createPack(@RequestBody IgPackConfigDto configDto) {
-        final IgPackConfig config = configDto.getIgPackConfig();
-        final String packName = defaultPackService.createPack(config);
-        final Pack pack = defaultPackService.getPack(packName);
+    public ResponseEntity<?> createPack(@RequestBody CreatePackRequest req) {
+        final IgUser user = instagramRepository.getInstagramUser(req.username);
+        if (user == null)
+            return status(NOT_FOUND).body(MessageResponse.userNotFound(req.username));
+        final IgPackConfig config = req.getIgPackConfig(user);
+        final Pack pack = defaultPackService.createPack(config);
         return ok(new PackStatusResponse(pack));
     }
 
     @RequestMapping(value = "api/pack/{packName:.+}/status", method = GET)
     public ResponseEntity<?> getPackStatus(@PathVariable String packName) {
         final Pack pack = defaultPackService.getPack(packName);
-        if (pack == null) return status(HttpStatus.NOT_FOUND).body(new MessageResponse("pack not found"));
-        else return ok(new PackStatusResponse(pack));
+        if (pack == null)
+            return status(NOT_FOUND).body(MessageResponse.packNotFound(packName));
+        else
+            return ok(new PackStatusResponse(pack));
     }
 
     @RequestMapping(value = "packs/{packName:.+}.zip", method = GET, produces = "application/zip")

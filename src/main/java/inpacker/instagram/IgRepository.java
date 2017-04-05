@@ -36,7 +36,7 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
         int packedItemsAmount = 0;
         do {
             final ListenableFuture<Response> f =
-                    asyncHttpClient.prepareGet(getUrl(conf.username, query)).execute();
+                    asyncHttpClient.prepareGet(getUrl(conf.user.username, query)).execute();
             final Response response;
             try {
                 response = f.get();

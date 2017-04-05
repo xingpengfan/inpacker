@@ -21,16 +21,16 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
         this.executorService = Executors.newCachedThreadPool();
     }
 
-    public String createPack(C config) {
+    public Pack createPack(C config) {
         final String packName = config.getPackName();
-        if (packs.get(packName) != null) return packName;
+        if (packs.containsKey(packName)) return packs.get(packName);
         final Pack pack = new Pack(packName);
         packs.put(packName, pack);
         final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
         executorService.submit(() -> repository.getPackItems(config, deque));
         pack.processing();
         executorService.submit(() -> packer.pack(deque, packsDir, pack));
-        return packName;
+        return pack;
     }
 
     public Pack getPack(String packName) {
