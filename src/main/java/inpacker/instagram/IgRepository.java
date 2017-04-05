@@ -13,9 +13,9 @@ import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.ExecutionException;
 
 public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
@@ -29,7 +29,7 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
     }
 
     @Override
-    public void getPackItems(IgPackConfig conf, BlockingDeque<IgPackItem> deque) {
+    public void getPackItems(IgPackConfig conf, Collection<IgPackItem> items) {
         JsonObject respJson;
         boolean moreAvailable;
         String query = "";
@@ -51,14 +51,14 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
             for (IgPost post: posts) {
                 final IgPackItem item = new IgPackItem(post, packedItemsAmount+1,conf.fileNameCreator);
                 if (conf.test(item)) {
-                    deque.addLast(item);
+                    items.add(item);
                     if (++packedItemsAmount >= conf.amount) break;
                 }
             }
             query = "?max_id=" + posts.get(posts.size()-1).id;
         } while (moreAvailable && packedItemsAmount < conf.amount);
         final IgPost last = new IgPost("end", "end", 0, "end", "end");
-        deque.addLast(new IgPackItem(last, packedItemsAmount, (i, p) -> "end"));
+        items.add(new IgPackItem(last, packedItemsAmount, (i, p) -> "end"));
     }
 
     private List<IgPost> parseItems(JsonArray itemsJsonArr) {

@@ -3,7 +3,7 @@
 
     angular.module('inpacker', []);
 
-    angular.module('inpacker').constant('CHECK_STATUS_INTERVAL', 3000);
+    angular.module('inpacker').constant('CHECK_STATUS_INTERVAL', 2000);
 
     angular.module('inpacker').controller('AppController', AppController);
 

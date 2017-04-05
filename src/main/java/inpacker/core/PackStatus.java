@@ -2,9 +2,6 @@ package inpacker.core;
 
 public enum PackStatus {
 
-    INITIATED,
-    PROCESSING,
-    DONE,
-    FAILED
+    INITIATED, PROCESSING, DONE, FAILED
 
 }
