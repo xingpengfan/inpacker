@@ -10,14 +10,14 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
 
     @Override
     public void pack(BlockingDeque<I> itemsDeque,
-                     File packDir,
+                     File packsDir,
                      String packId,
                      Consumer<I> newItemSuccess,
                      Consumer<I> newItemFail,
-                     Runnable done,
+                     Consumer<File> done,
                      Runnable failed) {
-        final File dir = new File(packDir, packId);
-        dir.mkdirs();
+        final File packDir = new File(packsDir, packId);
+        packDir.mkdirs();
         I item = takeItem(itemsDeque);
         if (item == null) {
             failed.run();
@@ -25,7 +25,7 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
         }
         while (!item.getFileName().equals("end")) {
             try {
-                final File itemFile = new File(dir, item.getFileName());
+                final File itemFile = new File(packDir, item.getFileName());
                 PackSupport.saveFromUrl(new FileOutputStream(itemFile), item.getUrl());
                 newItemSuccess.accept(item);
                 item = takeItem(itemsDeque);
@@ -37,7 +37,7 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
                 newItemFail.accept(item);
             }
         }
-        done.run();
+        done.accept(packDir);
     }
 
     private I takeItem(BlockingDeque<I> deque) {

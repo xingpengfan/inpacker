@@ -36,10 +36,4 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> imp
     public Pack getPack(String packId) {
         return packs.get(packId);
     }
-
-    public File getPackFile(String packId) {
-        final Pack pack = packs.get(packId);
-        if (pack == null || !pack.isDone()) return null;
-        else return new File(packsDir, packId + ".zip");
-    }
 }

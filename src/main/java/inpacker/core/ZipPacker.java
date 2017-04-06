@@ -11,13 +11,14 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
 
     @Override
     public void pack(BlockingDeque<I> itemsDeque,
-                     File packDir,
+                     File packsDir,
                      String packId,
                      Consumer<I> newItemSuccess,
                      Consumer<I> newItemFail,
-                     Runnable done,
+                     Consumer<File> done,
                      Runnable failed) {
-        try (final ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(new File(packDir, packId + ".zip")))) {
+        final File packFile = new File(packsDir, packId + ".zip");
+        try (final ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(packFile))) {
             I item = takeItem(itemsDeque);
             if (item == null) {
                 failed.run();
@@ -37,7 +38,7 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
             failed.run();
             return;
         }
-        done.run();
+        done.accept(packFile);
     }
 
     private I takeItem(BlockingDeque<I> deque) {

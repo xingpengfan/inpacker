@@ -7,11 +7,11 @@ import java.util.function.Consumer;
 public interface Packer<T extends PackItem> {
 
     void pack(BlockingDeque<T> itemsDeque,
-              File packDir,
+              File packsDir,
               String packId,
               Consumer<T> newItemSuccess,
               Consumer<T> newItemFail,
-              Runnable done,
+              Consumer<File> done,
               Runnable failed);
 
     default void pack(BlockingDeque<T> itemsDeque, File packDir, Pack pack) {

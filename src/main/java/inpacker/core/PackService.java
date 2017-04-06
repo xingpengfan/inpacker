@@ -6,5 +6,8 @@ public interface PackService<C extends PackConfig<I>, I extends PackItem> {
 
     Pack getPack(String packId);
 
-    java.io.File getPackFile(String packId);
+    default java.io.File getPackFile(String packId) {
+        final Pack pack = getPack(packId);
+        return pack == null ? null : pack.getPackFile();
+    }
 }
