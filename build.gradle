@@ -23,5 +23,5 @@ dependencies {
 test.useTestNG()
 
 springBoot {
-    mainClass = "inpacker.web.InpackerWebApp"
+    mainClass = "inpacker.web.InpackerApp"
 }
