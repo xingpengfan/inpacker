@@ -19,6 +19,10 @@ public class MessageResponse {
         return new MessageResponse(format("pack '%s' not found", pack));
     }
 
+    public static MessageResponse invalidCreatePackRequestBody() {
+        return new MessageResponse("bad create pack request body");
+    }
+
     private MessageResponse(String msg) {
         message = msg;
     }

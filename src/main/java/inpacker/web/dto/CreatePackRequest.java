@@ -24,7 +24,17 @@ public class CreatePackRequest {
     @SerializedName("fileNamePattern")
     public String fileNamePattern;
 
-    public IgPackConfig getIgPackConfig(IgUser user) {
+    public CreatePackRequest() {}
+
+    public CreatePackRequest(String username, boolean includeVideos,
+                             boolean includeImages, String fileNamePattern) {
+        this.username = username;
+        this.includeVideos = includeVideos;
+        this.includeImages = includeImages;
+        this.fileNamePattern = fileNamePattern;
+    }
+
+    public IgPackConfig toIgPackConfig(IgUser user) {
         return new IgPackConfig(user, includeVideos, includeImages, getFileNameCreator());
     }
 

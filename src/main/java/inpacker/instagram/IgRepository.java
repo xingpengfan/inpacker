@@ -110,18 +110,17 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
 
     private IgUser parseUser(String json) {
         final JsonObject uj = jsonParser.parse(json).getAsJsonObject().get("user").getAsJsonObject();
-        final IgUser user = new IgUser();
-        user.instagramId = uj.get("id").getAsString();
-        user.username = uj.get("username").getAsString();
-        user.isPrivate = uj.get("is_private").getAsBoolean();
-        final JsonElement fullName = uj.get("full_name");
-        user.fullName = fullName.isJsonNull() ? user.username : fullName.getAsString();
-        final JsonElement biography = uj.get("biography");
-        user.biography = biography.isJsonNull() ? "" : biography.getAsString();
-        user.profilePic = uj.get("profile_pic_url_hd").getAsString();
-        user.count = uj.get("media").getAsJsonObject().get("count").getAsInt();
-        user.isVerified = uj.get("is_verified").getAsBoolean();
-        return user;
+        String id = uj.get("id").getAsString();
+        String username = uj.get("username").getAsString();
+        boolean isPrivate = uj.get("is_private").getAsBoolean();
+        final JsonElement fullNameEl = uj.get("full_name");
+        String fullName = fullNameEl.isJsonNull() ? username : fullNameEl.getAsString();
+        final JsonElement biographyEl = uj.get("biography");
+        String biography = biographyEl.isJsonNull() ? "" : biographyEl.getAsString();
+        String profilePic = uj.get("profile_pic_url_hd").getAsString();
+        int count = uj.get("media").getAsJsonObject().get("count").getAsInt();
+        boolean isVerified = uj.get("is_verified").getAsBoolean();
+        return new IgUser(id, username, isPrivate, fullName, biography, profilePic, count, isVerified);
     }
 
 }
