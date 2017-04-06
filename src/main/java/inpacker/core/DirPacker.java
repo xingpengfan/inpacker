@@ -11,12 +11,12 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
     @Override
     public void pack(BlockingDeque<I> itemsDeque,
                      File packDir,
-                     String packName,
+                     String packId,
                      Consumer<I> newItemSuccess,
                      Consumer<I> newItemFail,
                      Runnable done,
                      Runnable failed) {
-        final File dir = new File(packDir, packName);
+        final File dir = new File(packDir, packId);
         dir.mkdirs();
         I item = takeItem(itemsDeque);
         if (item == null) {

@@ -35,7 +35,7 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
     }
 
     @Override
-    public String getPackName() {
+    public String getUniqueId() {
         return user.username + "_" + hashCode();
     }
 

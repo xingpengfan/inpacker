@@ -37,8 +37,8 @@ public class AppConfig {
         };
     }
 
-    @Bean("ig")
-    public DefaultPackService<IgPackConfig, IgPackItem> defaultPackService() {
+    @Bean("igPackService")
+    public PackService<IgPackConfig, IgPackItem> packService() {
         return new DefaultPackService<>(packsDir, igRepository(), igZipPacker());
     }
 

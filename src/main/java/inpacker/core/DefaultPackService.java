@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.concurrent.*;
 
-public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
+public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> implements PackService<C, I> {
 
     private final Repository<C, I> repository;
     private final Packer<I> packer;
@@ -22,10 +22,10 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
     }
 
     public Pack createPack(C config) {
-        final String packName = config.getPackName();
-        if (packs.containsKey(packName)) return packs.get(packName);
-        final Pack pack = new Pack(packName);
-        packs.put(packName, pack);
+        final String id = config.getUniqueId();
+        if (packs.containsKey(id)) return packs.get(id);
+        final Pack pack = new Pack(id);
+        packs.put(id, pack);
         final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
         executorService.submit(() -> repository.getPackItems(config, deque));
         pack.processing();
@@ -33,13 +33,13 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> {
         return pack;
     }
 
-    public Pack getPack(String packName) {
-        return packs.get(packName);
+    public Pack getPack(String packId) {
+        return packs.get(packId);
     }
 
-    public File getPackFile(String packName) {
-        final Pack pack = packs.get(packName);
+    public File getPackFile(String packId) {
+        final Pack pack = packs.get(packId);
         if (pack == null || !pack.isDone()) return null;
-        else return new File(packsDir, packName + ".zip");
+        else return new File(packsDir, packId + ".zip");
     }
 }

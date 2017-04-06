@@ -23,7 +23,7 @@ public class PackStatusResponse {
     }
 
     public PackStatusResponse(Pack pack) {
-        this(pack.getName(), pack.isDone(), pack.addedItemsAmount());
+        this(pack.getId(), pack.isDone(), pack.addedItemsAmount());
     }
 
     @Override

@@ -7,20 +7,20 @@ import static inpacker.core.PackStatus.*;
 
 public class Pack {
 
-    private final String name;
+    private final String id;
     private PackStatus status;
     private final List<PackItem> addedItems;
     private final List<PackItem> failedItems;
 
-    public Pack(String packName) {
-        name = packName;
+    public Pack(String packId) {
+        id = packId;
         status = PackStatus.INITIATED;
         addedItems = new ArrayList<>();
         failedItems = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
     public PackStatus getStatus() {

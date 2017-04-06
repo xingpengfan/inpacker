@@ -12,12 +12,12 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
     @Override
     public void pack(BlockingDeque<I> itemsDeque,
                      File packDir,
-                     String packName,
+                     String packId,
                      Consumer<I> newItemSuccess,
                      Consumer<I> newItemFail,
                      Runnable done,
                      Runnable failed) {
-        try (final ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(new File(packDir, packName + ".zip")))) {
+        try (final ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(new File(packDir, packId + ".zip")))) {
             I item = takeItem(itemsDeque);
             if (item == null) {
                 failed.run();

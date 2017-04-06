@@ -4,7 +4,6 @@ import inpacker.core.*;
 import inpacker.instagram.*;
 import inpacker.web.dto.CreatePackRequest;
 
-import inpacker.web.dto.MessageResponse;
 import inpacker.web.dto.PackStatusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,11 +25,11 @@ import static org.springframework.http.ResponseEntity.status;
 @Controller
 public class InstagramController {
 
-    private final DefaultPackService<IgPackConfig, IgPackItem> packService;
+    private final PackService<IgPackConfig, IgPackItem> packService;
     private final IgRepository igRepo;
 
     @Autowired
-    public InstagramController(@Qualifier("ig") DefaultPackService<IgPackConfig, IgPackItem> packService,
+    public InstagramController(@Qualifier("igPackService") PackService<IgPackConfig, IgPackItem> packService,
                                IgRepository igRepo) {
         this.packService = packService;
         this.igRepo = igRepo;
@@ -54,19 +53,19 @@ public class InstagramController {
         return ok(new PackStatusResponse(pack));
     }
 
-    @GetMapping(value = "api/pack/{packName:.+}/status")
-    public ResponseEntity<?> getPackStatus(@PathVariable String packName) {
-        final Pack pack = packService.getPack(packName);
+    @GetMapping(value = "api/pack/{packId:.+}/status")
+    public ResponseEntity<?> getPackStatus(@PathVariable("packId") String packId) {
+        final Pack pack = packService.getPack(packId);
         if (pack == null)
-            return status(NOT_FOUND).body(packNotFound(packName));
+            return status(NOT_FOUND).body(packNotFound(packId));
         else
             return ok(new PackStatusResponse(pack));
     }
 
-    @GetMapping(value = "packs/{packName:.+}.zip", produces = "application/zip")
+    @GetMapping(value = "packs/{packId:.+}.zip", produces = "application/zip")
     @ResponseBody
-    public ResponseEntity<FileSystemResource> downloadPack(@PathVariable String packName) {
-        final File packFile = packService.getPackFile(packName);
+    public ResponseEntity<FileSystemResource> downloadPack(@PathVariable("packId") String packId) {
+        final File packFile = packService.getPackFile(packId);
         if (packFile == null)
             return status(NOT_FOUND).body(null);
         else

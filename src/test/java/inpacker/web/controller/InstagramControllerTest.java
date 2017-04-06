@@ -1,7 +1,7 @@
 package inpacker.web.controller;
 
-import inpacker.core.DefaultPackService;
 import inpacker.core.Pack;
+import inpacker.core.PackService;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
 import inpacker.instagram.IgRepository;
@@ -25,7 +25,7 @@ public class InstagramControllerTest {
 
     private static final IgUser SOME_USER = new IgUser("123_321", "dude", false, "Some User", "bio", "profile_pic_url", 555, false);
 
-    @Mock private DefaultPackService<IgPackConfig, IgPackItem> defaultPackService;
+    @Mock private PackService<IgPackConfig, IgPackItem> packService;
     @Mock private IgRepository repository;
     private InstagramController instagramController;
 
@@ -33,7 +33,7 @@ public class InstagramControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         when(repository.getInstagramUser(SOME_USER.username)).thenReturn(SOME_USER);
-        instagramController = new InstagramController(defaultPackService, repository);
+        instagramController = new InstagramController(packService, repository);
     }
 
     @Test
@@ -88,13 +88,13 @@ public class InstagramControllerTest {
         final Pack pack = new Pack("some_pack");
 
         when(repository.getInstagramUser(SOME_USER.username)).thenReturn(SOME_USER);
-        when(defaultPackService.createPack(any())).thenReturn(pack);
+        when(packService.createPack(any())).thenReturn(pack);
         final ResponseEntity<?> resp = instagramController.createPack(req);
 
         assertEquals(resp.getStatusCodeValue(), 200);
         assertEquals(resp.getBody(), new PackStatusResponse(pack));
         verify(repository, times(1)).getInstagramUser(SOME_USER.username);
-        verify(defaultPackService, times(1)).createPack(any());
+        verify(packService, times(1)).createPack(any());
     }
 
 }

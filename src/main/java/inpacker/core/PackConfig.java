@@ -7,5 +7,5 @@ public interface PackConfig<I extends PackItem> extends Predicate<I> {
     @Override
     boolean test(I item);
 
-    String getPackName();
+    String getUniqueId();
 }
