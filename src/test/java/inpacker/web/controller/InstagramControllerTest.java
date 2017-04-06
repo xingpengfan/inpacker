@@ -1,4 +1,4 @@
-package inpacker.web;
+package inpacker.web.controller;
 
 import inpacker.core.DefaultPackService;
 import inpacker.core.Pack;
@@ -6,7 +6,6 @@ import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
 import inpacker.instagram.IgRepository;
 import inpacker.instagram.IgUser;
-import inpacker.web.controller.InstagramController;
 import inpacker.web.dto.CreatePackRequest;
 import inpacker.web.dto.MessageResponse;
 import inpacker.web.dto.PackStatusResponse;

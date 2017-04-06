@@ -11,10 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class InpackerWebApp {
+public class InpackerApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(InpackerWebApp.class, args);
+        SpringApplication.run(InpackerApp.class, args);
     }
 
     @Bean
