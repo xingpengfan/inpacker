@@ -49,7 +49,7 @@ public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
             final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
             final List<IgPost> posts = parseItems(itemsJsonArray);
             for (IgPost post: posts) {
-                final IgPackItem item = new IgPackItem(post, packedItemsAmount+1,conf.fileNameCreator);
+                final IgPackItem item = new IgPackItem(post, packedItemsAmount+1, conf.getFileNameCreator());
                 if (conf.test(item)) {
                     items.add(item);
                     if (++packedItemsAmount >= conf.amount) break;
