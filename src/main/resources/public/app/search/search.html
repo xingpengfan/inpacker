@@ -16,10 +16,17 @@
                            placeholder="Instagram username" aria-describedby="basic-addon2"
                            maxlength="30" ng-model="vm.input" autofocus ng-disabled="vm.searching">
                 </div>
-                <div class="col-md-8 offset-md-2 alert alert-danger user-not-found-alert" role="alert"
-                     ng-show="vm.showNotFound()">
+                <div class="col-md-8 offset-md-2 alert alert-danger not-found-alert" role="alert"
+                     ng-show="vm.showUserNotFound()">
                     <strong>{{ vm.userNotFoundMessage }}</strong>
                     <span ng-click="vm.closeUserNotFoundAlert()">
+                        <i class="fa fa-close" aria-hidden="true" title="Close"></i>
+                    </span>
+                </div>
+                <div class="col-md-8 offset-md-2 alert alert-danger not-found-alert" role="alert"
+                     ng-show="vm.showPackNotFound()">
+                    <strong>{{ vm.packNotFoundMessage }}</strong>
+                    <span ng-click="vm.closePackNotFoundAlert()">
                         <i class="fa fa-close" aria-hidden="true" title="Close"></i>
                     </span>
                 </div>

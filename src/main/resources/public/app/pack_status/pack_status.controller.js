@@ -5,6 +5,7 @@
     PackStatusController.$inject = ['$interval', '$routeParams', 'instagramService', 'pack', 'CHECK_STATUS_INTERVAL'];
 
     function PackStatusController($interval, $routeParams, instagramService, pack, checkStatusInterval) {
+        if (pack == null) return;
         let vm = this;
         let timer;
 

@@ -46,7 +46,7 @@
         let packId = $route.current.params.packId;
         return instagramService.getPack(packId)
             .then((pack) => {
-                if (pack == null) locationService.openSearch();
+                if (pack == null) locationService.openSearch(null, packId);
                 return pack;
             });
     }

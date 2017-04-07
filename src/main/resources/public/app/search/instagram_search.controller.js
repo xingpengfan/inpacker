@@ -8,14 +8,17 @@
         var vm = this;
 
         vm.search = search;
-        vm.showNotFound = showNotFound;
+        vm.showUserNotFound = showUserNotFound;
+        vm.showPackNotFound = showPackNotFound;
         vm.closeUserNotFoundAlert = closeUserNotFoundAlert;
+        vm.closePackNotFoundAlert = closePackNotFoundAlert;
         vm.searching = false;
 
         activate();
 
         function activate() {
-            vm.userNotFoundMessage = 'User ' + $routeParams.nf + ' not found';
+            vm.userNotFoundMessage = 'User ' + $routeParams.unf + ' not found';
+            vm.packNotFoundMessage = 'Pack ' + $routeParams.pnf + ' not found';
         }
 
         function search() {
@@ -29,11 +32,19 @@
             return vm.input && vm.input !== '';
         }
 
-        function showNotFound() {
-            return $routeParams.nf != null;
+        function showUserNotFound() {
+            return $routeParams.unf != null;
+        }
+
+        function showPackNotFound() {
+            return $routeParams.pnf != null;
         }
 
         function closeUserNotFoundAlert() {
+            locationService.openSearch();
+        }
+
+        function closePackNotFoundAlert() {
             locationService.openSearch();
         }
 

@@ -2,11 +2,11 @@
 
     angular.module('inpacker').controller('PackConfController', PackConfController);
 
-    PackConfController.$inject = ['$scope', '$http', '$routeParams', 'instagramService', 'locationService', 'user'];
+    PackConfController.$inject = ['$routeParams', 'instagramService', 'locationService', 'user'];
 
-    function PackConfController($scope, $http, $routeParams, instagramService, locationService, user) {
+    function PackConfController($routeParams, instagramService, locationService, user) {
+        if (user == null) return;
         var vm = this;
-        var ac = $scope.ac;
 
         vm.user = user;
         vm.createPackClick = createPackClick;

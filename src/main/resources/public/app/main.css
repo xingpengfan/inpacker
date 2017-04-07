@@ -156,11 +156,11 @@ button {
     outline: none;
 }
 
-.user-not-found-alert {
+.not-found-alert {
      margin-top: 10px;
 }
 
-.user-not-found-alert span {
+.not-found-alert span {
     float: right;
 }
 

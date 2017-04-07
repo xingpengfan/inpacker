@@ -13,14 +13,16 @@
         };
         return service;
 
-        function openSearch(userNotFound) {
-            if (userNotFound) $location.search('nf', userNotFound);
-            else $location.search('nf', null);
+        function openSearch(userNotFound, packNotFound) {
+            if (userNotFound) $location.search('unf', userNotFound);
+            else $location.search('unf', null);
+            if (packNotFound) $location.search('pnf', packNotFound);
+            else $location.search('pnf', null);
             $location.path('/');
         }
 
         function openPackConf(username) {
-            $location.search('nf', null);
+            $location.url($location.path());
             $location.path('/@' + username);
         }
 
