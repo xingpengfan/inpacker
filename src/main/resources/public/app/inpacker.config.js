@@ -26,7 +26,12 @@
                     pack: instagramPack
                 }
             })
-            .otherwise('/');
+            .when('/about', {
+                templateUrl: 'templates/about.html'
+            })
+            .otherwise({
+                templateUrl: 'templates/404.html'
+            });
     }
 
     instagramUser.$inject = ['$route', 'instagramService', 'locationService']
