@@ -35,15 +35,6 @@
                 });
         }
 
-        // function pack() {
-        //     $http.post('/api/pack/' + vm.user.username, vm.settings)
-        //         .then((resp) => {
-        //             ac.pack = resp.data;
-        //             ac.packSettings = vm.settings;
-        //             ac.showPack();
-        //         }, (resp) => {});
-        // }
-
         function searchAnotherUser() {
             locationService.openSearch();
         }
