@@ -23,7 +23,7 @@
             instagramService.getPack($routeParams.packId)
                 .then((pack) => {
                     vm.pack = pack;
-                    if (pack.id_done) done();
+                    if (pack.is_done) done();
                 })
         }
 
