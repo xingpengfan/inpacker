@@ -24,7 +24,6 @@ public class AppConfig {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("index.html");
-                registry.addViewController("/about").setViewName("about.html");
             }
         };
     }
