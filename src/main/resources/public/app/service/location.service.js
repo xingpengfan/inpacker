@@ -27,7 +27,7 @@
         }
 
         function openPack(packId) {
-            $location.path('/packs/' + packId);
+            $location.path('/p/' + packId);
         }
     }
 

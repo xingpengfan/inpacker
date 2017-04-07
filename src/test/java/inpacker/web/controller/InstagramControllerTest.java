@@ -23,7 +23,7 @@ import static org.testng.Assert.assertEquals;
 
 public class InstagramControllerTest {
 
-    private static final IgUser SOME_USER = new IgUser("123_321", "dude", false, "Some User", "bio", "profile_pic_url", 555, false);
+    private static final IgUser someUser = new IgUser("123_321", "dude", false, "Some User", "bio", "profile_pic_url", 555, false);
 
     @Mock private PackService<IgPackConfig, IgPackItem> packService;
     @Mock private IgRepository repository;
@@ -32,7 +32,7 @@ public class InstagramControllerTest {
     @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        when(repository.getInstagramUser(SOME_USER.username)).thenReturn(SOME_USER);
+        when(repository.getInstagramUser(someUser.username)).thenReturn(someUser);
         instagramController = new InstagramController(packService, repository);
     }
 
@@ -50,12 +50,12 @@ public class InstagramControllerTest {
 
     @Test
     public void getUserShouldRespond200WithRequestedUser() {
-        final String username = SOME_USER.username;
+        final String username = someUser.username;
 
         final ResponseEntity<?> resp = instagramController.getUser(username);
 
         assertEquals(resp.getStatusCodeValue(), 200);
-        assertEquals(resp.getBody(), SOME_USER);
+        assertEquals(resp.getBody(), someUser);
         verify(repository, times(1)).getInstagramUser(username);
     }
 
@@ -84,16 +84,15 @@ public class InstagramControllerTest {
 
     @Test
     public void createPackShouldRespond200WithPackStatus() {
-        final CreatePackRequest req = new CreatePackRequest(SOME_USER.username, true, true, "id");
+        final CreatePackRequest req = new CreatePackRequest(someUser.username, true, true, "id");
         final Pack pack = new Pack("some_pack");
 
-        when(repository.getInstagramUser(SOME_USER.username)).thenReturn(SOME_USER);
         when(packService.createPack(any())).thenReturn(pack);
         final ResponseEntity<?> resp = instagramController.createPack(req);
 
         assertEquals(resp.getStatusCodeValue(), 200);
         assertEquals(resp.getBody(), new PackStatusResponse(pack));
-        verify(repository, times(1)).getInstagramUser(SOME_USER.username);
+        verify(repository, times(1)).getInstagramUser(someUser.username);
         verify(packService, times(1)).createPack(any());
     }
 

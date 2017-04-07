@@ -19,7 +19,7 @@
                     user: instagramUser
                 }
             })
-            .when('/packs/:packId', {
+            .when('/p/:packId', {
                 templateUrl: 'pack_status/pack_status.html',
                 controller: 'PackStatusController as vm',
                 resolve: {
