@@ -12,6 +12,7 @@
         vm.createPackClick = createPackClick;
         vm.searchAnotherUser = searchAnotherUser;
         vm.shortenedUsername = shortenedUsername;
+        vm.possibleToCreatePack = possibleToCreatePack;
         vm.settings = {
             username: user.username,
             includeImages: true,
@@ -23,15 +24,18 @@
         activate();
 
         function activate() {
+            vm.processing = false; // waiting for the response of post create pack
             vm.user.instagramPageLink = 'https://www.instagram.com/' + vm.user.username + '/';
             if (vm.user.isPrivate) vm.iconClass = 'fa fa-lg fa-user-secret';
             else vm.iconClass = 'fa fa-lg fa-cogs';
         }
 
         function createPackClick() {
+            vm.processing = true;
             instagramService.createPack(vm.settings)
                 .then((pack) => {
                     if (pack != null) locationService.openPack(pack.id);
+                    vm.processing = false;
                 });
         }
 
@@ -63,6 +67,10 @@
                 else if (vm.settings.fileNamePattern === 'date')
                     p += '2016-05-10T14:24:20Z.mp4';
             return p + ' ...';
+        }
+
+        function possibleToCreatePack() {
+            return !vm.processing && (vm.settings.includeImages || vm.settings.includeVideos);
         }
 
     }

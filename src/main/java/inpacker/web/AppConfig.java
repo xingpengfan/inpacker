@@ -38,7 +38,7 @@ public class AppConfig {
 
     @Bean("igPackService")
     public PackService<IgPackConfig, IgPackItem> packService() {
-        return new DefaultPackService<>(packsDir, igRepository(), igZipPacker());
+        return new DefaultPackService<>(packsDir, repository(), igZipPacker());
     }
 
     @Bean("igZipPacker")
@@ -51,8 +51,13 @@ public class AppConfig {
         return new DirPacker<>();
     }
 
+    @Bean("igRepository")
+    public Repository<IgPackConfig, IgPackItem> repository() {
+        return new IgRepository();
+    }
+
     @Bean
-    public Repository<IgPackConfig, IgPackItem> igRepository() {
+    public IgRepository igRepository() {
         return new IgRepository();
     }
 }
