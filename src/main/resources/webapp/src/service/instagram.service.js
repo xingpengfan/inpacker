@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('inpacker').factory('instagramService', instagramService);
+    angular.module('inpacker').factory('ig', instagramService);
 
     instagramService.$inject = ['$http'];
 

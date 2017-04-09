@@ -34,22 +34,22 @@
             });
     }
 
-    instagramUser.$inject = ['$route', 'instagramService', 'locationService']
+    instagramUser.$inject = ['$route', 'ig', 'locationService']
 
-    function instagramUser($route, instagramService, locationService) {
+    function instagramUser($route, ig, locationService) {
         let username = $route.current.params.username;
-        return instagramService.getUser(username)
+        return ig.getUser(username)
             .then((user) => {
                 if (user == null) locationService.openSearch(username);
                 return user;
             });
     }
 
-    instagramPack.$inject = ['$route', 'instagramService', 'locationService'];
+    instagramPack.$inject = ['$route', 'ig', 'locationService'];
 
-    function instagramPack($route, instagramService, locationService) {
+    function instagramPack($route, ig, locationService) {
         let packId = $route.current.params.packId;
-        return instagramService.getPack(packId)
+        return ig.getPack(packId)
             .then((pack) => {
                 if (pack == null) locationService.openSearch(null, packId);
                 return pack;

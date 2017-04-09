@@ -1,12 +1,12 @@
 {
   "name": "inpacker",
   "version": "0.0.1",
-  "description": "app for downloading pictures from instagram",
-  "main": "app/app.js",
+  "description": "app for downloading images and videos from Instagram",
+  "main": "inpacker.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Igor Lychak",
+  "author": "dreyman",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",

@@ -2,9 +2,9 @@
 
     angular.module('inpacker').controller('PackStatusController', PackStatusController);
 
-    PackStatusController.$inject = ['$interval', '$routeParams', 'instagramService', 'pack', 'CHECK_STATUS_INTERVAL'];
+    PackStatusController.$inject = ['$interval', '$routeParams', 'ig', 'pack', 'CHECK_STATUS_INTERVAL'];
 
-    function PackStatusController($interval, $routeParams, instagramService, pack, checkStatusInterval) {
+    function PackStatusController($interval, $routeParams, ig, pack, checkStatusInterval) {
         if (pack == null) return;
         let vm = this;
         let timer;
@@ -21,7 +21,7 @@
         }
 
         function updatePack() {
-            instagramService.getPack($routeParams.packId)
+            ig.getPack($routeParams.packId)
                 .then((pack) => {
                     vm.pack = pack;
                     if (pack.is_done) done();

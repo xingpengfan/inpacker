@@ -2,9 +2,9 @@
 
     angular.module('inpacker').controller('PackConfController', PackConfController);
 
-    PackConfController.$inject = ['$routeParams', 'instagramService', 'locationService', 'user'];
+    PackConfController.$inject = ['$routeParams', 'ig', 'locationService', 'user'];
 
-    function PackConfController($routeParams, instagramService, locationService, user) {
+    function PackConfController($routeParams, ig, locationService, user) {
         if (user == null) return;
         var vm = this;
 
@@ -32,7 +32,7 @@
 
         function createPackClick() {
             vm.processing = true;
-            instagramService.createPack(vm.settings)
+            ig.createPack(vm.settings)
                 .then((pack) => {
                     if (pack != null) locationService.openPack(pack.id);
                     vm.processing = false;
