@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Inpacker</title>
+    <link rel="icon" href="favicon.ico">
+
+    <!-- Bootstrap v4-alpha -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+
+    <link rel="stylesheet" href="main.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.min.js"></script>
+
+    <script src="inpacker.module.js"></script>
+    <script src="inpacker.constants.js"></script>
+
+    <script src="service/instagram.service.js"></script>
+    <script src="service/location.service.js"></script>
+
+    <script src="inpacker.config.js"></script>
+
+    <script src="search/instagram_search.controller.js"></script>
+    <script src="pack_conf/pack_conf.controller.js"></script>
+    <script src="pack_status/pack_status.controller.js"></script>
+
+</head>
+<body ng-app="inpacker" ng-cloak>
+
+<div class="header dark-bg middle-font">
+    <div class="container">
+        <div class="col-md-3 offset-md-1 regular-font header-content header-links">
+            <ul>
+                <li title="Create issue">
+                    <a href="https://github.com/dreyman/inpacker/issues" target="_blank">
+                        <i class="fa fa-github"></i> issues
+                    </a>
+                </li>
+                <li title="About Inpacker">
+                    <a href="/#/about">
+                        <i class="fa fa-info-circle"></i> about
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 offset-md-4 header-content centered header-title">
+            <a href="/"><span id="in">in</span><span id="packer">packer</span></a>
+        </div>
+    </div>
+</div>
+
+<div ng-view></div>
+
+</body>
+</html>

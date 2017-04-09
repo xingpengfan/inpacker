@@ -7,23 +7,31 @@ import java.util.Objects;
 
 public class PackStatusResponse {
 
-    @SerializedName("name")
-    private String name;
+    @SerializedName("id")
+    private String id;
 
-    @SerializedName("ready")
-    private boolean ready;
+    @SerializedName("is_done")
+    private boolean isDone;
 
-    @SerializedName("amount")
+    @SerializedName("is_failed")
+    private boolean isFailed;
+
+    @SerializedName("packed_amount")
     private int packedItemsAmount;
 
-    public PackStatusResponse(String name, boolean ready, int packedItemsAmount) {
-        this.name = name;
-        this.ready = ready;
+    @SerializedName("failed_amount")
+    private int failedItemsAmount;
+
+    public PackStatusResponse(String id, boolean isDone, boolean isFailed, int packedItemsAmount, int failedItemsAmount) {
+        this.id = id;
+        this.isDone = isDone;
+        this.isFailed = isFailed;
         this.packedItemsAmount = packedItemsAmount;
+        this.failedItemsAmount = failedItemsAmount;
     }
 
     public PackStatusResponse(Pack pack) {
-        this(pack.getId(), pack.isDone(), pack.addedItemsAmount());
+        this(pack.getId(), pack.isDone(), pack.isFailed(), pack.addedItemsAmount(), pack.failedItemsAmount());
     }
 
     @Override
@@ -35,17 +43,21 @@ public class PackStatusResponse {
             return false;
         }
         final PackStatusResponse that = (PackStatusResponse) obj;
-        return ready == that.ready
+        return isDone == that.isDone
+                && isFailed == that.isFailed
                 && packedItemsAmount == that.packedItemsAmount
-                && Objects.equals(name, that.name);
+                && failedItemsAmount == that.failedItemsAmount
+                && Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(name);
-        hash = 31 * hash + Boolean.hashCode(ready);
+        hash = 31 * hash + Objects.hashCode(id);
+        hash = 31 * hash + Boolean.hashCode(isDone);
+        hash = 31 * hash + Boolean.hashCode(isFailed);
         hash = 31 * hash + packedItemsAmount;
+        hash = 31 * hash + failedItemsAmount;
         return hash;
     }
 }

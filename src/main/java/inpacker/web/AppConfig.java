@@ -2,14 +2,8 @@ package inpacker.web;
 
 import inpacker.core.*;
 import inpacker.instagram.*;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.File;
 
@@ -18,28 +12,9 @@ public class AppConfig {
 
     private static final File packsDir = new File("/app/tmp/");
 
-    @Bean
-    public WebMvcConfigurer webMvcConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addViewControllers(ViewControllerRegistry registry) {
-                registry.addViewController("/").setViewName("index.html");
-                registry.addViewController("/about").setViewName("about.html");
-            }
-        };
-    }
-
-    @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return container -> {
-            final ErrorPage notFoundPage = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
-            container.addErrorPages(notFoundPage);
-        };
-    }
-
     @Bean("igPackService")
     public PackService<IgPackConfig, IgPackItem> packService() {
-        return new DefaultPackService<>(packsDir, igRepository(), igZipPacker());
+        return new DefaultPackService<>(packsDir, repository(), igZipPacker());
     }
 
     @Bean("igZipPacker")
@@ -52,8 +27,13 @@ public class AppConfig {
         return new DirPacker<>();
     }
 
+    @Bean("igRepository")
+    public Repository<IgPackConfig, IgPackItem> repository() {
+        return new IgRepository();
+    }
+
     @Bean
-    public Repository<IgPackConfig, IgPackItem> igRepository() {
+    public IgRepository igRepository() {
         return new IgRepository();
     }
 }

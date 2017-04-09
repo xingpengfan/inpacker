@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="col-md-8 offset-md-2 content">
+        <div class="centered large-font passive-font">
+            <i ng-class="vm.iconClass" aria-hidden="true"></i>
+        </div>
+        <div>
+            <div class="col-md-10 offset-md-1 middle-font centered collecting-block">
+                <p ng-hide="vm.pack.is_done">
+                    Creating pack
+                </p>
+                <p ng-hide="vm.pack.is_done || vm.showProgressBar" class="centered middle-font">
+                    <b>{{ vm.pack.packed_amount }}</b> items done
+                </p>
+                <!-- <div ng-hide="ac.pack.is_done || !vm.showProgressBar" class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                         role="progressbar" aria-valuenow="{{ ac.pack.amount }}"
+                         aria-valuemin="0" aria-valuemax="{{ vm.totalItemsAmount }}"
+                         ng-style="{'width': ac.pack.amount/vm.totalItemsAmount*100 + '%'}"></div>
+                </div> -->
+                <a class="btn btn-primary btn-lg download-btn" ng-show="vm.pack.is_done"
+                   href="{{ '/packs/' + vm.pack.id + '.zip' }}" type="application/zip" target="_blank" download>
+                    <i class="fa fa-download" aria-hidden="true"></i> Download {{ vm.pack.id }}.zip
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

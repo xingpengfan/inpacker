@@ -53,7 +53,7 @@ public class InstagramController {
         return ok(new PackStatusResponse(pack));
     }
 
-    @GetMapping(value = "api/pack/{packId:.+}/status")
+    @GetMapping(value = "api/packs/{packId:.+}/status")
     public ResponseEntity<?> getPackStatus(@PathVariable("packId") String packId) {
         final Pack pack = packService.getPack(packId);
         if (pack == null)
