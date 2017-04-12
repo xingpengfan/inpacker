@@ -3,3 +3,4 @@ IgnoredController.java
 .idea/
 .gradle/
 build/
+out/
