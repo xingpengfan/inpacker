@@ -8,6 +8,6 @@ public interface PackService<C extends PackConfig<I>, I extends PackItem> {
 
     default java.io.File getPackFile(String packId) {
         final Pack pack = getPack(packId);
-        return pack == null ? null : pack.getPackFile();
+        return pack == null ? null : pack.getFile();
     }
 }
