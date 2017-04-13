@@ -14,9 +14,15 @@ public class Pack {
     private PackStatus status;
     private final List<PackItem> addedItems;
     private final List<PackItem> failedItems;
+    private final int itemsCount;
 
     public Pack(String packId) {
+        this(packId, -1);
+    }
+
+    public Pack(String packId, int numberOfItems) {
         id = packId;
+        itemsCount = numberOfItems;
         status = PackStatus.INITIATED;
         addedItems = new ArrayList<>();
         failedItems = new ArrayList<>();
@@ -48,6 +54,10 @@ public class Pack {
 
     public int failedItemsAmount() {
         return failedItems.size();
+    }
+
+    public int getItemsCount() {
+        return itemsCount;
     }
 
     void processing() {

@@ -59,6 +59,11 @@ class FakePackConfig<I extends PackItem> implements PackConfig<I> {
     public String getUniqueId() {
         return "123";
     }
+
+    @Override
+    public int numberOfItems() {
+        return -1;
+    }
 }
 
 class FakePackItem implements PackItem {

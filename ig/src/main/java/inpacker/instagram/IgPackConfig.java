@@ -23,7 +23,7 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
         this.user = user;
         this.includeVideos = includeVideos;
         this.includeImages = includeImages;
-        if (amount > Constants.MAX_ITEMS_PER_PACK) amount = Constants.MAX_ITEMS_PER_PACK;
+        amount = Math.min(Math.min(amount, user.count), Constants.MAX_ITEMS_PER_PACK);
         this.amount = amount;
         this.fileNamePattern = fileNamePattern == null ? defaultFileNamePattern : fileNamePattern;
     }
@@ -54,6 +54,13 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
     @Override
     public String getUniqueId() {
         return user.username + "_" + hashCode();
+    }
+
+    @Override
+    public int numberOfItems() {
+        if (includeImages && includeVideos)
+            return amount;
+        return -1;
     }
 
     @Override

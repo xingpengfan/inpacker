@@ -16,22 +16,22 @@ public class PackStatusResponse {
     @SerializedName("is_failed")
     private boolean isFailed;
 
-    @SerializedName("packed_amount")
-    private int packedItemsAmount;
+    @SerializedName("packed_count")
+    private int packedItemsCount;
 
-    @SerializedName("failed_amount")
-    private int failedItemsAmount;
+    @SerializedName("failed_count")
+    private int failedItemsCount;
 
-    public PackStatusResponse(String id, boolean isDone, boolean isFailed, int packedItemsAmount, int failedItemsAmount) {
-        this.id = id;
-        this.isDone = isDone;
-        this.isFailed = isFailed;
-        this.packedItemsAmount = packedItemsAmount;
-        this.failedItemsAmount = failedItemsAmount;
-    }
+    @SerializedName("items_count")
+    private int numberOfItems;
 
     public PackStatusResponse(Pack pack) {
-        this(pack.getId(), pack.isDone(), pack.isFailed(), pack.addedItemsAmount(), pack.failedItemsAmount());
+        id = pack.getId();
+        isDone = pack.isDone();
+        isFailed = pack.isFailed();
+        packedItemsCount = pack.addedItemsAmount();
+        failedItemsCount = pack.failedItemsAmount();
+        numberOfItems = pack.getItemsCount();
     }
 
     @Override
@@ -45,8 +45,8 @@ public class PackStatusResponse {
         final PackStatusResponse that = (PackStatusResponse) obj;
         return isDone == that.isDone
                 && isFailed == that.isFailed
-                && packedItemsAmount == that.packedItemsAmount
-                && failedItemsAmount == that.failedItemsAmount
+                && packedItemsCount == that.packedItemsCount
+                && failedItemsCount == that.failedItemsCount
                 && Objects.equals(id, that.id);
     }
 
@@ -56,8 +56,8 @@ public class PackStatusResponse {
         hash = 31 * hash + Objects.hashCode(id);
         hash = 31 * hash + Boolean.hashCode(isDone);
         hash = 31 * hash + Boolean.hashCode(isFailed);
-        hash = 31 * hash + packedItemsAmount;
-        hash = 31 * hash + failedItemsAmount;
+        hash = 31 * hash + packedItemsCount;
+        hash = 31 * hash + failedItemsCount;
         return hash;
     }
 }

@@ -8,4 +8,6 @@ public interface PackConfig<I extends PackItem> extends Predicate<I> {
     boolean test(I item);
 
     String getUniqueId();
+
+    int numberOfItems();
 }

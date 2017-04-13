@@ -35,7 +35,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> imp
         requireNonNull(config, "required non null config");
         final String id = config.getUniqueId();
         if (packs.containsKey(id)) return packs.get(id);
-        final Pack pack = new Pack(id);
+        final Pack pack = new Pack(id, config.numberOfItems());
         packs.put(id, pack);
         final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
         executorService.submit(() -> repository.getPackItems(config, deque));
