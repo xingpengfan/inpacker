@@ -1,7 +1,7 @@
 package inpacker.instagram;
 
 import com.google.gson.JsonElement;
-import inpacker.core.Repository;
+import inpacker.core.ItemRepository;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -18,12 +18,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
-public class IgRepository implements Repository<IgPackConfig, IgPackItem> {
+public class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
     private AsyncHttpClient asyncHttpClient;
     private JsonParser      jsonParser;
 
-    public IgRepository() {
+    public IgItemRepository() {
         asyncHttpClient = new DefaultAsyncHttpClient();
         jsonParser = new JsonParser();
     }

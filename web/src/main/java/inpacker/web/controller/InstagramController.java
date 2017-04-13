@@ -2,9 +2,9 @@ package inpacker.web.controller;
 
 import inpacker.core.*;
 
+import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
-import inpacker.instagram.IgRepository;
 import inpacker.instagram.IgUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,11 +29,11 @@ import static inpacker.web.dto.MessageResponse.userNotFound;
 public class InstagramController {
 
     private final PackService<IgPackConfig, IgPackItem> packService;
-    private final IgRepository igRepo;
+    private final IgItemRepository igRepo;
 
     @Autowired
     public InstagramController(@Qualifier("igPackService") PackService<IgPackConfig, IgPackItem> packService,
-                               IgRepository igRepo) {
+                               IgItemRepository igRepo) {
         this.packService = packService;
         this.igRepo = igRepo;
     }

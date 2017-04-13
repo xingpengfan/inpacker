@@ -18,7 +18,7 @@ public class DefaultPackServiceTest {
 
     private DefaultPackService<PackConfig<PackItem>, PackItem> service;
     @Mock private Packer<PackItem> packer;
-    @Mock private Repository<PackConfig<PackItem>, PackItem> repository;
+    @Mock private ItemRepository<PackConfig<PackItem>, PackItem> repository;
     @Mock private File packsDir;
 
     @BeforeMethod

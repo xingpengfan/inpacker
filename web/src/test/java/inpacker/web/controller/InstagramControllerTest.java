@@ -2,9 +2,9 @@ package inpacker.web.controller;
 
 import inpacker.core.Pack;
 import inpacker.core.PackService;
+import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
-import inpacker.instagram.IgRepository;
 import inpacker.instagram.IgUser;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -27,7 +27,7 @@ public class InstagramControllerTest {
     private static final IgUser someUser = new IgUser("123_321", "dude", false, "Some User", "bio", "profile_pic_url", 555, false);
 
     @Mock private PackService<IgPackConfig, IgPackItem> packService;
-    @Mock private IgRepository repository;
+    @Mock private IgItemRepository repository;
     private InstagramController instagramController;
 
     @BeforeMethod

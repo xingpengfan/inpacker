@@ -1,9 +1,9 @@
 package inpacker.web;
 
 import inpacker.core.*;
+import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
-import inpacker.instagram.IgRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,12 +30,12 @@ public class AppConfig {
     }
 
     @Bean("igRepository")
-    public Repository<IgPackConfig, IgPackItem> repository() {
-        return new IgRepository();
+    public ItemRepository<IgPackConfig, IgPackItem> repository() {
+        return new IgItemRepository();
     }
 
     @Bean
-    public IgRepository igRepository() {
-        return new IgRepository();
+    public IgItemRepository igRepository() {
+        return new IgItemRepository();
     }
 }
