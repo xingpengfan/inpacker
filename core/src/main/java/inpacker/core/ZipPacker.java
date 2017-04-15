@@ -25,7 +25,7 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
                 return;
             }
             while (!item.getFileName().equals("end")) {
-                final boolean added = PackSupport.addItemToZip(item, zos);
+                final boolean added = PackSupport.saveToZip(item, zos);
                 if (added) newItemSuccess.accept(item);
                 else newItemFail.accept(item);
                 item = takeItem(itemsDeque);

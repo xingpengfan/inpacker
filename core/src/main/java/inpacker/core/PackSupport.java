@@ -7,10 +7,10 @@ import java.util.zip.ZipOutputStream;
 
 public class PackSupport {
 
-    public static boolean addItemToZip(PackItem item, ZipOutputStream zos) {
+    public static boolean saveToZip(PackItem item, ZipOutputStream zos) {
         try {
             zos.putNextEntry(new ZipEntry(item.getFileName()));
-            saveFromUrl(zos, item.getUrl());
+            save(zos, item.getUrl());
             zos.closeEntry();
             return true;
         } catch (IOException e) {
@@ -18,7 +18,7 @@ public class PackSupport {
         }
     }
 
-    public static void saveFromUrl(OutputStream output, String url) throws IOException {
+    public static void save(OutputStream output, String url) throws IOException {
         try (final InputStream input = new URL(url).openStream()) {
             final byte[] bytes = new byte[1024];
             int c;

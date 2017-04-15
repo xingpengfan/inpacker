@@ -16,8 +16,11 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
                      Consumer<I> newItemFail,
                      Consumer<File> done,
                      Runnable failed) {
+        if (!packsDir.exists())
+            throw new IllegalArgumentException("packsDir does not exist");
         final File packDir = new File(packsDir, packId);
-        packDir.mkdirs();
+        if (!packDir.mkdir())
+            throw new RuntimeException("unable to create pack directory");
         I item = takeItem(itemsDeque);
         if (item == null) {
             failed.run();
@@ -26,7 +29,7 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
         while (!item.getFileName().equals("end")) {
             try {
                 final File itemFile = new File(packDir, item.getFileName());
-                PackSupport.saveFromUrl(new FileOutputStream(itemFile), item.getUrl());
+                PackSupport.save(new FileOutputStream(itemFile), item.getUrl());
                 newItemSuccess.accept(item);
                 item = takeItem(itemsDeque);
                 if (item == null) {
