@@ -1,6 +1,5 @@
 (function() {
     'use strict';
-
     angular.module('inpacker').factory('ig', instagramService);
 
     instagramService.$inject = ['$http'];
@@ -14,31 +13,36 @@
         return service;
 
         function getUser(username) {
-            return $http.get('/api/user/' + username)
-                .then((resp) => {
+            return $http.get('/api/user/' + username).then(
+                resp => {
                     return resp.data;
-                }, (resp) => {
+                },
+                resp => {
                     return null;
-                });
+                }
+            );
         }
 
         function getPack(id) {
-            return $http.get('/api/packs/' + id + '/status')
-                .then((resp) => {
+            return $http.get('/api/packs/' + id + '/status').then(
+                resp => {
                     return resp.data;
-                }, (resp) => {
+                },
+                resp => {
                     return null;
-                });
+                }
+            );
         }
 
         function createPack(config) {
-            return $http.post('/api/packs', config)
-                .then((resp) => {
+            return $http.post('/api/packs', config).then(
+                resp => {
                     return resp.data;
-                }, (resp) => {
+                },
+                resp => {
                     return null;
-                });
+                }
+            );
         }
     }
-
 })();

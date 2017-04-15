@@ -1,6 +1,5 @@
 (function() {
     'use strict';
-
     angular.module('inpacker').factory('locationService', locationService);
 
     locationService.$inject = ['$location'];
@@ -30,5 +29,4 @@
             $location.path('/p/' + packId);
         }
     }
-
 })();

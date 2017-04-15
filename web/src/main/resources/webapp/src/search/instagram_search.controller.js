@@ -1,5 +1,5 @@
 (function() {
-
+    'use strict';
     angular.module('inpacker').controller('InstagramSearchController', InstagramSearchController);
 
     InstagramSearchController.$inject = ['$http', '$routeParams', 'locationService'];
@@ -22,8 +22,7 @@
         }
 
         function search() {
-            if (!isValidInput())
-                return;
+            if (!isValidInput()) return;
             vm.searching = true;
             locationService.openPackConf(vm.input);
         }
@@ -47,7 +46,5 @@
         function closePackNotFoundAlert() {
             locationService.openSearch();
         }
-
     }
-
 })();

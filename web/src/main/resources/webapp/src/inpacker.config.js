@@ -1,6 +1,5 @@
 (function() {
     'use strict';
-
     angular.module('inpacker').config(config);
 
     config.$inject = ['$locationProvider', '$routeProvider'];
@@ -34,26 +33,23 @@
             });
     }
 
-    instagramUser.$inject = ['$route', 'ig', 'locationService']
+    instagramUser.$inject = ['$route', 'ig', 'locationService'];
 
     function instagramUser($route, ig, locationService) {
         let username = $route.current.params.username;
-        return ig.getUser(username)
-            .then((user) => {
-                if (user == null) locationService.openSearch(username);
-                return user;
-            });
+        return ig.getUser(username).then(user => {
+            if (user == null) locationService.openSearch(username);
+            return user;
+        });
     }
 
     instagramPack.$inject = ['$route', 'ig', 'locationService'];
 
     function instagramPack($route, ig, locationService) {
         let packId = $route.current.params.packId;
-        return ig.getPack(packId)
-            .then((pack) => {
-                if (pack == null) locationService.openSearch(null, packId);
-                return pack;
-            });
+        return ig.getPack(packId).then(pack => {
+            if (pack == null) locationService.openSearch(null, packId);
+            return pack;
+        });
     }
-
 })();

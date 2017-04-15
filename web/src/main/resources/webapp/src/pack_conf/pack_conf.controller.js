@@ -1,5 +1,5 @@
 (function() {
-
+    'use strict';
     angular.module('inpacker').controller('PackConfController', PackConfController);
 
     PackConfController.$inject = ['$routeParams', 'ig', 'locationService', 'user'];
@@ -32,11 +32,10 @@
 
         function createPackClick() {
             vm.processing = true;
-            ig.createPack(vm.settings)
-                .then((pack) => {
-                    if (pack != null) locationService.openPack(pack.id);
-                    vm.processing = false;
-                });
+            ig.createPack(vm.settings).then(pack => {
+                if (pack != null) locationService.openPack(pack.id);
+                vm.processing = false;
+            });
         }
 
         function searchAnotherUser() {
@@ -44,35 +43,25 @@
         }
 
         function shortenedUsername() {
-            if (vm.user.username.length > 18)
-                return vm.user.username.substring(0, 18) + '..';
-            else
-                return vm.user.username;
+            if (vm.user.username.length > 18) return vm.user.username.substring(0, 18) + '..';
+            else return vm.user.username;
         }
 
         function preview() {
             let p = '';
             if (vm.settings.includeImages)
-                if (vm.settings.fileNamePattern === 'id')
-                    p += '1756...364.jpg, ';
-                else if (vm.settings.fileNamePattern === 'index')
-                    p += '1.jpg, ';
-                else if (vm.settings.fileNamePattern === 'date')
-                    p += '2017-02-25T15:36:59Z.jpg, ';
+                if (vm.settings.fileNamePattern === 'id') p += '1756...364.jpg, ';
+                else if (vm.settings.fileNamePattern === 'index') p += '1.jpg, ';
+                else if (vm.settings.fileNamePattern === 'date') p += '2017-02-25T15:36:59Z.jpg, ';
             if (vm.settings.includeVideos)
-                if (vm.settings.fileNamePattern === 'id')
-                    p += '4606...591.mp4';
-                else if (vm.settings.fileNamePattern === 'index')
-                    p += '2.mp4';
-                else if (vm.settings.fileNamePattern === 'date')
-                    p += '2016-05-10T14:24:20Z.mp4';
+                if (vm.settings.fileNamePattern === 'id') p += '4606...591.mp4';
+                else if (vm.settings.fileNamePattern === 'index') p += '2.mp4';
+                else if (vm.settings.fileNamePattern === 'date') p += '2016-05-10T14:24:20Z.mp4';
             return p + ' ...';
         }
 
         function possibleToCreatePack() {
             return !vm.processing && (vm.settings.includeImages || vm.settings.includeVideos);
         }
-
     }
-
 })();

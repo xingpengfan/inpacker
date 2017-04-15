@@ -47,6 +47,7 @@ public class PackStatusResponse {
                 && isFailed == that.isFailed
                 && packedItemsCount == that.packedItemsCount
                 && failedItemsCount == that.failedItemsCount
+                && numberOfItems == that.numberOfItems
                 && Objects.equals(id, that.id);
     }
 
@@ -58,6 +59,7 @@ public class PackStatusResponse {
         hash = 31 * hash + Boolean.hashCode(isFailed);
         hash = 31 * hash + packedItemsCount;
         hash = 31 * hash + failedItemsCount;
+        hash = 31 * hash + numberOfItems;
         return hash;
     }
 }
