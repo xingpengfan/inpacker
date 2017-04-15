@@ -2,9 +2,9 @@
     'use strict';
     angular.module('inpacker').controller('PackConfController', PackConfController);
 
-    PackConfController.$inject = ['$routeParams', 'ig', 'locationService', 'user'];
+    PackConfController.$inject = ['$routeParams', 'ig', 'icon', 'locationService', 'user'];
 
-    function PackConfController($routeParams, ig, locationService, user) {
+    function PackConfController($routeParams, ig, icon, locationService, user) {
         if (user == null) return;
         var vm = this;
 
@@ -26,8 +26,7 @@
         function activate() {
             vm.processing = false; // waiting for the response of post create pack
             vm.user.instagramPageLink = 'https://www.instagram.com/' + vm.user.username + '/';
-            if (vm.user.isPrivate) vm.iconClass = 'fa fa-lg fa-user-secret';
-            else vm.iconClass = 'fa fa-lg fa-cogs';
+            vm.iconClass = vm.user.isPrivate ? icon.privateUser() : icon.packConfiguration();
         }
 
         function createPackClick() {

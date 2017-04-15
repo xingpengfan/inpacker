@@ -2,9 +2,9 @@
     'use strict';
     angular.module('inpacker').controller('InstagramSearchController', InstagramSearchController);
 
-    InstagramSearchController.$inject = ['$http', '$routeParams', 'locationService'];
+    InstagramSearchController.$inject = ['$http', '$routeParams', 'locationService', 'icon'];
 
-    function InstagramSearchController($http, $routeParams, locationService) {
+    function InstagramSearchController($http, $routeParams, locationService, icon) {
         var vm = this;
 
         vm.search = search;
@@ -17,6 +17,7 @@
         activate();
 
         function activate() {
+            vm.iconClass = icon.defaultIcon();
             vm.userNotFoundMessage = 'User ' + $routeParams.unf + ' not found';
             vm.packNotFoundMessage = 'Pack ' + $routeParams.pnf + ' not found';
         }

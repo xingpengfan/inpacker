@@ -2,9 +2,9 @@
     'use strict';
     angular.module('inpacker').controller('PackStatusController', PackStatusController);
 
-    PackStatusController.$inject = ['$interval', '$routeParams', 'ig', 'pack', 'CHECK_STATUS_INTERVAL'];
+    PackStatusController.$inject = ['$interval', '$routeParams', 'ig', 'icon', 'pack', 'CHECK_STATUS_INTERVAL'];
 
-    function PackStatusController($interval, $routeParams, ig, pack, checkStatusInterval) {
+    function PackStatusController($interval, $routeParams, ig, icon, pack, checkStatusInterval) {
         if (pack == null) return;
         let vm = this;
         let timer;
@@ -14,8 +14,7 @@
         activate();
 
         function activate() {
-            if (vm.pack.is_done) showCheckIcon();
-            else showCogIcon();
+            vm.iconClass = vm.pack.is_done ? icon.packIsDone() : icon.creatingPack();
 
             timer = $interval(() => updatePack(), checkStatusInterval);
         }
@@ -29,15 +28,7 @@
 
         function done() {
             $interval.cancel(timer);
-            showCheckIcon();
-        }
-
-        function showCogIcon() {
-            vm.iconClass = 'fa fa-lg fa-cog fa-spin fa-fw';
-        }
-
-        function showCheckIcon() {
-            vm.iconClass = 'fa fa-lg fa-check';
+            vm.iconClass = icon.packIsDone();
         }
     }
 })();
