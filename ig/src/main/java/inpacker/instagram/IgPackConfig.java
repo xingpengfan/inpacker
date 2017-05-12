@@ -13,18 +13,18 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
     public final IgUser user;
     public final boolean includeVideos;
     public final boolean includeImages;
-    public final int amount;
+    public final int nItems;
     public final String fileNamePattern;
 
     private static final String defaultFileNamePattern = "date";
 
     public IgPackConfig(IgUser user, boolean includeVideos, boolean includeImages,
-                        int amount, String fileNamePattern) {
+                        int numberOfItems, String fileNamePattern) {
         this.user = user;
         this.includeVideos = includeVideos;
         this.includeImages = includeImages;
-        amount = Math.min(Math.min(amount, user.count), Constants.MAX_ITEMS_PER_PACK);
-        this.amount = amount;
+        numberOfItems = Math.min(Math.min(numberOfItems, user.count), Constants.MAX_ITEMS_PER_PACK);
+        this.nItems = numberOfItems;
         this.fileNamePattern = fileNamePattern == null ? defaultFileNamePattern : fileNamePattern;
     }
 
@@ -59,7 +59,7 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
     @Override
     public int numberOfItems() {
         if (includeImages && includeVideos)
-            return amount;
+            return nItems;
         return -1;
     }
 
@@ -74,7 +74,7 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
         final IgPackConfig that = (IgPackConfig) obj;
         return includeVideos == that.includeVideos
                 && includeImages == that.includeImages
-                && amount == that.amount
+                && nItems == that.nItems
                 && Objects.equals(user, that.user)
                 && Objects.equals(fileNamePattern, that.fileNamePattern);
     }
@@ -85,7 +85,7 @@ public class IgPackConfig implements PackConfig<IgPackItem> {
         hash = 31 * hash + Objects.hashCode(user);
         hash = 31 * hash + Boolean.hashCode(includeVideos);
         hash = 31 * hash + Boolean.hashCode(includeImages);
-        hash = 31 * hash + amount;
+        hash = 31 * hash + nItems;
         hash = 31 * hash + Objects.hashCode(fileNamePattern);
         return hash;
     }

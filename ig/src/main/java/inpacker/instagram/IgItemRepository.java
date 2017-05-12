@@ -52,11 +52,11 @@ public class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem
                 final IgPackItem item = new IgPackItem(post, packedItemsAmount+1, conf.getFileNameCreator());
                 if (conf.test(item)) {
                     items.add(item);
-                    if (++packedItemsAmount >= conf.amount) break;
+                    if (++packedItemsAmount >= conf.nItems) break;
                 }
             }
             query = "?max_id=" + posts.get(posts.size()-1).id;
-        } while (moreAvailable && packedItemsAmount < conf.amount);
+        } while (moreAvailable && packedItemsAmount < conf.nItems);
         final IgPost last = new IgPost("end", "end", 0, "end", "end");
         items.add(new IgPackItem(last, packedItemsAmount, (i, p) -> "end"));
     }
