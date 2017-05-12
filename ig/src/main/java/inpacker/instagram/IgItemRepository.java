@@ -30,10 +30,9 @@ public class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem
 
     @Override
     public void getPackItems(IgPackConfig conf, Collection<IgPackItem> items) {
-        JsonObject respJson;
-        boolean moreAvailable;
+        JsonObject jsonResp;
         String query = "";
-        int packedItemsAmount = 0;
+        int packedItemsCount = 0;
         do {
             final ListenableFuture<Response> f =
                     asyncHttpClient.prepareGet(getUrl(conf.user.username, query)).execute();
@@ -44,21 +43,20 @@ public class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem
                 e.printStackTrace();
                 throw new RuntimeException();
             }
-            respJson = jsonParser.parse(response.getResponseBody()).getAsJsonObject();
-            moreAvailable = respJson.get("more_available").getAsBoolean();
-            final JsonArray itemsJsonArray = respJson.getAsJsonArray("items");
+            jsonResp = jsonParser.parse(response.getResponseBody()).getAsJsonObject();
+            final JsonArray itemsJsonArray = jsonResp.getAsJsonArray("items");
             final List<IgPost> posts = parseItems(itemsJsonArray);
             for (IgPost post: posts) {
-                final IgPackItem item = new IgPackItem(post, packedItemsAmount+1, conf.getFileNameCreator());
+                final IgPackItem item = new IgPackItem(post, packedItemsCount+1, conf.getFileNameCreator());
                 if (conf.test(item)) {
                     items.add(item);
-                    if (++packedItemsAmount >= conf.nItems) break;
+                    if (++packedItemsCount >= conf.nItems) break;
                 }
             }
             query = "?max_id=" + posts.get(posts.size()-1).id;
-        } while (moreAvailable && packedItemsAmount < conf.nItems);
+        } while (moreItemsAvailable(jsonResp) && packedItemsCount < conf.nItems);
         final IgPost last = new IgPost("end", "end", 0, "end", "end");
-        items.add(new IgPackItem(last, packedItemsAmount, (i, p) -> "end"));
+        items.add(new IgPackItem(last, packedItemsCount, (i, p) -> "end"));
     }
 
     private List<IgPost> parseItems(JsonArray itemsJsonArr) {
@@ -121,6 +119,14 @@ public class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem
         int count = uj.get("media").getAsJsonObject().get("count").getAsInt();
         boolean isVerified = uj.get("is_verified").getAsBoolean();
         return new IgUser(id, username, isPrivate, fullName, biography, profilePic, count, isVerified);
+    }
+
+    private boolean moreItemsAvailable(JsonObject jsonResp) {
+        try {
+            return jsonResp.get("more_available").getAsBoolean();
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
 }
