@@ -6,6 +6,7 @@ import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
 import inpacker.instagram.IgUser;
+import inpacker.web.dto.IgUserDto;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -56,7 +57,7 @@ public class InstagramControllerTest {
         final ResponseEntity<?> resp = instagramController.getUser(username);
 
         assertEquals(resp.getStatusCodeValue(), 200);
-        assertEquals(resp.getBody(), someUser);
+        assertEquals(resp.getBody(), new IgUserDto(someUser));
         verify(repository, times(1)).getInstagramUser(username);
     }
 

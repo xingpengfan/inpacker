@@ -58,7 +58,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
     }
 
-    private IgPost parseItem(def item) {
+    private IgPost parseItem(item) {
         def url
         String type = item.type
         if (type == 'image') url = item.images.standard_resolution.url

@@ -7,15 +7,15 @@ import groovy.transform.Immutable
     String username, url, type, id
     long createdTime
 
-    def isVideo() {
+    boolean isVideo() {
         return type == 'video'
     }
 
-    def isImage() {
+    boolean isImage() {
         return type == 'image'
     }
 
-    def extension() {
+    String extension() {
         return isVideo() ? ".mp4" : isImage() ? ".jpg" : ""
     }
 }

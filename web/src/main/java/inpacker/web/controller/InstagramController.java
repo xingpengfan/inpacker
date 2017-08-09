@@ -7,6 +7,7 @@ import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
 import inpacker.instagram.IgUser;
 import inpacker.web.dto.CreatePackRequest;
+import inpacker.web.dto.IgUserDto;
 import inpacker.web.dto.PackStatusResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,7 +40,7 @@ public class InstagramController {
     @GetMapping(value = "api/user/{username:.+}")
     public ResponseEntity<?> getUser(@PathVariable String username) {
         final IgUser user = igRepo.getInstagramUser(username);
-        return user == null ? status(NOT_FOUND).body(userNotFound(username)) : ok(user);
+        return user == null ? status(NOT_FOUND).body(userNotFound(username)) : ok(new IgUserDto(user));
     }
 
     @PostMapping(value = "api/packs")
