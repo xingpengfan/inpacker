@@ -8,14 +8,14 @@ import groovy.transform.Immutable
     long createdTime
 
     boolean isVideo() {
-        return type == 'video'
+        type == 'video'
     }
 
     boolean isImage() {
-        return type == 'image'
+        type == 'image'
     }
 
     String extension() {
-        return isVideo() ? ".mp4" : isImage() ? ".jpg" : ""
+        isVideo() ? ".mp4" : isImage() ? ".jpg" : ""
     }
 }

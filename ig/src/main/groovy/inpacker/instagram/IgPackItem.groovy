@@ -1,6 +1,5 @@
 package inpacker.instagram
 
-import groovy.transform.CompileStatic
 import inpacker.core.PackItem
 
 import java.util.function.BiFunction

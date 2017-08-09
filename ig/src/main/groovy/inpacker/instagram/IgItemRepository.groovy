@@ -25,18 +25,18 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         while (moreItemsAvailable && packedItemsCount < config.size) {
             ListenableFuture<Response> f = asyncHttpClient.prepareGet(getUrl(config.user.username, query)).execute()
             Response response = f.get()
-            def jsonObj = new JsonSlurper().parseText(response.getResponseBody())
+            def json = new JsonSlurper().parseText(response.getResponseBody())
             IgPost post
-            for (int i = 0; i < jsonObj.items.size(); i++) {
-                post = parseItem(jsonObj.items.get(i))
+            for (int i = 0; i < json.items.size(); i++) {
+                post = parseItem(json.items.get(i))
                 IgPackItem item = new IgPackItem(post, packedItemsCount+1, config.getFileNameCreator())
                 if (config.test(item)) {
                     items.add(item)
                     if (++packedItemsCount >= config.size) break
                 }
             }
-            query = "?max_id=${jsonObj.items.get(jsonObj.items.size() - 1).id}"
-            moreItemsAvailable = jsonObj.more_available
+            query = "?max_id=${json.items.get(json.items.size() - 1).id}"
+            moreItemsAvailable = json.more_available
         }
         IgPost last = new IgPost(username: 'end', url: 'end', type: 'end', id: 'end', createdTime: 0)
         items.add(new IgPackItem(last, packedItemsCount, {i, p -> 'end'}))
