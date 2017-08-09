@@ -1,5 +1,6 @@
 Ignored.java
 IgnoredController.java
+*.iml
 .idea/
 .gradle/
 build/

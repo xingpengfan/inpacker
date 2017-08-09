@@ -16,7 +16,7 @@ import inpacker.web.dto.CreatePackRequest;
 import inpacker.web.dto.MessageResponse;
 import inpacker.web.dto.PackStatusResponse;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,7 +33,7 @@ public class InstagramControllerTest {
     @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        when(repository.getInstagramUser(someUser.username)).thenReturn(someUser);
+        when(repository.getInstagramUser(someUser.getUsername())).thenReturn(someUser);
         instagramController = new InstagramController(packService, repository);
     }
 
@@ -51,7 +51,7 @@ public class InstagramControllerTest {
 
     @Test
     public void getUserShouldRespond200WithRequestedUser() {
-        final String username = someUser.username;
+        final String username = someUser.getUsername();
 
         final ResponseEntity<?> resp = instagramController.getUser(username);
 
@@ -85,7 +85,7 @@ public class InstagramControllerTest {
 
     @Test
     public void createPackShouldRespond200WithPackStatus() {
-        final CreatePackRequest req = new CreatePackRequest(someUser.username, true, true, "id");
+        final CreatePackRequest req = new CreatePackRequest(someUser.getUsername(), true, true, "id");
         final Pack pack = new Pack("some_pack");
 
         when(packService.createPack(any())).thenReturn(pack);
@@ -93,7 +93,7 @@ public class InstagramControllerTest {
 
         assertEquals(resp.getStatusCodeValue(), 200);
         assertEquals(resp.getBody(), new PackStatusResponse(pack));
-        verify(repository, times(1)).getInstagramUser(someUser.username);
+        verify(repository, times(1)).getInstagramUser(someUser.getUsername());
         verify(packService, times(1)).createPack(any());
     }
 
