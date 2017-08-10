@@ -15,8 +15,6 @@ import static java.time.ZoneOffset.*
     int size // number of items to be added to the pack
     String fileNamePattern
 
-    private static final String defaultFileNamePattern = 'date'
-
     BiFunction<Integer, IgPost, String> getFileNameCreator() {
         switch (fileNamePattern) {
             case "id":
@@ -33,18 +31,16 @@ import static java.time.ZoneOffset.*
     @Override
     boolean test(IgPackItem packItem) {
         final IgPost post = packItem.getPost()
-        return post.isImage() && includeImages || post.isVideo() && includeVideos
+        post.isImage() && includeImages || post.isVideo() && includeVideos
     }
 
     @Override
     String getUniqueId() {
-        return user.username + "_" + hashCode()
+        user.username + "_" + hashCode()
     }
 
     @Override
     int numberOfItems() {
-        if (includeImages && includeVideos)
-            return size
-        return -1
+        includeImages && includeVideos ? size : -1
     }
 }

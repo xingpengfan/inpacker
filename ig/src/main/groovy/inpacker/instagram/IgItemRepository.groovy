@@ -4,7 +4,6 @@ import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
 import org.asynchttpclient.AsyncHttpClient
 import org.asynchttpclient.DefaultAsyncHttpClient
-import org.asynchttpclient.ListenableFuture
 import org.asynchttpclient.Response
 
 import java.util.concurrent.ExecutionException
@@ -23,29 +22,28 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         int packedItemsCount = 0
         boolean moreItemsAvailable = true
         while (moreItemsAvailable && packedItemsCount < config.size) {
-            ListenableFuture<Response> f = asyncHttpClient.prepareGet(getUrl(config.user.username, query)).execute()
-            Response response = f.get()
+            def f = asyncHttpClient.prepareGet(userMediaUrl(config.user.username, query)).execute()
+            def response = f.get()
             def json = new JsonSlurper().parseText(response.getResponseBody())
-            IgPost post
-            for (int i = 0; i < json.items.size(); i++) {
-                post = parseItem(json.items.get(i))
-                IgPackItem item = new IgPackItem(post, packedItemsCount+1, config.getFileNameCreator())
+            for (int i = 0; i < json.items.size() && packedItemsCount < config.size; i++) {
+                def post = parseItem(json.items.get(i))
+                def item = new IgPackItem(post, packedItemsCount+1, config.getFileNameCreator())
                 if (config.test(item)) {
-                    items.add(item)
-                    if (++packedItemsCount >= config.size) break
+                    items << item
+                    packedItemsCount++
                 }
             }
             query = "?max_id=${json.items.get(json.items.size() - 1).id}"
             moreItemsAvailable = json.more_available
         }
         IgPost last = new IgPost(username: 'end', url: 'end', type: 'end', id: 'end', createdTime: 0)
-        items.add(new IgPackItem(last, packedItemsCount, {i, p -> 'end'}))
+        items << new IgPackItem(last, packedItemsCount, {i, p -> 'end'})
     }
 
     IgUser getInstagramUser(String username) {
         Objects.requireNonNull(username, 'username is null')
-        String url = "https://www.instagram.com/${username}/?__a=1"
-        ListenableFuture<Response> f = asyncHttpClient.prepareGet(url).execute()
+        def url = "https://www.instagram.com/${username}/?__a=1"
+        def f = asyncHttpClient.prepareGet(url).execute()
         Response response
         try {
             response = f.get()
@@ -60,21 +58,17 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
     private IgPost parseItem(item) {
         def url
-        String type = item.type
-        if (type == 'image') url = item.images.standard_resolution.url
-        else {
-            if (item.videos == null) url = item.images.standard_resolution.url
-            else url = item.videos.standard_resolution.url
-        }
+        if (item.type == 'image' || item.videos == null) url = item.images.standard_resolution.url
+        else url = item.videos.standard_resolution.url
         return new IgPost(
                 username: item.user.username,
                 url: url,
                 createdTime: item.created_time.toLong(),
-                type: type,
+                type: item.type,
                 id: item.id)
     }
 
-    private static String getUrl(String username, String query) {
+    private static String userMediaUrl(String username, String query) {
         return "https://www.instagram.com/${username}/media/${query}"
     }
 

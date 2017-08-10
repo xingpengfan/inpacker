@@ -17,16 +17,16 @@ class IgPackItem implements PackItem {
     }
 
     IgPost getPost() {
-        return post
+        post
     }
 
     @Override
     String getUrl() {
-        return post.url
+        post.url
     }
 
     @Override
     String getFileName() {
-        return fileNameCreator.apply(index, post)
+        fileNameCreator.apply(index, post)
     }
 }
