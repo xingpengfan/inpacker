@@ -8,8 +8,8 @@ import org.asynchttpclient.Response
 
 import java.util.concurrent.ExecutionException
 
-import static inpacker.px.ApiHelper.getUserPhotosUrl
-import static inpacker.px.ApiHelper.getUserProfileUrl
+import static ApiUrls.getUserPhotosUrl
+import static ApiUrls.getUserProfileUrl
 import static java.util.Objects.requireNonNull
 
 class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {

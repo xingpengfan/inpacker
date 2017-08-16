@@ -2,7 +2,6 @@ package inpacker.instagram
 
 import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
-import inpacker.core.PackItem
 import org.asynchttpclient.AsyncHttpClient
 import org.asynchttpclient.DefaultAsyncHttpClient
 import org.asynchttpclient.Response

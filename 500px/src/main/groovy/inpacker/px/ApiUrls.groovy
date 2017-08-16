@@ -1,6 +1,6 @@
 package inpacker.px
 
-class ApiHelper {
+class ApiUrls {
 
     private static final String API_URL_BASE = 'https://api.500px.com/v1'
     private static final int DEFAULT_IMAGE_SIZE = 2048
@@ -18,5 +18,5 @@ class ApiHelper {
         "$API_URL_BASE/photos?feature=user&username=$username&consumer_key=$consumerKey&image_size=$imageSize&page=$page"
     }
 
-    private ApiHelper() {}
+    private ApiUrls() {}
 }
