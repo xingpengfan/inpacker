@@ -1,20 +1,33 @@
 package inpacker.px
 
+import groovy.transform.Immutable
 import inpacker.core.PackConfig
 
-class PxPackConfig implements PackConfig<PxPackItem> {
+import java.util.function.BiFunction
+
+import static java.lang.Math.min
+
+@Immutable class PxPackConfig implements PackConfig<PxPackItem> {
+
+    PxUser user
+    int size
+
+    BiFunction<Integer, PxPost, String> getFileNameCreator() {
+        return {idx, post -> idx + post.extension()}
+    }
+
     @Override
     boolean test(PxPackItem item) {
-        throw new UnsupportedOperationException("not implemented")
+        true
     }
 
     @Override
     String getUniqueId() {
-        throw new UnsupportedOperationException("not implemented")
+        user.username + '_' + hashCode()
     }
 
     @Override
     int numberOfItems() {
-        throw new UnsupportedOperationException("not implemented")
+        min(user.getPhotosCount(), size)
     }
 }

@@ -48,7 +48,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         try {
             response = f.get()
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTracke()
+            e.printStackTrace()
             return null
         }
         if (response.getStatusCode() != 200) return null
@@ -72,7 +72,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         return "https://www.instagram.com/${username}/media/${query}"
     }
 
-    private IgUser parseUser(json) {
+    private IgUser parseUser(String json) {
         def userJson = new JsonSlurper().parseText(json).user
         return new IgUser(
                 instagramId: userJson.id,
