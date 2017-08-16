@@ -2,11 +2,15 @@ package inpacker.instagram
 
 import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
+import inpacker.core.PackItem
 import org.asynchttpclient.AsyncHttpClient
 import org.asynchttpclient.DefaultAsyncHttpClient
 import org.asynchttpclient.Response
 
 import java.util.concurrent.ExecutionException
+
+import static inpacker.instagram.ApiUrls.userMediaUrl
+import static inpacker.instagram.ApiUrls.userProfileUrl
 
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
@@ -36,13 +40,13 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
             query = "?max_id=${json.items.get(json.items.size() - 1).id}"
             moreItemsAvailable = json.more_available
         }
-        IgPost last = new IgPost(username: 'end', url: 'end', type: 'end', id: 'end', createdTime: 0)
+        IgPost last = new IgPost('', '', '', '', 0)
         items << new IgPackItem(last, packedItemsCount, {i, p -> 'end'})
     }
 
     IgUser getInstagramUser(String username) {
         Objects.requireNonNull(username, 'username is null')
-        def url = "https://www.instagram.com/${username}/?__a=1"
+        def url = userProfileUrl(username)
         def f = asyncHttpClient.prepareGet(url).execute()
         Response response
         try {
@@ -51,8 +55,10 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
             e.printStackTrace()
             return null
         }
-        if (response.getStatusCode() != 200) return null
-        else return parseUser(response.getResponseBody())
+        if (response.getStatusCode() != 200)
+            return null
+        else
+            return parseUser(response.getResponseBody())
 
     }
 
@@ -66,10 +72,6 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
                 createdTime: item.created_time.toLong(),
                 type: item.type,
                 id: item.id)
-    }
-
-    private static String userMediaUrl(String username, String query) {
-        return "https://www.instagram.com/${username}/media/${query}"
     }
 
     private IgUser parseUser(String json) {
