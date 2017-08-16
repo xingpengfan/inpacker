@@ -7,15 +7,15 @@ class ApiHelper {
     private static final int DEFAULT_PAGE = 1
 
     static String getUserProfileUrl(String username, String consumerKey) {
-        return "$API_URL_BASE/users/show?username=$username&consumer_key=$consumerKey"
+        "$API_URL_BASE/users/show?username=$username&consumer_key=$consumerKey"
     }
 
     static String getUserPhotosUrl(String username, String consumerKey) {
-        return getUserPhotosUrl(username, consumerKey, DEFAULT_IMAGE_SIZE, DEFAULT_PAGE)
+        getUserPhotosUrl(username, consumerKey, DEFAULT_IMAGE_SIZE, DEFAULT_PAGE)
     }
 
     static String getUserPhotosUrl(String username, String consumerKey, int imageSize, int page) {
-        return "$API_URL_BASE/photos?feature=user&username=$username&consumer_key=$consumerKey&image_size=$imageSize&page=$page"
+        "$API_URL_BASE/photos?feature=user&username=$username&consumer_key=$consumerKey&image_size=$imageSize&page=$page"
     }
 
     private ApiHelper() {}

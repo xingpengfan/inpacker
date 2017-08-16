@@ -4,19 +4,23 @@ import inpacker.core.*;
 import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgPackItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 import java.io.File;
 
 @Configuration
+@PropertySource("classpath:application.properties")
 public class AppConfig {
 
-    private static final File packsDir = new File("/app/tmp/");
+    @Autowired Environment env;
 
     @Bean("igPackService")
     public PackService<IgPackConfig, IgPackItem> packService() {
-        return new DefaultPackService<>(packsDir, repository(), igZipPacker());
+        return new DefaultPackService<>(new File(env.getProperty("packs.dir.path")), repository(), igZipPacker());
     }
 
     @Bean("igZipPacker")

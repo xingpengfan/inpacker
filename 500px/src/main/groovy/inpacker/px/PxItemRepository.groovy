@@ -24,28 +24,24 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
 
     @Override
     void getPackItems(PxPackConfig config, Collection<PxPackItem> items) {
-        try {
-            int packedItemsCount = 0
-            boolean moreAvailable = true
-            while (moreAvailable && packedItemsCount < config.numberOfItems()) {
-                def future = httpClient.prepareGet(getUserPhotosUrl(config.user.username, consumerKey)).execute()
-                Response resp = future.get()
-                def json = new JsonSlurper().parseText(resp.getResponseBody())
-                for (int i = 0; i < json.photos.size() && packedItemsCount < config.numberOfItems(); i++) {
-                    def post = parsePost(json.photos[i])
-                    def item = new PxPackItem(post, packedItemsCount + 1, config.getFileNameCreator())
-                    if (config.test(item)) {
-                        items << item
-                        packedItemsCount++
-                    }
+        int packedItemsCount = 0
+        boolean moreAvailable = true
+        while (moreAvailable && packedItemsCount < config.numberOfItems()) {
+            def future = httpClient.prepareGet(getUserPhotosUrl(config.user.username, consumerKey)).execute()
+            Response resp = future.get()
+            def json = new JsonSlurper().parseText(resp.getResponseBody())
+            for (int i = 0; i < json.photos.size() && packedItemsCount < config.numberOfItems(); i++) {
+                def post = parsePost(json.photos[i])
+                def item = new PxPackItem(post, packedItemsCount + 1, config.getFileNameCreator())
+                if (config.test(item)) {
+                    items << item
+                    packedItemsCount++
                 }
-                moreAvailable = json.current_page.toInteger() < json.total_pages.toInteger()
             }
-            PxPost last = new PxPost('', '', '', '', 0, 0, '', '')
-            items << new PxPackItem(last, packedItemsCount, { i, p -> 'end' })
-        } catch (Exception e) {
-            e.printStackTrace()
+            moreAvailable = json.current_page.toInteger() < json.total_pages.toInteger()
         }
+        PxPost last = new PxPost('', '', '', '', 0, 0, '', '')
+        items << new PxPackItem(last, packedItemsCount, { i, p -> 'end' })
     }
 
     PxUser get500pxUser(String username) {
@@ -68,7 +64,7 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
         return new PxPost(
                 id: postJson.id,
                 name: postJson.name,
-                description: postJson.description?:'no description',
+                description: postJson.description ?: 'no description',
                 createdAt: postJson.created_at,
                 width: postJson.width.toInteger(),
                 height: postJson.height.toInteger(),
