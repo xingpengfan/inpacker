@@ -5,3 +5,4 @@ IgnoredController.java
 .gradle/
 build/
 out/
+ignored/
