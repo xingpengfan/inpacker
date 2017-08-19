@@ -25,7 +25,7 @@ import static org.testng.Assert.*;
 
 public class InstagramControllerTest {
 
-    private static final IgUser someUser = new IgUser("123_321", "dude", false, "Some User", "bio", "profile_pic_url", 555, false);
+    private static final IgUser someUser = new IgUser("123_321", "dude",  "Some User", "bio", "profile_pic_url", false, false, 555);
 
     @Mock private PackService<IgPackConfig, IgPackItem> packService;
     @Mock private IgItemRepository repository;

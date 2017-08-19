@@ -22,8 +22,7 @@ public class CreatePackRequest {
 
     private static final int MAX_ITEMS_PER_PACK = 2000;
 
-    public CreatePackRequest(String username, boolean includeVideos,
-                             boolean includeImages, String fileNamePattern) {
+    public CreatePackRequest(String username, boolean includeVideos, boolean includeImages, String fileNamePattern) {
         this.username = username;
         this.includeVideos = includeVideos;
         this.includeImages = includeImages;
@@ -31,7 +30,6 @@ public class CreatePackRequest {
     }
 
     public IgPackConfig toIgPackConfig(IgUser user) {
-        return new IgPackConfig(user, includeVideos, includeImages,
-            min(MAX_ITEMS_PER_PACK, user.getCount()), fileNamePattern);
+        return new IgPackConfig(user, includeVideos, includeImages, min(MAX_ITEMS_PER_PACK, user.getCount()), fileNamePattern);
     }
 }
