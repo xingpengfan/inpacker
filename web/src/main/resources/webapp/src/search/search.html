@@ -1,9 +1,9 @@
 <div class="container">
-    <div class="col-md-8 offset-md-2 content">
+    <div class="col-md-8 mr-auto ml-auto content">
         <main-icon faicon="vm.iconClass"></main-icon>
         <div>
             <form ng-submit="vm.search()">
-                <div class="input-group col-md-10 offset-md-1 search-input-group">
+                <div class="input-group col-md-10 ml-auto mr-auto search-input-group">
                     <button class="input-group-addon search-button" type="button" id="basic-addon2"
                             ng-click="vm.search()">
                         <i class="fa fa-search" aria-hidden="true" title="Search {{ vm.input }}"
@@ -14,14 +14,14 @@
                            placeholder="Instagram username" aria-describedby="basic-addon2"
                            maxlength="30" ng-model="vm.input" autofocus ng-disabled="vm.searching">
                 </div>
-                <div class="col-md-8 offset-md-2 alert alert-danger not-found-alert" role="alert"
+                <div class="col-md-8 mr-auto ml-auto alert alert-danger not-found-alert" role="alert"
                      ng-show="vm.showUserNotFound()">
                     <strong>{{ vm.userNotFoundMessage }}</strong>
                     <span ng-click="vm.closeUserNotFoundAlert()">
                         <i class="fa fa-close" aria-hidden="true" title="Close"></i>
                     </span>
                 </div>
-                <div class="col-md-8 offset-md-2 alert alert-danger not-found-alert" role="alert"
+                <div class="col-md-8 mr-auto ml-auto alert alert-danger not-found-alert" role="alert"
                      ng-show="vm.showPackNotFound()">
                     <strong>{{ vm.packNotFoundMessage }}</strong>
                     <span ng-click="vm.closePackNotFoundAlert()">

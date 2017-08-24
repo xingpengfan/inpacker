@@ -22,6 +22,10 @@ button {
     cursor: pointer;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .download-btn {
     background: #24292e;
     border-color: #24292e;
@@ -86,7 +90,7 @@ button {
 }
 
 .header-links {
-    float: right;
+    text-align: right;
     padding: 12px 0px 16px 0px;
 }
 
@@ -98,12 +102,8 @@ button {
     color: rgba(255,255,255,1);
 }
 
-.header-links ul {
-    list-style-type: none;
-}
-
 .header-links li {
-    float: right;
+    display: inline;
     margin: 0 10px 0 10px;
 }
 
