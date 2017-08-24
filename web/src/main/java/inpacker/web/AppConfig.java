@@ -16,7 +16,7 @@ import java.io.File;
 @PropertySource("classpath:application.properties")
 public class AppConfig {
 
-    @Autowired Environment env;
+    @Autowired private Environment env;
 
     @Bean("igPackService")
     public PackService<IgPackConfig, IgPackItem> packService() {
