@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
     angular.module('inpacker').controller('InstagramSearchController', InstagramSearchController);
 
     InstagramSearchController.$inject = ['$http', '$routeParams', 'locationService', 'icon'];

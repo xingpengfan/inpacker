@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
     angular.module('inpacker').controller('PackStatusController', PackStatusController);
 
     PackStatusController.$inject = ['$interval', '$routeParams', 'ig', 'icon', 'pack', 'CHECK_STATUS_INTERVAL'];

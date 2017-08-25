@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
     angular.module('inpacker').controller('PackConfController', PackConfController);
 
     PackConfController.$inject = ['$routeParams', 'ig', 'icon', 'locationService', 'user'];

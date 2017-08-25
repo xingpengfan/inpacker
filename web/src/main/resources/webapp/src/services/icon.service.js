@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
     angular.module('inpacker').factory('icon', iconService);
 
     function iconService() {

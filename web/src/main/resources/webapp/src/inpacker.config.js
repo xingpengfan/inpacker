@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
     angular.module('inpacker').config(config);
 
     config.$inject = ['$locationProvider', '$routeProvider'];
