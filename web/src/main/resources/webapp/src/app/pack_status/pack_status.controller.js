@@ -1,0 +1,32 @@
+export default class PackStatusController {
+    constructor($interval, $routeParams, ig, icon, pack, CHECK_STATUS_INTERVAL) {
+        if (pack == null) {
+            pack = {
+                is_done: false
+            }
+        };
+        this.$interval = $interval;
+        this.$routeParams = $routeParams;
+        this.ig = ig;
+        this.icon = icon;
+        this.pack = pack;
+        this.checkStatusInterval = CHECK_STATUS_INTERVAL;
+
+        this.iconClass = this.pack.is_done ? icon.packIsDone() : icon.creatingPack();
+        this.timer = $interval(() => this.updatePack(), this.checkStatusInterval);
+    }
+
+    updatePack() {
+        this.ig.getPack(this.$routeParams.packId).then(pack => {
+            this.pack = pack;
+            if (pack.is_done) this.done();
+        });
+    }
+
+    done() {
+        this.$interval.cancel(this.timer);
+        this.iconClass = this.icon.packIsDone();
+    }
+}
+
+PackStatusController.$inject = ['$interval', '$routeParams', 'ig', 'icon', 'pack', 'CHECK_STATUS_INTERVAL'];
