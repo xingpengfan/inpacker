@@ -1,6 +1,5 @@
 export default class IgSearchController {
-    constructor($http, $routeParams, locationService, icon) {
-        this.$http = $http;
+    constructor($routeParams, locationService, icon) {
         this.$routeParams = $routeParams;
         this.icon = icon;
         this.locationService = locationService;
@@ -36,4 +35,4 @@ export default class IgSearchController {
     }
 }
 
-IgSearchController.$inject = ['$http', '$routeParams', 'locationService', 'icon'];
+IgSearchController.$inject = ['$routeParams', 'locationService', 'icon'];

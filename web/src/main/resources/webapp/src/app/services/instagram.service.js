@@ -36,3 +36,5 @@ export default class InstagramService {
         );
     }
 }
+
+InstagramService.$inject = ['$http'];
