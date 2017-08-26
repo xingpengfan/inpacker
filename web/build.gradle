@@ -30,8 +30,6 @@ task buildClient(type:Exec) { commandLine 'npm', 'run', 'build', '--prefix', 'sr
 
 compileJava.dependsOn buildClient
 
-task cleanClient(type:Exec) { commandLine 'rm', '-rf', 'src/main/resources/webapp/dist/' }
-task deleteStrangeEtcDir(type:Exec) { commandLine 'rm', '-rf', 'src/main/resources/webapp/etc/' }
+task cleanClient(type:Exec) { commandLine 'npm', 'run', 'clean', '--prefix', 'src/main/resources/webapp/' }
 
-cleanClient.dependsOn deleteStrangeEtcDir
 clean.dependsOn cleanClient
