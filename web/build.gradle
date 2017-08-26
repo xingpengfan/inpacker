@@ -28,8 +28,4 @@ springBoot {
 
 task buildClient(type:Exec) { commandLine 'npm', 'run', 'build', '--prefix', 'src/main/resources/webapp/' }
 
-compileJava.dependsOn buildClient
-
 task cleanClient(type:Exec) { commandLine 'npm', 'run', 'clean', '--prefix', 'src/main/resources/webapp/' }
-
-clean.dependsOn cleanClient
