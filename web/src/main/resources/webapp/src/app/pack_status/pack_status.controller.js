@@ -1,5 +1,5 @@
 export default class PackStatusController {
-    constructor($interval, $routeParams, ig, icon, pack, CHECK_STATUS_INTERVAL) {
+    constructor($interval, $scope, $routeParams, ig, icon, pack, CHECK_STATUS_INTERVAL) {
         if (pack == null) {
             pack = {
                 is_done: false
@@ -14,6 +14,7 @@ export default class PackStatusController {
 
         this.iconClass = this.pack.is_done ? icon.packIsDone() : icon.creatingPack();
         this.timer = $interval(() => this.updatePack(), this.checkStatusInterval);
+        $scope.$on("$destroy", () => $interval.cancel(this.timer));
     }
 
     updatePack() {
@@ -29,4 +30,4 @@ export default class PackStatusController {
     }
 }
 
-PackStatusController.$inject = ['$interval', '$routeParams', 'ig', 'icon', 'pack', 'CHECK_STATUS_INTERVAL'];
+PackStatusController.$inject = ['$interval', '$scope', '$routeParams', 'ig', 'icon', 'pack', 'CHECK_STATUS_INTERVAL'];

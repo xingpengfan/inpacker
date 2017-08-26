@@ -13,7 +13,6 @@ import org.springframework.core.env.Environment;
 import java.io.File;
 
 @Configuration
-@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     @Autowired private Environment env;
