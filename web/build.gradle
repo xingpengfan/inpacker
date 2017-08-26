@@ -26,14 +26,12 @@ springBoot {
     mainClass = 'inpacker.web.InpackerApp'
 }
 
-task buildClient(type:Exec) {
-    commandLine 'npm', 'run', 'build', '--prefix', 'src/main/resources/webapp/'
-}
+task buildClient(type:Exec) { commandLine 'npm', 'run', 'build', '--prefix', 'src/main/resources/webapp/' }
 
-build.finalizedBy('buildClient')
+compileJava.dependsOn buildClient
 
-task cleanClient(type:Exec) {
-    commandLine 'rm', '-rf', 'src/main/resources/webapp/dist/'
-}
+task cleanClient(type:Exec) { commandLine 'rm', '-rf', 'src/main/resources/webapp/dist/' }
+task deleteStrangeEtcDir(type:Exec) { commandLine 'rm', '-rf', 'src/main/resources/webapp/etc/' }
 
-clean.finalizedBy('cleanClient')
+cleanClient.dependsOn deleteStrangeEtcDir
+clean.dependsOn cleanClient

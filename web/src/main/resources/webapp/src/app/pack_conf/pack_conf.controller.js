@@ -30,7 +30,7 @@ export default class PackConfController {
     }
 
     searchAnotherUser() {
-        locationService.openSearch();
+        this.locationService.openSearch();
     }
 
     shortenedUsername() {

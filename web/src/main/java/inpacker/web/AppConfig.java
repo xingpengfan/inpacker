@@ -20,7 +20,14 @@ public class AppConfig {
 
     @Bean("igPackService")
     public PackService<IgPackConfig, IgPackItem> packService() {
-        return new DefaultPackService<>(new File(env.getProperty("packs.dir.path")), repository(), igZipPacker());
+        final File herokuDir = new File(env.getProperty("heroku.packs.dir.path"));
+        final File localDir = new File(env.getProperty("local.packs.dir.path"));
+        File packsDir;
+        if (herokuDir.mkdirs())
+            packsDir = herokuDir;
+        else
+            packsDir = localDir;
+        return new DefaultPackService<>(packsDir, repository(), igZipPacker());
     }
 
     @Bean("igZipPacker")
