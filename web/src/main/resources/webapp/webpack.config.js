@@ -49,11 +49,11 @@ module.exports = function makeWebpackConfig() {
 
     // Filename for entry points
     // Only adds hash in build mode
-    filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
+    filename: isProd ? 'assets/[name].[hash].js' : 'assets/[name].bundle.js',
 
     // Filename for non-entry points
     // Only adds hash in build mode
-    chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+    chunkFilename: isProd ? 'assets/[name].[hash].js' : 'assets/[name].bundle.js'
   };
 
   /**
@@ -183,7 +183,7 @@ module.exports = function makeWebpackConfig() {
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
       // Extract css files
       // Disabled when in test mode or not in build mode
-      new ExtractTextPlugin({filename: 'css/[name].css', disable: !isProd, allChunks: true})
+      new ExtractTextPlugin({filename: 'assets/[name].css', disable: !isProd, allChunks: true})
     )
   }
 
