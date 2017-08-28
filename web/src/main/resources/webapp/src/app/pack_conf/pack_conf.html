@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="col-md-8 ml-auto mr-auto content" ng-show="vm.user != null">
-        <main-icon faicon="vm.iconClass"></main-icon>
+    <div class="col-md-8 ml-auto mr-auto content" ng-if="vm.user">
+        <main-icon faicon="vm.iconClass" nf-if="vm.inconClass"></main-icon>
         <div>
             <div class="lighter-bg regular-font primary-content-block">
                 <div class="col-md-6 user-pic">

@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="col-md-8 ml-auto mr-auto content">
-        <main-icon faicon="vm.iconClass"></main-icon>
+    <div class="col-md-8 ml-auto mr-auto content" ng-if="vm.pack">
+        <main-icon faicon="vm.iconClass" ng-if="vm.iconClass"></main-icon>
         <div>
             <div class="col-md-10 ml-auto mr-auto middle-font centered collecting-block">
                 <p ng-hide="vm.pack.is_done">

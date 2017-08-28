@@ -1,15 +1,11 @@
 export default class PackConfController {
     constructor($routeParams, ig, icon, locationService, user) {
-        if (user == null)
-            user = {
-                username: 'not_found',
-                isPrivate: false
-            }
+        if (user == null) return;
+        this.user = user;
         this.$routeParams = $routeParams;
         this.ig = ig;
         this.icon = icon;
         this.locationService = locationService;
-        this.user = user;
         this.settings = {
             username: user.username,
             includeImages: true,
