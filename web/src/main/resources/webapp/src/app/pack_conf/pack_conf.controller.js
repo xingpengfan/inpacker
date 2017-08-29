@@ -10,7 +10,7 @@ export default class PackConfController {
             username: user.username,
             includeImages: true,
             includeVideos: true,
-            fileNamePattern: 'index'
+            fileNamePattern: 'timestamp'
         };
         this.processing = false; // waiting for the response of post create pack
         this.user.instagramPageLink = 'https://www.instagram.com/' + this.user.username + '/';

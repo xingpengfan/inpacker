@@ -22,11 +22,11 @@ import static java.time.ZoneOffset.*
             case 'index':
             case 'idx':
                 return { idx, post -> idx + post.extension() }
-            case 'timestamp':
-                return { idx, post -> post.createdTime + post.extension() }
             case 'utctime':
-            default:
                 return { idx, post -> ofEpochSecond(post.getCreatedTime(), 0, UTC).toString() + post.extension() }
+            case 'timestamp':
+            default:
+                return { idx, post -> post.createdTime + post.extension() }
         }
     }
 
