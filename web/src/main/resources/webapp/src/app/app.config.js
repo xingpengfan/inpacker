@@ -28,20 +28,20 @@ export default function config($locationProvider, $routeProvider) {
         });
 }
 
-instagramUser.$inject = ['$route', 'ig', 'locationService'];
-function instagramUser($route, ig, locationService) {
+instagramUser.$inject = ['$route', 'ig', 'appLocation'];
+function instagramUser($route, ig, appLocation) {
     let username = $route.current.params.username;
     return ig.getUser(username).then(user => {
-        if (user == null) locationService.openSearch(username);
+        if (user == null) appLocation.openSearch(username);
         return user;
     });
 }
 
-instagramPack.$inject = ['$route', 'ig', 'locationService'];
-function instagramPack($route, ig, locationService) {
+instagramPack.$inject = ['$route', 'ig', 'appLocation'];
+function instagramPack($route, ig, appLocation) {
     let packId = $route.current.params.packId;
     return ig.getPack(packId).then(pack => {
-        if (pack == null) locationService.openSearch(null, packId);
+        if (pack == null) appLocation.openSearch(null, packId);
         return pack;
     });
 }

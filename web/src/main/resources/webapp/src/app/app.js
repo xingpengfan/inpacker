@@ -7,7 +7,7 @@ import '../style/app.css';
 import config from './app.config';
 
 import IconService from './services/icon.service';
-import LocationService from './services/location.service';
+import AppLocation from './services/applocation.service';
 import InstagramService from './services/instagram.service';
 
 import MainIconComponent from './components/main_icon/main_icon.component';
@@ -23,7 +23,7 @@ angular
     .constant('CHECK_STATUS_INTERVAL', 2000)
     .config(config)
     .service('icon', IconService)
-    .service('locationService', LocationService)
+    .service('appLocation', AppLocation)
     .service('ig', InstagramService)
     .component('mainIcon', MainIconComponent)
     .controller('IgSearchController', IgSearchController)

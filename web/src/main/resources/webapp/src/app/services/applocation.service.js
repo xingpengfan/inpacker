@@ -1,4 +1,4 @@
-export default class LocationService {
+export default class AppLocation {
     constructor($location) {
         this.$location = $location;
     }
@@ -25,4 +25,4 @@ export default class LocationService {
     }
 }
 
-LocationService.$inject = ['$location'];
+AppLocation.$inject = ['$location'];
