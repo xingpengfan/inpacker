@@ -4,10 +4,14 @@ export default class LocationService {
     }
 
     openSearch(userNotFound, packNotFound) {
-        if (userNotFound) this.$location.search('unf', userNotFound);
-        else this.$location.search('unf', null);
-        if (packNotFound) this.$location.search('pnf', packNotFound);
-        else this.$location.search('pnf', null);
+        if (userNotFound)
+            this.$location.search('unf', userNotFound);
+        else
+            this.$location.search('unf', null);
+        if (packNotFound)
+            this.$location.search('pnf', packNotFound);
+        else
+            this.$location.search('pnf', null);
         this.$location.path('/');
     }
 

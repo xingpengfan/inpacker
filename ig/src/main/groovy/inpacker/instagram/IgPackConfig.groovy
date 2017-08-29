@@ -17,12 +17,14 @@ import static java.time.ZoneOffset.*
 
     BiFunction<Integer, IgPost, String> getFileNameCreator() {
         switch (fileNamePattern) {
-            case "id":
+            case 'id':
                 return { idx, post -> post.id + post.extension() }
-            case "index":
-            case "idx":
+            case 'index':
+            case 'idx':
                 return { idx, post -> idx + post.extension() }
-            case "date":
+            case 'timestamp':
+                return { idx, post -> post.createdTime + post.extension() }
+            case 'date':
             default:
                 return { idx, post -> ofEpochSecond(post.getCreatedTime(), 0, UTC).toString() + post.extension() }
         }

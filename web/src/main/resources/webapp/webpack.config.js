@@ -16,11 +16,8 @@ var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
 
 module.exports = function makeWebpackConfig() {
-  /**
-   * Config
-   * Reference: http://webpack.github.io/docs/configuration.html
-   * This is the object where all configuration gets set
-   */
+
+  // http://webpack.github.io/docs/configuration.html
   var config = {};
 
   /**
@@ -71,20 +68,13 @@ module.exports = function makeWebpackConfig() {
     config.devtool = 'eval-source-map';
   }
 
-  /**
-   * Loaders
-   * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
-   * List: http://webpack.github.io/docs/list-of-loaders.html
-   * This handles most of the magic responsible for converting modules
-   */
+  // http://webpack.github.io/docs/configuration.html#module-loaders
+  // http://webpack.github.io/docs/list-of-loaders.html
 
   // Initialize module
   config.module = {
     rules: [{
-      // JS LOADER
-      // Reference: https://github.com/babel/babel-loader
-      // Transpile .js files using babel-loader
-      // Compiles ES6 and ES7 into ES5 code
+      // https://github.com/babel/babel-loader
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: /node_modules/
