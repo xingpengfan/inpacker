@@ -171,14 +171,12 @@ ul {
     padding: 20px 0 20px 0;
     display: flex;
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    /*border-top-left-radius: 150px;
+    border-bottom-left-radius: 150px;*/
 }
 
 .primary-content-block p {
     margin: 4px;
-}
-
-.img-circle {
-    border-radius: 50%;
 }
 
 .user-info-block, .settings-block {

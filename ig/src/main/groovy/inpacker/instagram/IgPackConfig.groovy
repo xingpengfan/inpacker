@@ -24,7 +24,7 @@ import static java.time.ZoneOffset.*
                 return { idx, post -> idx + post.extension() }
             case 'timestamp':
                 return { idx, post -> post.createdTime + post.extension() }
-            case 'date':
+            case 'utctime':
             default:
                 return { idx, post -> ofEpochSecond(post.getCreatedTime(), 0, UTC).toString() + post.extension() }
         }

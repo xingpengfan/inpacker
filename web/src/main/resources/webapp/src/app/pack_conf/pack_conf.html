@@ -4,7 +4,7 @@
         <div>
             <div class="lighter-bg regular-font primary-content-block">
                 <div class="col-md-6 user-pic">
-                    <img class="col-md-12 img-circle" src="" ng-src="{{ vm.user.profilePic }}">
+                    <img class="col-md-12 rounded-circle" src="" ng-src="{{ vm.user.profilePic }}">
                 </div>
                 <div class="col-md-6">
                     <p class="red-font" ng-show="vm.user.isPrivate">
@@ -49,13 +49,13 @@
                             <input id="radio2" id="radio2" type="radio" class="custom-control-input"
                                    ng-model="vm.settings.fileNamePattern" value="id">
                             <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">id</span>
+                            <span class="custom-control-description">instagram id</span>
                         </label>
                         <label class="custom-control custom-radio">
                             <input id="radio3" id="radio3" type="radio" class="custom-control-input"
-                                   ng-model="vm.settings.fileNamePattern" value="date">
+                                   ng-model="vm.settings.fileNamePattern" value="utctime">
                             <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">date</span>
+                            <span class="custom-control-description">UTC time</span>
                         </label>
                         <label class="custom-control custom-radio">
                             <input id="radio4" id="radio4" type="radio" class="custom-control-input"
@@ -71,7 +71,9 @@
                         <button type="button" class="btn" ng-click="vm.searchAnotherUser()">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i> Search another user
                         </button>
-                        <button type="button" class="btn btn-primary" ng-click="vm.createPackClick()"
+                        <button type="button"
+                                class="btn btn-primary"
+                                ng-click="vm.createPackClick()"
                                 ng-hide="vm.user.isPrivate"
                                 ng-disabled="!vm.possibleToCreatePack()">
                             Go

@@ -40,12 +40,12 @@ export default class PackConfController {
         if (this.settings.includeImages)
             if (this.settings.fileNamePattern === 'id') p += '1756...364.jpg, ';
             else if (this.settings.fileNamePattern === 'index') p += '1.jpg, ';
-            else if (this.settings.fileNamePattern === 'date') p += '2017-02-25T15:36:59Z.jpg, ';
+            else if (this.settings.fileNamePattern === 'utctime') p += '2017-02-25T15:36:59Z.jpg, ';
             else if (this.settings.fileNamePattern === 'timestamp') p += '1497899933.jpg, ';
         if (this.settings.includeVideos)
             if (this.settings.fileNamePattern === 'id') p += '4606...591.mp4';
             else if (this.settings.fileNamePattern === 'index') p += '2.mp4';
-            else if (this.settings.fileNamePattern === 'date') p += '2016-05-10T14:24:20Z.mp4';
+            else if (this.settings.fileNamePattern === 'utctime') p += '2016-05-10T14:24:20Z.mp4';
             else if (this.settings.fileNamePattern === 'timestamp') p += '1497788183.mp4';
         return p + ' ...';
     }
