@@ -1,0 +1,13 @@
+task npmInstall(type: Exec) {
+    commandLine 'npm', 'install'
+}
+
+task build(type: Exec) {
+    commandLine 'npm', 'run', 'build'
+}
+
+build.dependsOn(npmInstall)
+
+task clean(type: Exec) {
+    commandLine 'npm', 'run', 'clean'
+}
