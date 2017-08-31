@@ -149,7 +149,7 @@ ul {
     padding-bottom: 12px;
     border: none;
     border-radius: 7px 0 0 7px;
-    cursor: auto;
+    cursor: pointer;
 }
 
 .search-input-group button:focus {
@@ -177,14 +177,6 @@ ul {
 
 .primary-content-block p {
     margin: 4px;
-}
-
-.user-info-block, .settings-block {
-    float: right;
-}
-
-.user-pic {
-    float: left;
 }
 
 .verified-stack {

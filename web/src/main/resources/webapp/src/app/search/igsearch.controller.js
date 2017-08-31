@@ -4,8 +4,10 @@ export default class IgSearchController {
         this.icon = icon;
         this.appLocation = appLocation;
         this.iconClass = icon.defaultIcon();
-        this.userNotFoundMessage = 'User ' + $routeParams.unf + ' not found';
-        this.packNotFoundMessage = 'Pack ' + $routeParams.pnf + ' not found';
+
+        this.notFoundAlertMessage = '';
+        if ($routeParams.unf != null) this.notFoundAlertMessage = 'User ' + $routeParams.unf + ' not found';
+        else if ($routeParams.pnf != null) this.notFoundAlertMessage = 'Pack ' + $routeParams.pnf + ' not found';
     }
 
     search() {
@@ -18,19 +20,8 @@ export default class IgSearchController {
         return this.input && this.input !== '';
     }
 
-    showUserNotFound() {
-        return this.$routeParams.unf != null;
-    }
-
-    showPackNotFound() {
-        return this.$routeParams.pnf != null;
-    }
-
-    closeUserNotFoundAlert() {
-        this.appLocation.openSearch();
-    }
-
-    closePackNotFoundAlert() {
+    closeNotFoundAlert() {
+        this.notFoundAlertMessage = '';
         this.appLocation.openSearch();
     }
 }
