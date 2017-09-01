@@ -63,6 +63,10 @@ ul {
     font-size: 15px;
 }
 
+.tiny-font {
+    font-size: 13px;
+}
+
 .dark-font {
     color: #353239;
 }

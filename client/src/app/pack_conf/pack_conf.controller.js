@@ -47,7 +47,7 @@ export default class PackConfController {
             else if (this.settings.fileNamePattern === 'index') p += '2.mp4';
             else if (this.settings.fileNamePattern === 'utctime') p += '2016-05-10T14:24:20Z.mp4';
             else if (this.settings.fileNamePattern === 'timestamp') p += '1497788183.mp4';
-        return p + ' ...';
+        return p;
     }
 
     possibleToCreatePack() {
