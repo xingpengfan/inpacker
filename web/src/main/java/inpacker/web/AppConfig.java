@@ -30,7 +30,8 @@ public class AppConfig {
             packsDir = herokuDir;
         else
             packsDir = localDir;
-        return new DefaultPackService<>(packsDir, repository(), igZipPacker());
+        Packer<IgPackItem> packer = "dir".equals(env.getProperty("packs.type")) ? igDirPacker() : igZipPacker();
+        return new DefaultPackService<>(packsDir, repository(), packer);
     }
 
     @Bean("igZipPacker")
