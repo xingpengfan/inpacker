@@ -7,3 +7,9 @@
 <p align="center">
   <img src="../master/garbage/overview2.gif" height="480" />
 </p>
+
+### Run locally
+```bash
+./gradlew :web:build
+java -jar web/build/libs/web.jar
+```

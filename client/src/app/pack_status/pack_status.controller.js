@@ -10,8 +10,8 @@ export default class PackStatusController {
         this.checkStatusInterval = CHECK_STATUS_INTERVAL;
 
         this.iconClass = this.pack.is_done ? icon.packIsDone() : icon.creatingPack();
-        this.timer = $interval(() => this.updatePack(), this.checkStatusInterval);
-        $scope.$on("$destroy", () => $interval.cancel(this.timer));
+        this.interval = $interval(() => this.updatePack(), this.checkStatusInterval);
+        $scope.$on('$destroy', () => $interval.cancel(this.interval));
     }
 
     updatePack() {
@@ -22,7 +22,7 @@ export default class PackStatusController {
     }
 
     done() {
-        this.$interval.cancel(this.timer);
+        this.$interval.cancel(this.interval);
         this.iconClass = this.icon.packIsDone();
     }
 }

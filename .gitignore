@@ -6,3 +6,4 @@ IgnoredController.java
 build/
 out/
 ignored/
+node_modules/
