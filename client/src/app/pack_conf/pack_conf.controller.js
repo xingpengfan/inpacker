@@ -1,10 +1,9 @@
 export default class PackConfController {
-    constructor($routeParams, ig, icon, appLocation, user) {
+    constructor($routeParams, ig, appLocation, user) {
         if (user == null) return;
         this.user = user;
         this.$routeParams = $routeParams;
         this.ig = ig;
-        this.icon = icon;
         this.appLocation = appLocation;
         this.settings = {
             username: user.username,
@@ -14,7 +13,6 @@ export default class PackConfController {
         };
         this.processing = false; // waiting for the response of post create pack
         this.user.instagramPageLink = 'https://www.instagram.com/' + this.user.username + '/';
-        this.iconClass = this.user.isPrivate ? icon.privateUser() : icon.packConfiguration();
     }
 
     createPackClick() {
@@ -55,4 +53,4 @@ export default class PackConfController {
     }
 }
 
-PackConfController.$inject = ['$routeParams', 'ig', 'icon', 'appLocation', 'user'];
+PackConfController.$inject = ['$routeParams', 'ig', 'appLocation', 'user'];

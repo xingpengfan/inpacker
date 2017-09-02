@@ -1,30 +1,28 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 
+import icons from './icons/icons.module';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import './main.css';
 
 import config from './app.config';
 
-import IconService from './services/icon.service';
 import AppLocation from './services/applocation.service';
 import InstagramService from './services/instagram.service';
-
-import MainIconComponent from './components/main_icon/main_icon.component';
 
 import IgSearchController from './search/igsearch.controller';
 import PackConfController from './pack_conf/pack_conf.controller';
 import PackStatusController from './pack_status/pack_status.controller';
 
 angular
-    .module('app', [ngRoute])
+    .module('app', [ngRoute, icons])
     .constant('CHECK_STATUS_INTERVAL', 2000)
     .config(config)
-    .service('icon', IconService)
     .service('appLocation', AppLocation)
     .service('ig', InstagramService)
-    .component('mainIcon', MainIconComponent)
     .controller('IgSearchController', IgSearchController)
     .controller('PackConfController', PackConfController)
-    .controller('PackStatusController', PackStatusController);
+    .controller('PackStatusController', PackStatusController)
+    .name;

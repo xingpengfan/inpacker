@@ -1,6 +1,7 @@
 <div class="container">
     <div class="col-md-8 ml-auto mr-auto content" ng-if="vm.user">
-        <main-icon faicon="vm.iconClass" nf-if="vm.inconClass"></main-icon>
+        <pack-conf-icon ng-if="!vm.user.isPrivate"></pack-conf-icon>
+        <private-user-icon ng-if="vm.user.isPrivate"></private-user-icon>
         <div class="row lighter-bg regular-font primary-content-block">
             <div class="col">
                 <img class="col rounded-circle" src="" ng-src="{{ vm.user.profilePic }}">

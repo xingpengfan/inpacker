@@ -1,9 +1,7 @@
 export default class IgSearchController {
-    constructor($routeParams, appLocation, icon) {
+    constructor($routeParams, appLocation) {
         this.$routeParams = $routeParams;
-        this.icon = icon;
         this.appLocation = appLocation;
-        this.iconClass = icon.defaultIcon();
 
         this.notFoundAlertMessage = '';
         if ($routeParams.unf != null) this.notFoundAlertMessage = 'User ' + $routeParams.unf + ' not found';
@@ -26,4 +24,4 @@ export default class IgSearchController {
     }
 }
 
-IgSearchController.$inject = ['$routeParams', 'appLocation', 'icon'];
+IgSearchController.$inject = ['$routeParams', 'appLocation'];
