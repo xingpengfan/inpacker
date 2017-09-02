@@ -29,8 +29,8 @@ public class PackStatusResponse {
         id = pack.getId();
         isDone = pack.isDone();
         isFailed = pack.isFailed();
-        packedItemsCount = pack.addedItemsAmount();
-        failedItemsCount = pack.failedItemsAmount();
+        packedItemsCount = pack.addedItemsCount();
+        failedItemsCount = pack.failedItemsCount();
         numberOfItems = pack.getItemsCount();
     }
 

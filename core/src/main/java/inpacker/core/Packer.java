@@ -16,9 +16,9 @@ public interface Packer<T extends PackItem> {
 
     default void pack(BlockingDeque<T> itemsDeque, File packDir, Pack pack) {
         pack(itemsDeque, packDir, pack.getId(),
-                pack::newSuccessItem,
-                pack::newFailedItem,
-                pack::done,
-                pack::failed);
+            pack::newSuccessItem,
+            pack::newFailedItem,
+            pack::done,
+            pack::failed);
     }
 }

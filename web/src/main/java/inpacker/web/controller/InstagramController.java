@@ -75,6 +75,6 @@ public class InstagramController {
     }
 
     public static boolean isValidRequest(CreatePackRequest req) {
-        return req.username != null && !req.username.isEmpty() && (req.includeImages || req.includeVideos);
+        return req.username != null && !req.username.trim().isEmpty() && (req.includeImages || req.includeVideos);
     }
 }
