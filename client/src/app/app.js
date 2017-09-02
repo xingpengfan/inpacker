@@ -2,7 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../style/app.css';
+import './main.css';
 
 import config from './app.config';
 
