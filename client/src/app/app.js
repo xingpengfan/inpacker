@@ -2,6 +2,7 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import './main.css';
 
 import config from './app.config';
