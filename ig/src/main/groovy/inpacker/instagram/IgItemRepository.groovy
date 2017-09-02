@@ -2,22 +2,11 @@ package inpacker.instagram
 
 import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
-import org.asynchttpclient.AsyncHttpClient
-import org.asynchttpclient.DefaultAsyncHttpClient
-import org.asynchttpclient.Response
-
-import java.util.concurrent.ExecutionException
 
 import static inpacker.instagram.ApiUrls.userMediaUrl
 import static inpacker.instagram.ApiUrls.userProfileUrl
 
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
-
-    private AsyncHttpClient asyncHttpClient
-
-    IgItemRepository() {
-        asyncHttpClient = new DefaultAsyncHttpClient()
-    }
 
     @Override
     void getPackItems(IgPackConfig config, Collection<IgPackItem> items) {
@@ -25,9 +14,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         int packedItemsCount = 0
         boolean moreItemsAvailable = true
         while (moreItemsAvailable && packedItemsCount < config.size) {
-            def f = asyncHttpClient.prepareGet(userMediaUrl(config.user.username, query)).execute()
-            def response = f.get()
-            def json = new JsonSlurper().parseText(response.getResponseBody())
+            def json = new JsonSlurper().parse(new URL(userMediaUrl(config.user.username, query)))
             for (int i = 0; i < json.items.size() && packedItemsCount < config.size; i++) {
                 def post = parseItem(json.items.get(i))
                 def item = new IgPackItem(post, packedItemsCount+1, config.getFileNameCreator())
@@ -45,24 +32,26 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
     IgUser getInstagramUser(String username) {
         Objects.requireNonNull(username, 'username is null')
-        def url = userProfileUrl(username)
-        def f = asyncHttpClient.prepareGet(url).execute()
-        Response response
+        if (username.trim().isEmpty())
+            throw new IllegalArgumentException('username is empty')
         try {
-            response = f.get()
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace()
+            def user = new JsonSlurper().parse(new URL(userProfileUrl(username))).user
+            return new IgUser(
+                    instagramId: user.id,
+                    username: user.username,
+                    isPrivate: user.is_private,
+                    fullName: user.full_name,
+                    biography: user.biography,
+                    profilePic: user.profile_pic_url_hd,
+                    count: user.media.count,
+                    isVerified: user.is_verified)
+        } catch (Exception x) {
             return null
         }
-        if (response.getStatusCode() != 200)
-            return null
-        else
-            return parseUser(response.getResponseBody())
-
     }
 
     private IgPost parseItem(item) {
-        def url
+        String url
         if (item.type == 'image' || item.videos == null) url = item.images.standard_resolution.url
         else url = item.videos.standard_resolution.url
         return new IgPost(
@@ -73,16 +62,4 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
                 id: item.id)
     }
 
-    private IgUser parseUser(String json) {
-        def userJson = new JsonSlurper().parseText(json).user
-        return new IgUser(
-                instagramId: userJson.id,
-                username: userJson.username,
-                isPrivate: userJson.is_private,
-                fullName: userJson.full_name,
-                biography: userJson.biography,
-                profilePic: userJson.profile_pic_url_hd,
-                count: userJson.media.count,
-                isVerified: userJson.is_verified)
-    }
 }
