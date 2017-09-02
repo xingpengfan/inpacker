@@ -16,8 +16,6 @@ import IgSearchController from './search/igsearch.controller';
 import PackConfController from './pack_conf/pack_conf.controller';
 import PackStatusController from './pack_status/pack_status.controller';
 
-import '../style/app.css';
-
 angular
     .module('app', [ngRoute])
     .constant('CHECK_STATUS_INTERVAL', 2000)
