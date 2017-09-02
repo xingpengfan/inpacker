@@ -203,3 +203,20 @@ ul {
 .collecting-block p {
     margin: 4px;
 }
+
+.not-found-content {
+    margin-top: 10px;
+}
+
+.not-found-content h1 {
+    font-size: 82px;
+    font-weight: bold;
+    text-align: center;
+    color: #717171;
+}
+
+.not-found-content h2 {
+    font-size: 42px;
+    text-align: center;
+    color: #313131;
+}
