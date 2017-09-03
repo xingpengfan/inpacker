@@ -9,4 +9,5 @@ export default angular
                 .component('privateUserIcon', iconComponents.PrivateUserIconComponent)
                 .component('creatingPackIcon', iconComponents.CreatingPackIconComponent)
                 .component('readyPackIcon', iconComponents.ReadyPackIconComponent)
+                .component('aboutIcon', iconComponents.AboutIconComponent)
                 .name;

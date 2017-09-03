@@ -225,3 +225,11 @@ ul {
     font-size: 48px;
     color: #818181;
 }
+
+.about-content {
+    margin-top: 30px;
+}
+
+.about-content p {
+    margin: 3px;
+}

@@ -32,3 +32,10 @@ export let ReadyPackIconComponent = {
                 <i class="fa fa-lg fa-check" aria-hidden="true"></i>
             </p>`
 }
+
+export let AboutIconComponent = {
+    template:
+            `<p class="centered inpacker-icon-component">
+                <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
+            </p>`
+}

@@ -1,8 +1,8 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
 
-import icons from './icons/icons.module';
-import common from './common/common.module';
+import icons     from './icons/icons.module';
+import common    from './common/common.module';
 import instagram from './instagram/instagram.module';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +12,6 @@ import './main.css';
 import config from './app.config';
 
 export default angular
-                    .module('app', [ngRoute, icons, common, instagram])
+                    .module('inpacker', [ngRoute, icons, common, instagram])
                     .config(config)
                     .name;
