@@ -1,4 +1,4 @@
-export default class PackStatusController {
+export default class PackController {
     constructor($interval, $scope, $routeParams, api, pack, CHECK_STATUS_INTERVAL) {
         if (pack === null) return;
         this.pack = pack;
@@ -24,4 +24,4 @@ export default class PackStatusController {
     }
 }
 
-PackStatusController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'pack', 'CHECK_STATUS_INTERVAL'];
+PackController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'pack', 'CHECK_STATUS_INTERVAL'];

@@ -14,10 +14,10 @@ export default function config($locationProvider, $routeProvider) {
             }
         })
         .when('/p/:packId', {
-            template: require('./pack_status/pack_status.html'),
-            controller: 'PackStatusController as vm',
+            template: require('./common/pack/pack.html'),
+            controller: 'PackController as vm',
             resolve: {
-                pack: instagramPack
+                pack: resolvePack
             }
         })
         .when('/about', {
@@ -37,8 +37,8 @@ function instagramUser($route, api, location) {
     });
 }
 
-instagramPack.$inject = ['$route', 'api', 'location'];
-function instagramPack($route, api, location) {
+resolvePack.$inject = ['$route', 'api', 'location'];
+function resolvePack($route, api, location) {
     let packId = $route.current.params.packId;
     return api.getPack(packId).then(pack => {
         if (pack == null) location.openSearch(null, packId);
