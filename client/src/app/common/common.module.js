@@ -11,4 +11,4 @@ export default angular
                     .service('api', ApiService)
                     .service('location', LocationService)
                     .controller('PackController', PackController)
-                    .name
+                    .name;

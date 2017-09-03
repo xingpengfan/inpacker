@@ -3,11 +3,11 @@ export default function config($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
         .when('/', {
-            template: require('./search/search.html'),
+            template: require('./instagram/search/search.html'),
             controller: 'IgSearchController as vm'
         })
         .when('/@:username', {
-            template: require('./pack_conf/pack_conf.html'),
+            template: require('./instagram/pack_conf/pack_conf.html'),
             controller: 'PackConfController as vm',
             resolve: {
                 user: instagramUser
