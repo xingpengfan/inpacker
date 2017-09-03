@@ -1,11 +1,11 @@
 export default class PackStatusController {
-    constructor($interval, $scope, $routeParams, ig, pack, CHECK_STATUS_INTERVAL) {
+    constructor($interval, $scope, $routeParams, api, pack, CHECK_STATUS_INTERVAL) {
         if (pack === null) return;
         this.pack = pack;
 
         this.$interval = $interval;
         this.$routeParams = $routeParams;
-        this.ig = ig;
+        this.api = api;
         this.checkStatusInterval = CHECK_STATUS_INTERVAL;
 
         this.interval = $interval(() => this.updatePack(), this.checkStatusInterval);
@@ -13,7 +13,7 @@ export default class PackStatusController {
     }
 
     updatePack() {
-        this.ig.getPack(this.$routeParams.packId).then(pack => {
+        this.api.getPack(this.$routeParams.packId).then(pack => {
             this.pack = pack;
             if (pack.is_done) this.done();
         });
@@ -24,4 +24,4 @@ export default class PackStatusController {
     }
 }
 
-PackStatusController.$inject = ['$interval', '$scope', '$routeParams', 'ig', 'pack', 'CHECK_STATUS_INTERVAL'];
+PackStatusController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'pack', 'CHECK_STATUS_INTERVAL'];

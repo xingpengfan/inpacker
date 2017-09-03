@@ -1,10 +1,10 @@
 export default class PackConfController {
-    constructor($routeParams, ig, appLocation, user) {
+    constructor($routeParams, api, location, user) {
         if (user == null) return;
         this.user = user;
         this.$routeParams = $routeParams;
-        this.ig = ig;
-        this.appLocation = appLocation;
+        this.api = api;
+        this.location = location;
         this.settings = {
             username: user.username,
             includeImages: true,
@@ -17,14 +17,14 @@ export default class PackConfController {
 
     createPackClick() {
         this.processing = true;
-        this.ig.createPack(this.settings).then(pack => {
-            if (pack != null) this.appLocation.openPack(pack.id);
+        this.api.createPack(this.settings).then(pack => {
+            if (pack != null) this.location.openPack(pack.id);
             this.processing = false;
         });
     }
 
     searchAnotherUser() {
-        this.appLocation.openSearch();
+        this.location.openSearch();
     }
 
     shortenedUsername() {
@@ -53,4 +53,4 @@ export default class PackConfController {
     }
 }
 
-PackConfController.$inject = ['$routeParams', 'ig', 'appLocation', 'user'];
+PackConfController.$inject = ['$routeParams', 'api', 'location', 'user'];

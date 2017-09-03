@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-8 mr-auto ml-auto alert alert-danger not-found-alert" role="alert"
                     ng-show="vm.notFoundAlertMessage !== ''">
-                <strong>{{ vm.notFoundAlertMessage }}</strong>
+                <strong ng-bind="vm.notFoundAlertMessage"></strong>
                 <span ng-click="vm.closeNotFoundAlert()">
                     <i class="fa fa-close" aria-hidden="true" title="Close"></i>
                 </span>

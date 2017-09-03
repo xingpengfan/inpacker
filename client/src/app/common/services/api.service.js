@@ -1,9 +1,9 @@
-export default class InstagramService {
+export default class ApiService {
     constructor($http) {
         this.$http = $http;
     }
 
-    getUser(username) {
+    getIgUser(username) {
         return this.$http.get('/api/user/' + username)
             .then(resp => resp.data, resp => null);
     }
@@ -19,4 +19,4 @@ export default class InstagramService {
     }
 }
 
-InstagramService.$inject = ['$http'];
+ApiService.$inject = ['$http'];

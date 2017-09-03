@@ -1,7 +1,7 @@
 export default class IgSearchController {
-    constructor($routeParams, appLocation) {
+    constructor($routeParams, location) {
         this.$routeParams = $routeParams;
-        this.appLocation = appLocation;
+        this.location = location;
 
         this.notFoundAlertMessage = '';
         if ($routeParams.unf != null) this.notFoundAlertMessage = 'User ' + $routeParams.unf + ' not found';
@@ -11,7 +11,7 @@ export default class IgSearchController {
     search() {
         if (!this.isValidInput()) return;
         this.searching = true;
-        this.appLocation.openPackConf(this.input);
+        this.location.openPackConf(this.input);
     }
 
     isValidInput() {
@@ -20,8 +20,8 @@ export default class IgSearchController {
 
     closeNotFoundAlert() {
         this.notFoundAlertMessage = '';
-        this.appLocation.openSearch();
+        this.location.openSearch();
     }
 }
 
-IgSearchController.$inject = ['$routeParams', 'appLocation'];
+IgSearchController.$inject = ['$routeParams', 'location'];
