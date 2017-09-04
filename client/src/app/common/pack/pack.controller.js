@@ -1,14 +1,14 @@
 export default class PackController {
-    constructor($interval, $scope, $routeParams, api, pack, CHECK_STATUS_INTERVAL) {
+    constructor($interval, $scope, $routeParams, api, pack, updatePack) {
         if (pack === null) return;
         this.pack = pack;
 
         this.$interval = $interval;
         this.$routeParams = $routeParams;
         this.api = api;
-        this.checkStatusInterval = CHECK_STATUS_INTERVAL;
+        this.updatePackInterval = updatePack;
 
-        this.interval = $interval(() => this.updatePack(), this.checkStatusInterval);
+        this.interval = $interval(() => this.updatePack(), this.updatePackInterval);
         $scope.$on('$destroy', () => $interval.cancel(this.interval));
     }
 
@@ -24,4 +24,4 @@ export default class PackController {
     }
 }
 
-PackController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'pack', 'CHECK_STATUS_INTERVAL'];
+PackController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'pack', 'UPDATE_PACK_STATUS_INTERVAL'];

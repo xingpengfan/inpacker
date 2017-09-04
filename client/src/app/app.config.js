@@ -10,7 +10,7 @@ export default function config($locationProvider, $routeProvider) {
             template: require('./instagram/pack_conf/pack_conf.html'),
             controller: 'PackConfController as vm',
             resolve: {
-                user: instagramUser
+                user: resolveIgUser
             }
         })
         .when('/p/:packId', {
@@ -28,8 +28,8 @@ export default function config($locationProvider, $routeProvider) {
         });
 }
 
-instagramUser.$inject = ['$route', 'api', 'location'];
-function instagramUser($route, api, location) {
+resolveIgUser.$inject = ['$route', 'api', 'location'];
+function resolveIgUser($route, api, location) {
     let username = $route.current.params.username;
     return api.getIgUser(username).then(user => {
         if (user == null) location.openSearch(username);
