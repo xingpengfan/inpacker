@@ -33,19 +33,19 @@ export default class PackConfController {
         else return this.user.username;
     }
 
-    preview() {
-        let p = '';
+    filenameExample() {
+        let example = '';
+        const names = new Map([
+            ['id',        {img: '1756...364.jpg', vid: '4606...591.mp4'}],
+            ['index',     {img: '1.jpg', vid: '2.mp4'}],
+            ['utctime',   {img: '2017-02-25T15:36:59Z.jpg', vid: '2016-05-10T14:24:20Z.mp4'}],
+            ['timestamp', {img: '1497899933.jpg', vid: '1497788183.mp4'}]
+        ]);
         if (this.settings.includeImages)
-            if (this.settings.fileNamePattern === 'id') p += '1756...364.jpg, ';
-            else if (this.settings.fileNamePattern === 'index') p += '1.jpg, ';
-            else if (this.settings.fileNamePattern === 'utctime') p += '2017-02-25T15:36:59Z.jpg, ';
-            else if (this.settings.fileNamePattern === 'timestamp') p += '1497899933.jpg, ';
+            example += names.get(this.settings.fileNamePattern).img + ', ';
         if (this.settings.includeVideos)
-            if (this.settings.fileNamePattern === 'id') p += '4606...591.mp4';
-            else if (this.settings.fileNamePattern === 'index') p += '2.mp4';
-            else if (this.settings.fileNamePattern === 'utctime') p += '2016-05-10T14:24:20Z.mp4';
-            else if (this.settings.fileNamePattern === 'timestamp') p += '1497788183.mp4';
-        return p;
+            example += names.get(this.settings.fileNamePattern).vid;
+        return example;
     }
 
     possibleToCreatePack() {

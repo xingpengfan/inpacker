@@ -39,8 +39,8 @@
                         <span class="custom-control-description">videos</span>
                     </label>
                     <p class="passive-font">
-                        File names: <br />
-                        <span class="tiny-font passive-font" ng-bind="vm.preview()"></span>
+                        File names example: <br />
+                        <span class="tiny-font passive-font" ng-bind="vm.filenameExample()"></span>
                     </p>
                     <div class="row ml-auto mr-auto">
                         <label class="col custom-control custom-radio">
@@ -79,7 +79,8 @@
                             ng-hide="vm.user.isPrivate"
                             ng-disabled="!vm.possibleToCreatePack()">
                         Go
-                        <i ng-class="vm.processing ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'" aria-hidden="true"></i>
+                        <i ng-class="vm.processing ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'"
+                            aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
