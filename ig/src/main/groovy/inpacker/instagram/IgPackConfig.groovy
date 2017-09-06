@@ -38,7 +38,7 @@ import static java.time.ZoneOffset.*
 
     @Override
     String getUniqueId() {
-        user.username + "_" + hashCode()
+        user.username + '_' + hashCode()
     }
 
     @Override
