@@ -1,14 +1,14 @@
 package inpacker.instagram
 
-class ApiUrls {
+class InstagramApiUrls {
 
-    static String userProfileUrl(String username) {
+    static String profile(String username) {
         "https://www.instagram.com/${username}/?__a=1"
     }
 
-    static String userMediaUrl(String username, String query) {
+    static String media(String username, String query) {
         "https://www.instagram.com/${username}/media/${query}"
     }
 
-    private ApiUrls() {}
+    private InstagramApiUrls() {}
 }

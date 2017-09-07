@@ -3,10 +3,13 @@ package inpacker.instagram
 import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
 
-import static inpacker.instagram.ApiUrls.userMediaUrl
-import static inpacker.instagram.ApiUrls.userProfileUrl
-
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
+
+    private JsonSlurper jsonSlurper;
+
+    IgItemRepository() {
+        jsonSlurper = new JsonSlurper();
+    }
 
     @Override
     void getPackItems(IgPackConfig config, Collection<IgPackItem> items) {
@@ -14,7 +17,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         int packedItemsCount = 0
         boolean moreItemsAvailable = true
         while (moreItemsAvailable && packedItemsCount < config.size) {
-            def json = new JsonSlurper().parse(new URL(userMediaUrl(config.user.username, query)))
+            def json = jsonSlurper.parse(new URL(InstagramApiUrls.media(config.user.username, query)))
             for (int i = 0; i < json.items.size() && packedItemsCount < config.size; i++) {
                 def post = parseItem(json.items.get(i))
                 def item = new IgPackItem(post, packedItemsCount+1, config.getFileNameCreator())
@@ -35,7 +38,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         if (username.trim().isEmpty())
             throw new IllegalArgumentException('username is empty')
         try {
-            def user = new JsonSlurper().parse(new URL(userProfileUrl(username))).user
+            def user = jsonSlurper.parse(new URL(InstagramApiUrls.profile(username))).user
             return new IgUser(
                     instagramId: user.id,
                     username: user.username,
