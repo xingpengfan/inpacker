@@ -27,7 +27,7 @@
                     {{ vm.user.fullName }}
                 </p>
                 <div class="regular-font" ng-if="!vm.user.isPrivate">
-                    <p class="passive-font">Include:</p>
+                    <p class="passive-font">include:</p>
                     <label class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" ng-model="vm.settings.includeImages">
                         <span class="custom-control-indicator"></span>
@@ -39,7 +39,7 @@
                         <span class="custom-control-description">videos</span>
                     </label>
                     <p class="passive-font">
-                        File names example: <br />
+                        file names: <br />
                         <span class="tiny-font passive-font" ng-bind="vm.filenameExample()"></span>
                     </p>
                     <div class="row ml-auto mr-auto">
@@ -71,14 +71,14 @@
                 </div>
                 <div class="btn-group" role="group" aria-label="Choose next action">
                     <button type="button" class="btn" ng-click="vm.searchAnotherUser()">
-                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Search another user
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> back
                     </button>
                     <button type="button"
                             class="btn btn-primary"
                             ng-click="vm.createPackClick()"
                             ng-hide="vm.user.isPrivate"
                             ng-disabled="!vm.possibleToCreatePack()">
-                        Go
+                        {{ vm.settings.includeVideos || vm.settings.includeImages ? 'go' : 'nothing to include'}}
                         <i ng-class="vm.processing ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'"
                             aria-hidden="true"></i>
                     </button>

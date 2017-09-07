@@ -32,7 +32,7 @@ ApiService.$inject = ['$http'];
 //             username: username,
 //             isPrivate: false,
 //             fullName: 'BoJack Horseman',
-//             biography: 'hella smart',
+//             biography: 'biography',
 //             profilePic: '//avatars1.githubusercontent.com/u/9919?v=4&s=200',
 //             count: 56,
 //             isVerified: false
