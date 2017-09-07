@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static inpacker.web.dto.MessageResponse.invalidCreatePackRequestBody;
 import static inpacker.web.dto.MessageResponse.packNotFound;
@@ -33,7 +35,7 @@ public class PackController {
 
     @Autowired
     public PackController(@Qualifier("igPackService") PackService<IgPackConfig, IgPackItem> packService,
-                               IgItemRepository igRepo) {
+                          @Qualifier("igRepo") IgItemRepository igRepo) {
         this.packService = packService;
         this.igRepo = igRepo;
     }
@@ -57,6 +59,11 @@ public class PackController {
             return status(NOT_FOUND).body(packNotFound(packId));
         else
             return ok(new PackStatusResponse(pack));
+    }
+
+    @GetMapping("api/packs")
+    public ResponseEntity<List<PackStatusResponse>> getPacks() {
+        return ok(packService.getPacks().stream().map(PackStatusResponse::new).collect(Collectors.toList()));
     }
 
     @GetMapping(value = "packs/{packId:.+}.zip", produces = "application/zip")

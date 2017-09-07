@@ -4,6 +4,7 @@ import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgUser;
 import inpacker.web.dto.IgUserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public class InstagramController {
     private final IgItemRepository igRepo;
 
     @Autowired
-    public InstagramController(IgItemRepository igRepo) {
+    public InstagramController(@Qualifier("igRepo") IgItemRepository igRepo) {
         this.igRepo = igRepo;
     }
 

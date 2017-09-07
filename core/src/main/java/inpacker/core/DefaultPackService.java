@@ -1,8 +1,11 @@
 package inpacker.core;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -30,6 +33,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> imp
         this.executorService = Executors.newCachedThreadPool();
     }
 
+    @Override
     public Pack createPack(C config) {
         requireNonNull(config, "required non null config");
         final String id = config.getUniqueId();
@@ -43,7 +47,13 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> imp
         return pack;
     }
 
+    @Override
     public Pack getPack(String packId) {
         return packs.get(packId);
+    }
+
+    @Override
+    public List<Pack> getPacks(Predicate<Pack> filter) {
+        return packs.values().stream().filter(filter).collect(Collectors.toList());
     }
 }
