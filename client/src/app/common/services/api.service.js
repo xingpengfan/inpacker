@@ -4,7 +4,7 @@ export default class ApiService {
     }
 
     getIgUser(username) {
-        return this.$http.get('/api/user/' + username)
+        return this.$http.get('/api/ig/user/' + username)
             .then(resp => resp.data, resp => null);
     }
 

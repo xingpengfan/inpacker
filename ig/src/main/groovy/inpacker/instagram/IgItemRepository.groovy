@@ -5,10 +5,10 @@ import inpacker.core.ItemRepository
 
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
-    private final JsonSlurper jsonSlurper;
+    private final JsonSlurper jsonSlurper
 
     IgItemRepository() {
-        jsonSlurper = new JsonSlurper();
+        jsonSlurper = new JsonSlurper()
     }
 
     @Override

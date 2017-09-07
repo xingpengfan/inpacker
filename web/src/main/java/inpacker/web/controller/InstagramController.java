@@ -25,7 +25,7 @@ public class InstagramController {
         this.igRepo = igRepo;
     }
 
-    @GetMapping("api/user/{username:.+}")
+    @GetMapping("api/ig/user/{username:.+}")
     public ResponseEntity<?> getUser(@PathVariable("username") String username) {
         final IgUser user = igRepo.getInstagramUser(username);
         return user == null ? status(NOT_FOUND).body(userNotFound(username)) : ok(new IgUserDto(user));
