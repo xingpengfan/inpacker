@@ -9,10 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-// import org.springframework.web.servlet.config.annotation.CorsRegistry;
-// import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-// import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
 import java.io.File;
 
 @Configuration
@@ -30,7 +26,7 @@ public class AppConfig {
         else
             packsDir = localDir;
         Packer<IgPackItem> packer = "dir".equals(env.getProperty("packs.type")) ? igDirPacker() : igZipPacker();
-        return new DefaultPackService<>(packsDir, repository(), packer);
+        return new DefaultPackService<>(packsDir, igRepository(), packer);
     }
 
     @Bean("igZipPacker")
@@ -44,24 +40,8 @@ public class AppConfig {
     }
 
     @Bean("igRepository")
-    public ItemRepository<IgPackConfig, IgPackItem> repository() {
-        return new IgItemRepository();
-    }
-
-    @Bean("igRepo")
     public IgItemRepository igRepository() {
         return new IgItemRepository();
     }
-
-    // @Bean
-    // public WebMvcConfigurer corsConfigurer() {
-    //     return new WebMvcConfigurerAdapter() {
-    //         @Override
-    //         public void addCorsMappings(CorsRegistry registry) {
-    //             registry.addMapping("/**").allowedOrigins("*");
-    //             registry.addMapping("/**").allowedMethods("*");
-    //         }
-    //     };
-    // }
 
 }

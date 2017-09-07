@@ -35,7 +35,7 @@ public class PackController {
 
     @Autowired
     public PackController(@Qualifier("igPackService") PackService<IgPackConfig, IgPackItem> packService,
-                          @Qualifier("igRepo") IgItemRepository igRepo) {
+                          @Qualifier("igRepository") IgItemRepository igRepo) {
         this.packService = packService;
         this.igRepo = igRepo;
     }

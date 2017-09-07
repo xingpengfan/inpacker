@@ -21,7 +21,7 @@ public class InstagramController {
     private final IgItemRepository igRepo;
 
     @Autowired
-    public InstagramController(@Qualifier("igRepo") IgItemRepository igRepo) {
+    public InstagramController(@Qualifier("igRepository") IgItemRepository igRepo) {
         this.igRepo = igRepo;
     }
 
