@@ -28,20 +28,12 @@ export default function config($locationProvider, $routeProvider) {
         });
 }
 
-resolveIgUser.$inject = ['$route', 'api', 'location'];
-function resolveIgUser($route, api, location) {
-    let username = $route.current.params.username;
-    return api.getIgUser(username).then(user => {
-        if (user == null) location.openSearch(username);
-        return user;
-    });
+resolveIgUser.$inject = ['$route', 'api'];
+function resolveIgUser($route, api) {
+    return api.getIgUser($route.current.params.username).then(user => user);
 }
 
-resolvePack.$inject = ['$route', 'api', 'location'];
-function resolvePack($route, api, location) {
-    let packId = $route.current.params.packId;
-    return api.getPack(packId).then(pack => {
-        if (pack == null) location.openSearch(null, packId);
-        return pack;
-    });
+resolvePack.$inject = ['$route', 'api'];
+function resolvePack($route, api) {
+    return api.getPack($route.current.params.packId).then(pack => pack);
 }

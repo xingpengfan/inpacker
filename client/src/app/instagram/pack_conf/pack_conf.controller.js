@@ -1,6 +1,9 @@
 export default class PackConfController {
     constructor($routeParams, api, location, user) {
-        if (user == null) return;
+        if (user == null) {
+            location.openSearch($routeParams.username);
+            return;
+        }
         this.user = user;
         this.$routeParams = $routeParams;
         this.api = api;

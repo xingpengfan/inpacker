@@ -1,6 +1,9 @@
 export default class PackController {
-    constructor($interval, $scope, $routeParams, api, pack, updatePack) {
-        if (pack === null) return;
+    constructor($interval, $scope, $routeParams, location, api, pack, updatePack) {
+        if (pack == null) {
+            location.openSearch(null, $routeParams.packId);
+            return;
+        }
         this.pack = pack;
 
         this.$interval = $interval;
@@ -24,4 +27,4 @@ export default class PackController {
     }
 }
 
-PackController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'pack', 'UPDATE_PACK_STATUS_INTERVAL'];
+PackController.$inject = ['$interval', '$scope', '$routeParams', 'location', 'api', 'pack', 'UPDATE_PACK_STATUS_INTERVAL'];
