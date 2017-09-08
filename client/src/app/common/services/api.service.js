@@ -35,7 +35,7 @@ ApiService.$inject = ['$http'];
 //             biography: 'biography',
 //             profilePic: '//avatars1.githubusercontent.com/u/9919?v=4&s=200',
 //             count: 56,
-//             isVerified: false
+//             isVerified: true
 //         };
 //         return {then: function(f) {return f(iguser);}};
 //     }

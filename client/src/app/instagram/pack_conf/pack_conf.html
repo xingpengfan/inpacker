@@ -11,8 +11,7 @@
                     This user is private
                 </p>
                 <p class="middle-font">
-                    <a href="{{ vm.user.instagramPageLink }}" target="_blank">
-                        {{ vm.shortenedUsername() }}
+                    <a href="{{ vm.user.instagramPageLink }}" target="_blank" ng-bind="vm.username()">
                     </a>
                     <span class="fa-stack verified-stack" ng-show="vm.user.isVerified">
                         <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
@@ -77,8 +76,8 @@
                             class="btn btn-primary"
                             ng-click="vm.createPackClick()"
                             ng-hide="vm.user.isPrivate"
-                            ng-disabled="!vm.possibleToCreatePack()">
-                        {{ vm.settings.includeVideos || vm.settings.includeImages ? 'go' : 'nothing to include'}}
+                            ng-disabled="!vm.ready()">
+                        {{ vm.ready() ? 'go' : 'nothing to include'}}
                         <i ng-class="vm.processing ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'"
                             aria-hidden="true"></i>
                     </button>

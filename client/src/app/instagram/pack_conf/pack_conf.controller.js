@@ -36,11 +36,15 @@ export default class PackConfController {
         this.location.openSearch();
     }
 
-    shortenedUsername() {
-        if (this.user.username.length > 18)
-            return this.user.username.substring(0, 18) + '..';
+    username() {
+        if (this.user.username.length > 20)
+            return this.user.username.substring(0, 20) + '..';
         else
             return this.user.username;
+    }
+
+    ready() {
+        return !this.processing && this.user.count > 0 && (this.settings.includeVideos || this.settings.includeImages);
     }
 
     filenameExample() {
@@ -51,10 +55,6 @@ export default class PackConfController {
             example += this.filenameExamples.get(this.settings.fileNamePattern).vid;
         if (example === '') example = 'no files included';
         return example;
-    }
-
-    possibleToCreatePack() {
-        return !this.processing && (this.settings.includeImages || this.settings.includeVideos);
     }
 }
 
