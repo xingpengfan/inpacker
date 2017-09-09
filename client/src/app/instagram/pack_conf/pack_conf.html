@@ -76,8 +76,8 @@
                             ng-click="vm.createPackClick()"
                             ng-hide="vm.user.isPrivate"
                             ng-disabled="!vm.ready()">
-                        {{ vm.ready() ? 'go' : 'nothing to include'}}
-                        <i ng-class="vm.processing ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'"
+                        {{ vm.ready() || vm.waitingResp ? 'go' : 'nothing to include'}}
+                        <i ng-class="vm.waitingResp ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'"
                             aria-hidden="true"></i>
                     </button>
                 </div>

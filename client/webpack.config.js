@@ -26,7 +26,7 @@ module.exports = function makeWebpackConfig() {
    * Karma will set this when it's a test build
    */
   config.entry = {
-    app: './src/app/app.js'
+    app: './src/app/inpacker.module.js'
   };
 
   /**
