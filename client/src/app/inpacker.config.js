@@ -3,7 +3,7 @@ export default function config($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
         .when('/', {
-            template: require('./instagram/search/search.html'),
+            template: require('./instagram/query/ig_query.html'),
             controller: 'IgQueryController as vm'
         })
         .when('/@:username', {

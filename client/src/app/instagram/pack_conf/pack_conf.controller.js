@@ -2,15 +2,15 @@ export default PackConfController;
 
 PackConfController.$inject = ['$routeParams', 'api', 'location', 'user'];
 function PackConfController($routeParams, api, location, user) {
+    if (user == null) {
+        location.openSearch($routeParams.username);
+        return;
+    }
     const vm = this;
 
     activate();
 
     function activate() {
-        if (user == null) {
-            location.openSearch($routeParams.username);
-            return;
-        }
         vm.user = user;
         vm.settings = {
             username: user.username,
