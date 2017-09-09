@@ -1,70 +1,25 @@
-export default class ApiService {
-    constructor($http) {
-        this.$http = $http;
-    }
+export default ApiService;
 
-    getIgUser(username) {
-        return this.$http.get('/api/ig/user/' + username)
+ApiService.$inject = ['$http'];
+function ApiService($http) {
+    return {
+        getIgUser,
+        getPack,
+        createPack
+    };
+
+    function getIgUser(username) {
+        return $http.get('/api/ig/user/' + username)
             .then(resp => resp.data, resp => null);
     }
 
-    getPack(id) {
-        return this.$http.get('/api/packs/' + id + '/status')
+    function getPack(id) {
+        return $http.get('/api/packs/' + id + '/status')
             .then(resp => resp.data, resp => null);
     }
 
-    createPack(config) {
-        return this.$http.post('/api/packs', config)
+    function createPack(config) {
+        return $http.post('/api/packs', config)
             .then(resp => resp.data, resp => null);
     }
 }
-
-ApiService.$inject = ['$http'];
-
-// export default class FakeApiService {
-//     constructor($http) {
-//         this.$http = $http;
-//         this.packed = 0;
-//     }
-//
-//     getIgUser(username) {
-//         let u = {
-//             instagramId: '123123123_3213213123',
-//             username: username,
-//             isPrivate: false,
-//             fullName: 'BoJack Horseman',
-//             biography: 'biography',
-//             profilePic: '//avatars1.githubusercontent.com/u/9919?v=4&s=200',
-//             count: 56,
-//             isVerified: true
-//         };
-//         return {then: function(f) {return f(u);}};
-//     }
-//
-//     getPack(id) {
-//         this.packed += 10;
-//         let p = {
-//             id: 'pack_id',
-//             is_done: this.packed >= 365,//false,
-//             is_failed: false,
-//             packed_count: this.packed,
-//             failed_count: 0,
-//             items_count: 365
-//         };
-//         return {then: function(f) {return f(p);}};
-//     }
-//
-//     createPack(config) {
-//         let p = {
-//             id: 'pack_id',
-//             is_done: false,
-//             is_failed: false,
-//             packed_count: 233,
-//             failed_count: 0,
-//             items_count: 365
-//         };
-//         return {then: function(f) {return f(p);}};
-//     }
-// }
-//
-// FakeApiService.$inject = ['$http'];

@@ -8,7 +8,7 @@ import PackController from './pack/pack.controller';
 export default angular
                     .module('inpacker.common', [])
                     .constant('UPDATE_PACK_STATUS_INTERVAL', 2000)
-                    .service('api', ApiService)
-                    .service('location', LocationService)
+                    .factory('api', ApiService)
+                    .factory('location', LocationService)
                     .controller('PackController', PackController)
                     .name;
