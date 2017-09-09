@@ -160,6 +160,16 @@ ul {
     outline: none;
 }
 
+.ig-link {
+    color: #24292e;
+    text-decoration: underline;
+}
+
+.ig-link:hover {
+    text-decoration: none;
+    color: #000;
+}
+
 .not-found-alert {
      margin-top: 10px;
 }
@@ -186,7 +196,7 @@ ul {
 }
 
 .verified-stack .fa-certificate {
-    color: #4D9AD8;
+    color: #24292E;
 }
 
 .verified-stack .fa-check {
@@ -234,4 +244,21 @@ ul {
 
 .progress-bar {
     background-color: #24292E;
+}
+
+.create-pack-btn {
+    background-color: #24292E;
+    color: #fff;
+}
+
+.custom-checkbox .custom-control-indicator {
+    background-color: #ccc;
+}
+
+.custom-radio .custom-control-indicator {
+    background-color: #ccc;
+}
+
+.custom-control-input:checked~.custom-control-indicator {
+    background-color: #24292e!important;
 }

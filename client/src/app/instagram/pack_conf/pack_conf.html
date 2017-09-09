@@ -11,8 +11,7 @@
                     This user is private
                 </p>
                 <p class="middle-font">
-                    <a href="{{ vm.user.instagramPageLink }}" target="_blank" ng-bind="vm.username()">
-                    </a>
+                    <a ng-href="{{vm.user.instagramPageLink}}" class="ig-link" target="_blank" ng-bind="vm.username()"></a>
                     <span class="fa-stack verified-stack" ng-show="vm.user.isVerified">
                         <i class="fa fa-certificate fa-stack-2x" aria-hidden="true"></i>
                         <i class="fa fa-check fa-stack-1x" aria-hidden="true"></i>
@@ -73,7 +72,7 @@
                         <i class="fa fa-arrow-left" aria-hidden="true"></i> back
                     </button>
                     <button type="button"
-                            class="btn btn-primary"
+                            class="btn create-pack-btn"
                             ng-click="vm.createPackClick()"
                             ng-hide="vm.user.isPrivate"
                             ng-disabled="!vm.ready()">
