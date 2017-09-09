@@ -16,6 +16,6 @@ import groovy.transform.Immutable
     }
 
     String extension() {
-        isVideo() ? ".mp4" : isImage() ? ".jpg" : ""
+        isVideo() ? '.mp4' : isImage() ? '.jpg' : ''
     }
 }

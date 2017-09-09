@@ -5,32 +5,31 @@ import inpacker.core.ItemRepository
 
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
-    private final JsonSlurper jsonSlurper
+    private final JsonSlurper parser
 
     IgItemRepository() {
-        jsonSlurper = new JsonSlurper()
+        parser = new JsonSlurper()
     }
 
     @Override
     void getPackItems(IgPackConfig config, Collection<IgPackItem> items) {
         String query = ''
-        int packedItemsCount = 0
-        boolean moreItemsAvailable = true
-        while (moreItemsAvailable && packedItemsCount < config.size) {
-            def json = jsonSlurper.parse(new URL(InstagramApiUrls.media(config.user.username, query)))
-            for (int i = 0; i < json.items.size() && packedItemsCount < config.size; i++) {
+        int packed = 0
+        boolean moreAvailable = true
+        while (moreAvailable && packed < config.size) {
+            def json = parser.parse(new URL(InstagramApiUrls.media(config.user.username, query)))
+            for (int i = 0; i < json.items.size() && packed < config.size; i++) {
                 def post = parseItem(json.items.get(i))
-                def item = new IgPackItem(post, packedItemsCount+1, config.getFileNameCreator())
+                def item = new IgPackItem(post, packed+1, config.getFileNameCreator())
                 if (config.test(item)) {
                     items << item
-                    packedItemsCount++
+                    packed++
                 }
             }
             query = "?max_id=${json.items.get(json.items.size() - 1).id}"
-            moreItemsAvailable = json.more_available
+            moreAvailable = json.more_available
         }
-        IgPost last = new IgPost('', '', '', '', 0)
-        items << new IgPackItem(last, packedItemsCount, {i, p -> 'end'})
+        items << new IgPackItem(new IgPost('', '', '', '', 0), packed, {i, p -> 'end'})
     }
 
     IgUser getInstagramUser(String username) {
@@ -38,7 +37,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         if (username.trim().isEmpty())
             throw new IllegalArgumentException('username is empty')
         try {
-            def user = jsonSlurper.parse(new URL(InstagramApiUrls.profile(username))).user
+            def user = parser.parse(new URL(InstagramApiUrls.profile(username))).user
             return new IgUser(
                     instagramId: user.id,
                     username: user.username,
@@ -55,8 +54,10 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
     private IgPost parseItem(item) {
         String url
-        if (item.type == 'image' || item.videos == null) url = item.images.standard_resolution.url
-        else url = item.videos.standard_resolution.url
+        if (item.type == 'image' || item.videos == null)
+            url = item.images.standard_resolution.url
+        else
+            url = item.videos.standard_resolution.url
         return new IgPost(
                 username: item.user.username,
                 url: url,

@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableConfigurationProperties({ResourceProperties.class})
-public class WebConfig extends WebMvcConfigurerAdapter {//implements EmbeddedServletContainerCustomizer {
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     private static final String[] STATIC_RESOURCES = new String[]{
         "/**/*.css",
@@ -41,10 +41,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {//implements EmbeddedSer
         registry.addResourceHandler(STATIC_RESOURCES)
             .addResourceLocations(resourceProperties.getStaticLocations());
 
-        //Create mapping to index.html for Angular HTML5 mode.
-        String[] indexLocations = getIndexLocations();
         registry.addResourceHandler("/**")
-            .addResourceLocations(indexLocations)
+            .addResourceLocations(getIndexLocations())
             .resourceChain(true)
             .addResolver(new PathResourceResolver() {
                 @Override
@@ -56,7 +54,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {//implements EmbeddedSer
 
     private String[] getIndexLocations() {
         return Arrays.stream(resourceProperties.getStaticLocations())
-            .map((location) -> location + "index.html")
+            .map(location -> location + "index.html")
             .toArray(String[]::new);
     }
 }
