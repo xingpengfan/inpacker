@@ -4,7 +4,7 @@ export default function config($locationProvider, $routeProvider) {
     $routeProvider
         .when('/', {
             template: require('./instagram/search/search.html'),
-            controller: 'IgSearchController as vm'
+            controller: 'IgQueryController as vm'
         })
         .when('/@:username', {
             template: require('./instagram/pack_conf/pack_conf.html'),

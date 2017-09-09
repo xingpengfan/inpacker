@@ -24,6 +24,7 @@ ApiService.$inject = ['$http'];
 // export default class FakeApiService {
 //     constructor($http) {
 //         this.$http = $http;
+//         this.packed = 0;
 //     }
 //
 //     getIgUser(username) {
@@ -41,6 +42,19 @@ ApiService.$inject = ['$http'];
 //     }
 //
 //     getPack(id) {
+//         this.packed += 10;
+//         let p = {
+//             id: 'pack_id',
+//             is_done: this.packed >= 365,//false,
+//             is_failed: false,
+//             packed_count: this.packed,
+//             failed_count: 0,
+//             items_count: 365
+//         };
+//         return {then: function(f) {return f(p);}};
+//     }
+//
+//     createPack(config) {
 //         let p = {
 //             id: 'pack_id',
 //             is_done: false,
@@ -50,18 +64,6 @@ ApiService.$inject = ['$http'];
 //             items_count: 365
 //         };
 //         return {then: function(f) {return f(p);}};
-//     }
-//
-//     createPack(config) {
-//         let packstatus = {
-//             id: 'pack_id',
-//             is_done: false,
-//             is_failed: false,
-//             packed_count: 233,
-//             failed_count: 0,
-//             items_count: 365
-//         };
-//         return {then: function(f) {return f(packstatus);}};
 //     }
 // }
 //
