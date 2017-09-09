@@ -27,7 +27,7 @@ ApiService.$inject = ['$http'];
 //     }
 //
 //     getIgUser(username) {
-//         let iguser = {
+//         let u = {
 //             instagramId: '123123123_3213213123',
 //             username: username,
 //             isPrivate: false,
@@ -37,11 +37,11 @@ ApiService.$inject = ['$http'];
 //             count: 56,
 //             isVerified: true
 //         };
-//         return {then: function(f) {return f(iguser);}};
+//         return {then: function(f) {return f(u);}};
 //     }
 //
 //     getPack(id) {
-//         let packstatus = {
+//         let p = {
 //             id: 'pack_id',
 //             is_done: false,
 //             is_failed: false,
@@ -49,7 +49,7 @@ ApiService.$inject = ['$http'];
 //             failed_count: 0,
 //             items_count: 365
 //         };
-//         return {then: function(f) {return f(packstatus);}};
+//         return {then: function(f) {return f(p);}};
 //     }
 //
 //     createPack(config) {
