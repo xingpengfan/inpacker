@@ -10,4 +10,5 @@ export default angular
                     .component('creatingPackIcon', iconComponents.CreatingPackIconComponent)
                     .component('readyPackIcon', iconComponents.ReadyPackIconComponent)
                     .component('aboutIcon', iconComponents.AboutIconComponent)
+                    .component('notFoundIcon', iconComponents.NotFoundIconComponent)
                     .name;

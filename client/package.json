@@ -9,7 +9,7 @@
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
     "start": "npm run server"
   },
-  "author": "dreyman",
+  "author": "github.com/dreyman",
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.6",

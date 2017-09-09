@@ -39,3 +39,10 @@ export let AboutIconComponent = {
                 <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
             </p>`
 }
+
+export let NotFoundIconComponent = {
+    template:
+            `<p class="centered inpacker-icon-component">
+                <i class="fa fa-lg fa-arrow-up" aria-hidden="true"></i>
+            </p>`
+}
