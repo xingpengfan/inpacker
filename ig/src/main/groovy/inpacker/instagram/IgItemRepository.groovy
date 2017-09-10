@@ -58,12 +58,17 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
             url = item.images.standard_resolution.url
         else
             url = item.videos.standard_resolution.url
+        url = normalizeUrl(url)
         return new IgPost(
                 username: item.user.username,
                 url: url,
                 createdTime: item.created_time.toLong(),
                 type: item.type,
                 id: item.id)
+    }
+
+    private String normalizeUrl(String url) {
+        return url.substring(0, url.indexOf('.com/t')+6) + url.substring(url.lastIndexOf('/'))
     }
 
 }
