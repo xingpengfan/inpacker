@@ -37,38 +37,20 @@
                         <span class="custom-control-description">videos</span>
                     </label>
                     <p class="passive-font">
-                        file names: <br />
+                        file names: 
+                        <select ng-model="vm.settings.fileNamePattern">
+                            <option value="timestamp">timestamp</option>
+                            <option value="id">instagram id</option>
+                            <option value="index">index</option>
+                            <option value="utctime">UTC time</option>
+                        </select>
+                    </p>
+                    <p>
                         <span class="tiny-font passive-font" ng-bind="vm.filenameExample()"></span>
                     </p>
-                    <div class="row ml-auto mr-auto">
-                        <label class="col custom-control custom-radio">
-                            <input id="radio1" type="radio" class="custom-control-input"
-                                   ng-model="vm.settings.fileNamePattern" value="timestamp">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">timestamp</span>
-                        </label>
-                        <label class="col custom-control custom-radio">
-                            <input id="radio2" type="radio" class="custom-control-input"
-                                   ng-model="vm.settings.fileNamePattern" value="id">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">instagram id</span>
-                        </label>
-                        <label class="col custom-control custom-radio">
-                            <input id="radio3" type="radio" class="custom-control-input"
-                                   ng-model="vm.settings.fileNamePattern" value="index">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">1,2,3..</span>
-                        </label>
-                        <label class="col custom-control custom-radio">
-                            <input id="radio4" type="radio" class="custom-control-input"
-                                   ng-model="vm.settings.fileNamePattern" value="utctime">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description">UTC time</span>
-                        </label>
-                    </div>
                 </div>
                 <div class="btn-group" role="group" aria-label="Choose next action">
-                    <button type="button" class="btn" ng-click="vm.backToSearchClick()">
+                    <button type="button" class="btn btn-light" ng-click="vm.backToSearchClick()">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i> back
                     </button>
                     <button type="button"
