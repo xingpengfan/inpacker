@@ -10,6 +10,9 @@
 
 ### Run locally
 ```bash
+cd client
+npm install
+cd ..
 ./gradlew :web:build
 java -jar web/build/libs/web.jar
 ```
