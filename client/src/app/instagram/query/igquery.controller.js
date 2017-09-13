@@ -1,7 +1,7 @@
 export default IgQueryController;
 
-IgQueryController.$inject = ['$routeParams', 'location'];
-function IgQueryController($routeParams, location) {
+IgQueryController.$inject = ['$routeParams', 'location', 'api'];
+function IgQueryController($routeParams, location, api) {
     const vm = this;
 
     activate();
@@ -14,9 +14,9 @@ function IgQueryController($routeParams, location) {
             vm.notFoundAlertMessage = 'Pack ' + $routeParams.pnf + ' not found';
     }
 
-    vm.search = () => {
+    vm.go = () => {
         if (!vm.isValidInput()) return;
-        vm.searching = true;
+        vm.waitingResp = true;
         location.openPackConf(vm.input);
     }
 
