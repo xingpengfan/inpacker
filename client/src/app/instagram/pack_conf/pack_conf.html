@@ -1,7 +1,8 @@
 <div class="container">
     <div class="col-md-8 ml-auto mr-auto content" ng-if="vm.user">
-        <pack-conf-icon ng-if="!vm.user.isPrivate"></pack-conf-icon>
         <private-user-icon ng-if="vm.user.isPrivate"></private-user-icon>
+        <pack-conf-icon ng-if="!vm.user.isPrivate" ng-hide="vm.waitingResp"></pack-conf-icon>
+        <loading-icon ng-if="!vm.user.isPrivate" ng-show="vm.waitingResp"></loading-icon>
         <div class="row lighter-bg regular-font primary-content-block">
             <div class="col">
                 <img class="col rounded-circle" src="" ng-src="{{ vm.user.profilePic }}">
@@ -59,8 +60,7 @@
                             ng-hide="vm.user.isPrivate"
                             ng-disabled="!vm.ready()">
                         {{ vm.ready() || vm.waitingResp ? 'go' : 'nothing to include'}}
-                        <i ng-class="vm.waitingResp ? 'fa fa-spinner fa-spin fa-fw' : 'fa fa-arrow-right'"
-                            aria-hidden="true"></i>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
