@@ -1,8 +1,7 @@
 <div class="container">
     <div class="col-md-8 mr-auto ml-auto content">
     
-        <instagram-icon ng-hide="vm.waitingResp"></instagram-icon>
-        <loading-icon ng-show="vm.waitingResp"></loading-icon>
+        <instagram-icon></instagram-icon>
         
         <form ng-submit="vm.go()">
             <div class="input-group col-md-10 ml-auto mr-auto search-input-group">
@@ -12,7 +11,7 @@
                 </button>
                 <input class="col-md-11 primary-input" type="text"
                           placeholder="Instagram username" aria-describedby="basic-addon2"
-                          maxlength="30" ng-model="vm.input" autofocus ng-disabled="vm.waitingResp">
+                          maxlength="30" ng-model="vm.input" autofocus>
             </div>
         </form>
     </div>

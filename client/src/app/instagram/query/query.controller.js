@@ -6,7 +6,6 @@ function IgQueryController(location, api) {
 
     vm.go = () => {
         if (!vm.isValidInput()) return;
-        vm.waitingResp = true;
         location.openPackConf(vm.input);
     }
 
