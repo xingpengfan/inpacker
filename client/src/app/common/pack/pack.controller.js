@@ -1,7 +1,7 @@
 export default PackController;
 
-PackController.$inject = ['$interval', '$scope', '$routeParams', 'location', 'api', 'UPDATE_PACK_STATUS_INTERVAL']
-function PackController($interval, $scope, $routeParams, location, api, updatePackInterval) {
+PackController.$inject = ['$interval', '$scope', '$routeParams', 'api', 'UPDATE_PACK_STATUS_INTERVAL']
+function PackController($interval, $scope, $routeParams, api, updatePackInterval) {
     const vm = this;
     const PACK_ID = $routeParams.packId;
     var interval;

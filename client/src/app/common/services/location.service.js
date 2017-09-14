@@ -3,12 +3,12 @@ export default LocationService;
 LocationService.$inject = ['$location'];
 function LocationService($location) {
     return {
-        openSearch,
+        openQuery,
         openPackConf,
         openPack
     }
 
-    function openSearch() {
+    function openQuery() {
         $location.path('/');
     }
 

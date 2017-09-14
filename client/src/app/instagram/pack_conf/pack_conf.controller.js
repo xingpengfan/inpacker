@@ -43,7 +43,7 @@ function PackConfController($routeParams, api, location) {
         });
     }
 
-    vm.backToSearchClick = () => location.openSearch();
+    vm.backToSearchClick = () => location.openQuery();
 
     vm.username = () => {
         if (vm.user.username.length > 18)
