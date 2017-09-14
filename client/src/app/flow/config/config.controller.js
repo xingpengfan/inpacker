@@ -1,7 +1,7 @@
-export default PackConfController
+export default ConfigController
 
-PackConfController.$inject = ['$routeParams', 'api', 'location']
-function PackConfController($routeParams, api, location) {
+ConfigController.$inject = ['$routeParams', 'api', 'location']
+function ConfigController($routeParams, api, location) {
     const vm = this
     vm.showConfig = false
     vm.userNotFound = false

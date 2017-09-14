@@ -3,15 +3,15 @@ export default function config($locationProvider, $routeProvider) {
     $locationProvider.html5Mode(true)
     $routeProvider
         .when('/', {
-            template: require('./instagram/query/query.html'),
+            template: require('./flow/query/query.html'),
             controller: 'QueryController as vm'
         })
         .when('/@:username', {
-            template: require('./instagram/config/config.html'),
-            controller: 'PackConfController as vm'
+            template: require('./flow/config/config.html'),
+            controller: 'ConfigController as vm'
         })
         .when('/p/:packId', {
-            template: require('./common/pack/pack.html'),
+            template: require('./flow/pack/pack.html'),
             controller: 'PackController as vm'
         })
         .when('/about', {
