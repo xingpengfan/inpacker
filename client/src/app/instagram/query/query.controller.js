@@ -1,13 +1,13 @@
-export default IgQueryController;
+export default QueryController
 
-IgQueryController.$inject = ['location', 'api'];
-function IgQueryController(location, api) {
-    const vm = this;
+QueryController.$inject = ['location']
+function QueryController(location) {
+    const vm = this
 
     vm.go = () => {
-        if (!vm.isValidInput()) return;
-        location.openPackConf(vm.input);
+        if (!vm.isValidInput()) return
+        location.openPackConf(vm.input)
     }
 
-    vm.isValidInput = () => vm.input && vm.input !== '';
+    vm.isValidInput = () => vm.input && vm.input !== ''
 }

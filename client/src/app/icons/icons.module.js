@@ -1,6 +1,6 @@
-import angular from 'angular';
+import angular from 'angular'
 
-import * as iconComponents from './icon.components';
+import * as iconComponents from './icon.components'
 
 export default angular
                     .module('inpacker.icons', [])
@@ -14,4 +14,4 @@ export default angular
                     .component('loadingIcon', iconComponents.LoadingIconComponent)
                     .component('userNotFoundIcon', iconComponents.UserNotFoundIconComponent)
                     .component('packNotFoundIcon', iconComponents.PackNotFoundIconComponent)
-                    .name;
+                    .name

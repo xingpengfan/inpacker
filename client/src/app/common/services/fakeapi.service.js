@@ -1,7 +1,7 @@
-export default FakeApiService;
+export default FakeApiService
 
 function FakeApiService() {
-    var packed = 0;
+    var packed = 0
     return {
         getIgUser,
         getPack,
@@ -18,12 +18,12 @@ function FakeApiService() {
             profilePic: '//avatars1.githubusercontent.com/u/9919?v=4&s=200',
             count: 56,
             isVerified: true
-        };
-        return {then: function(f) {return f(u);}};
+        }
+        return {then: function(f) {return f(u)}}
     }
 
     function getPack(id) {
-        packed += 10;
+        packed += 10
         let p = {
             id: 'pack_id',
             is_done: packed >= 365,//false,
@@ -31,8 +31,8 @@ function FakeApiService() {
             packed_count: packed,
             failed_count: 0,
             items_count: 365
-        };
-        return {then: function(f) {return f(p);}};
+        }
+        return {then: function(f) {return f(p)}}
     }
 
     function createPack(config) {
@@ -43,7 +43,7 @@ function FakeApiService() {
             packed_count: 233,
             failed_count: 0,
             items_count: 365
-        };
-        return {then: function(f) {return f(p);}};
+        }
+        return {then: function(f) {return f(p)}}
     }
 }

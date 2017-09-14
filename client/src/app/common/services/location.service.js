@@ -1,6 +1,6 @@
-export default LocationService;
+export default LocationService
 
-LocationService.$inject = ['$location'];
+LocationService.$inject = ['$location']
 function LocationService($location) {
     return {
         openQuery,
@@ -9,14 +9,14 @@ function LocationService($location) {
     }
 
     function openQuery() {
-        $location.path('/');
+        $location.path('/')
     }
 
     function openPackConf(username) {
-        $location.path('/@' + username);
+        $location.path('/@' + username)
     }
 
     function openPack(packId) {
-        $location.path('/p/' + packId);
+        $location.path('/p/' + packId)
     }
 }

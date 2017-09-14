@@ -1,9 +1,9 @@
-config.$inject = ['$locationProvider', '$routeProvider'];
+config.$inject = ['$locationProvider', '$routeProvider']
 export default function config($locationProvider, $routeProvider) {
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true)
     $routeProvider
         .when('/', {
-            template: require('./instagram/query/ig_query.html'),
+            template: require('./instagram/query/query.html'),
             controller: 'IgQueryController as vm'
         })
         .when('/@:username', {
@@ -19,5 +19,5 @@ export default function config($locationProvider, $routeProvider) {
         })
         .otherwise({
             template: require('./templates/404.html')
-        });
+        })
 }

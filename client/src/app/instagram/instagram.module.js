@@ -1,10 +1,10 @@
-import angular from 'angular';
+import angular from 'angular'
 
-import IgQueryController from './query/igquery.controller';
-import PackConfController from './pack_conf/pack_conf.controller';
+import QueryController from './query/query.controller'
+import PackConfController from './pack_conf/pack_conf.controller'
 
 export default angular
                     .module('inpacker.instagram', [])
-                    .controller('IgQueryController', IgQueryController)
+                    .controller('IgQueryController', QueryController)
                     .controller('PackConfController', PackConfController)
-                    .name;
+                    .name
