@@ -5,6 +5,6 @@ import PackConfController from './config/config.controller'
 
 export default angular
                     .module('inpacker.instagram', [])
-                    .controller('IgQueryController', QueryController)
+                    .controller('QueryController', QueryController)
                     .controller('PackConfController', PackConfController)
                     .name
