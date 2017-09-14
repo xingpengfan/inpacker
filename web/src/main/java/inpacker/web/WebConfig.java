@@ -9,6 +9,11 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.web.servlet.config.annotation.CorsRegistry;
+// import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+// import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -57,4 +62,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             .map(location -> location + "index.html")
             .toArray(String[]::new);
     }
+    
+//     @Bean
+//     public WebMvcConfigurer corsConfigurer() {
+//         return new WebMvcConfigurerAdapter() {
+//             @Override
+//             public void addCorsMappings(CorsRegistry registry) {
+//                 registry.addMapping("/**").allowedOrigins("*");
+//                 registry.addMapping("/**").allowedMethods("*");
+//             }
+//         };
+//     }
+
 }

@@ -8,10 +8,7 @@ export default function config($locationProvider, $routeProvider) {
         })
         .when('/@:username', {
             template: require('./instagram/pack_conf/pack_conf.html'),
-            controller: 'PackConfController as vm',
-            resolve: {
-                user: resolveIgUser
-            }
+            controller: 'PackConfController as vm'
         })
         .when('/p/:packId', {
             template: require('./common/pack/pack.html'),
@@ -26,11 +23,6 @@ export default function config($locationProvider, $routeProvider) {
         .otherwise({
             template: require('./templates/404.html')
         });
-}
-
-resolveIgUser.$inject = ['$route', 'api'];
-function resolveIgUser($route, api) {
-    return api.getIgUser($route.current.params.username).then(user => user);
 }
 
 resolvePack.$inject = ['$route', 'api'];

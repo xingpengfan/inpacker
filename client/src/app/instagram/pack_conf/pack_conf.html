@@ -1,14 +1,25 @@
 <div class="container">
-    <div class="col-md-8 ml-auto mr-auto content" ng-if="vm.user">
+    <div class="col-md-8 ml-auto mr-auto content">
+        
+        <loading-icon ng-show="vm.loading"></loading-icon>
         <private-user-icon ng-if="vm.user.isPrivate"></private-user-icon>
-        <pack-conf-icon ng-if="!vm.user.isPrivate" ng-hide="vm.waitingResp"></pack-conf-icon>
-        <loading-icon ng-if="!vm.user.isPrivate" ng-show="vm.waitingResp"></loading-icon>
-        <div class="row lighter-bg regular-font primary-content-block">
+        <user-not-found-icon ng-show="vm.userNotFound"></user-not-found-icon>
+        <pack-conf-icon ng-if="!vm.user.isPrivate && !vm.userNotFound" ng-hide="vm.loading"></pack-conf-icon>
+        
+        <div ng-show="vm.userNotFound" class="row lighter-bg regular-font primary-content-block">
+            <div class="mr-auto ml-auto centered">
+                <h3 class="red-font">User not found</h1>
+                <h4><a href="/">back</a></h2>
+            </div>
+        </div>
+        
+        <div ng-if="vm.showConfig" ng-show="vm.showConfig"
+            class="row lighter-bg regular-font primary-content-block">
             <div class="col">
                 <img class="col rounded-circle" src="" ng-src="{{ vm.user.profilePic }}">
             </div>
             <div class="col">
-                <p class="red-font" ng-show="vm.user.isPrivate">
+                <p ng-show="vm.user.isPrivate" class="red-font">
                     This user is private
                 </p>
                 <p class="middle-font">
@@ -21,7 +32,7 @@
                         <b>{{ vm.user.count }}</b> posts
                     </span>
                 </p>
-                <p>
+                <p ng-if="vm.user.fullName">
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                     {{ vm.user.fullName }}
                 </p>
@@ -59,7 +70,7 @@
                             ng-click="vm.createPackClick()"
                             ng-hide="vm.user.isPrivate"
                             ng-disabled="!vm.ready()">
-                        {{ vm.ready() || vm.waitingResp ? 'go' : 'nothing to include'}}
+                        {{ vm.ready() || vm.loading ? 'go' : 'nothing to include'}}
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </button>
                 </div>

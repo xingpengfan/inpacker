@@ -53,3 +53,10 @@ export let LoadingIconComponent = {
                 <i class="fa fa-lg fa-spinner fa-pulse" aria-hidden="true"></i>
             </p>`
 }
+
+export let UserNotFoundIconComponent = {
+    template:
+            `<p class="centered inpacker-icon-component">
+                <i class="fa fa-lg fa-ban" aria-hidden="true"></i>
+            </p>`
+}

@@ -12,4 +12,5 @@ export default angular
                     .component('aboutIcon', iconComponents.AboutIconComponent)
                     .component('notFoundIcon', iconComponents.NotFoundIconComponent)
                     .component('loadingIcon', iconComponents.LoadingIconComponent)
+                    .component('userNotFoundIcon', iconComponents.UserNotFoundIconComponent)
                     .name;

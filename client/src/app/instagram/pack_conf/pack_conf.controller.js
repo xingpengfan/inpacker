@@ -1,17 +1,25 @@
 export default PackConfController;
 
-PackConfController.$inject = ['$routeParams', 'api', 'location', 'user'];
-function PackConfController($routeParams, api, location, user) {
-    if (user == null) {
-        location.openSearch($routeParams.username);
-        return;
-    }
+PackConfController.$inject = ['$routeParams', 'api', 'location'];
+function PackConfController($routeParams, api, location) {
     const vm = this;
+    vm.showConfig = false;
+    vm.userNotFound = false;
+    vm.loading = true;
 
-    activate();
+    api.getIgUser($routeParams.username)
+        .then(user => {
+            vm.loading = false;
+            activate(user);
+        });
 
-    function activate() {
+    function activate(user) {
+        if (user == null) {
+            vm.userNotFound = true;
+            return;
+        }
         vm.user = user;
+        vm.showConfig = true;
         vm.settings = {
             username: user.username,
             includeImages: true,
@@ -24,15 +32,14 @@ function PackConfController($routeParams, api, location, user) {
             ['utctime',   {img: '2017-02-25T15:36:59Z.jpg', vid: '2016-05-10T14:24:20Z.mp4'}],
             ['timestamp', {img: '1497899933.jpg',           vid: '1497788183.mp4'}]
         ]);
-        vm.waitingResp = false;
         vm.user.instagramPageLink = 'https://www.instagram.com/' + vm.user.username + '/';
     }
 
     vm.createPackClick = () => {
-        vm.waitingResp = true;
+        vm.loading = true;
         api.createPack(vm.settings).then(pack => {
             if (pack != null) location.openPack(pack.id);
-            vm.waitingResp = false;
+            vm.loading = false;
         });
     }
 
@@ -45,7 +52,7 @@ function PackConfController($routeParams, api, location, user) {
             return vm.user.username;
     }
 
-    vm.ready = () => !vm.waitingResp && vm.user.count > 0 && (vm.settings.includeVideos || vm.settings.includeImages);
+    vm.ready = () => !vm.loading && vm.user.count > 0 && (vm.settings.includeVideos || vm.settings.includeImages);
 
     vm.filenameExample = () => {
         let example = '';
