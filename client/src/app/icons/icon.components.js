@@ -60,3 +60,10 @@ export let UserNotFoundIconComponent = {
                 <i class="fa fa-lg fa-ban" aria-hidden="true"></i>
             </p>`
 }
+
+export let PackNotFoundIconComponent = {
+    template:
+            `<p class="centered inpacker-icon-component">
+                <i class="fa fa-lg fa-ban" aria-hidden="true"></i>
+            </p>`
+}

@@ -12,10 +12,7 @@ export default function config($locationProvider, $routeProvider) {
         })
         .when('/p/:packId', {
             template: require('./common/pack/pack.html'),
-            controller: 'PackController as vm',
-            resolve: {
-                pack: resolvePack
-            }
+            controller: 'PackController as vm'
         })
         .when('/about', {
             template: require('./templates/about.html')
@@ -23,9 +20,4 @@ export default function config($locationProvider, $routeProvider) {
         .otherwise({
             template: require('./templates/404.html')
         });
-}
-
-resolvePack.$inject = ['$route', 'api'];
-function resolvePack($route, api) {
-    return api.getPack($route.current.params.packId).then(pack => pack);
 }

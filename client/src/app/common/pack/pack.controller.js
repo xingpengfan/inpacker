@@ -1,18 +1,23 @@
 export default PackController;
 
-PackController.$inject = ['$interval', '$scope', '$routeParams', 'location', 'api', 'pack', 'UPDATE_PACK_STATUS_INTERVAL']
-function PackController($interval, $scope, $routeParams, location, api, pack, updatePackInterval) {
-    if (pack == null) {
-        location.openSearch(null, $routeParams.packId);
-        return;
-    }
+PackController.$inject = ['$interval', '$scope', '$routeParams', 'location', 'api', 'UPDATE_PACK_STATUS_INTERVAL']
+function PackController($interval, $scope, $routeParams, location, api, updatePackInterval) {
     const vm = this;
     const PACK_ID = $routeParams.packId;
     var interval;
-
-    activate();
-
-    function activate() {
+    vm.packNotFound = false;
+    vm.loading = true;
+    
+    api.getPack(PACK_ID).then(pack => {
+        vm.loading = false;
+        activate(pack);
+    });
+    
+    function activate(pack) {
+        if (pack == null) {
+            vm.packNotFound = true;
+            return;
+        }
         vm.pack = pack;
         interval = $interval(() => vm.updatePack(), updatePackInterval);
         $scope.$on('$destroy', () => $interval.cancel(interval));

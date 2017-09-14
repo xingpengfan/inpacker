@@ -1,17 +1,12 @@
 export default IgQueryController;
 
-IgQueryController.$inject = ['$routeParams', 'location', 'api'];
-function IgQueryController($routeParams, location, api) {
+IgQueryController.$inject = ['location', 'api'];
+function IgQueryController(location, api) {
     const vm = this;
 
     activate();
 
     function activate() {
-        vm.notFoundAlertMessage = '';
-        if ($routeParams.unf != null)
-            vm.notFoundAlertMessage = 'User ' + $routeParams.unf + ' not found';
-        else if ($routeParams.pnf != null)
-            vm.notFoundAlertMessage = 'Pack ' + $routeParams.pnf + ' not found';
     }
 
     vm.go = () => {
@@ -21,9 +16,4 @@ function IgQueryController($routeParams, location, api) {
     }
 
     vm.isValidInput = () => vm.input && vm.input !== '';
-
-    vm.closeNotFoundAlert = () => {
-        vm.notFoundAlertMessage = '';
-        location.openSearch();
-    }
 }

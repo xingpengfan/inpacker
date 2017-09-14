@@ -1,8 +1,19 @@
 <div class="container">
-    <div class="col-md-8 ml-auto mr-auto content" ng-if="vm.pack">
-        <creating-pack-icon ng-if="!vm.pack.is_done"></creating-pack-icon>
+    <div class="col-md-8 ml-auto mr-auto content">
+    
+        <loading-icon ng-show="vm.loading"></loading-icon>
+        <creating-pack-icon ng-if="!vm.packNotFound && !vm.pack.is_done"></creating-pack-icon>
         <ready-pack-icon ng-if="vm.pack.is_done"></ready-pack-icon>
-        <div class="col-md-10 ml-auto mr-auto middle-font centered collecting-block">
+        <pack-not-found-icon ng-show="vm.packNotFound"></pack-not-found-icon>
+        
+        <div ng-show="vm.packNotFound" class="row lighter-bg regular-font primary-content-block">
+            <div class="mr-auto ml-auto centered">
+                <h3 class="red-font">Pack not found</h1>
+                <h4><a href="/">back</a></h4>
+            </div>
+        </div>
+        
+        <div ng-hide="vm.packNotFound" class="col-md-10 ml-auto mr-auto middle-font centered collecting-block">
             <p ng-hide="vm.pack.is_done">
                 Creating pack
             </p>

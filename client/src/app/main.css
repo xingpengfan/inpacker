@@ -170,14 +170,6 @@ ul {
     color: #000;
 }
 
-.not-found-alert {
-     margin-top: 10px;
-}
-
-.not-found-alert span {
-    float: right;
-}
-
 .primary-content-block {
     margin: 30px 0 30px 0;
     border: 1px solid #919191;
