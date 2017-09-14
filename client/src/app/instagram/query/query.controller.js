@@ -6,7 +6,7 @@ function QueryController(location) {
 
     vm.go = () => {
         if (!vm.isValidInput()) return
-        location.openPackConf(vm.input)
+        location.config(vm.input)
     }
 
     vm.isValidInput = () => vm.input && vm.input !== ''

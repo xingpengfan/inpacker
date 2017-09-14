@@ -3,20 +3,20 @@ export default LocationService
 LocationService.$inject = ['$location']
 function LocationService($location) {
     return {
-        openQuery,
-        openPackConf,
-        openPack
+        query,
+        config,
+        pack
     }
 
-    function openQuery() {
+    function query() {
         $location.path('/')
     }
 
-    function openPackConf(username) {
+    function config(username) {
         $location.path('/@' + username)
     }
 
-    function openPack(packId) {
+    function pack(packId) {
         $location.path('/p/' + packId)
     }
 }

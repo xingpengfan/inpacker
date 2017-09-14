@@ -7,7 +7,7 @@ export default function config($locationProvider, $routeProvider) {
             controller: 'IgQueryController as vm'
         })
         .when('/@:username', {
-            template: require('./instagram/pack_conf/pack_conf.html'),
+            template: require('./instagram/config/config.html'),
             controller: 'PackConfController as vm'
         })
         .when('/p/:packId', {

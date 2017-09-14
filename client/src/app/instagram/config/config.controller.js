@@ -38,12 +38,12 @@ function PackConfController($routeParams, api, location) {
     vm.createPackClick = () => {
         vm.loading = true
         api.createPack(vm.settings).then(pack => {
-            if (pack != null) location.openPack(pack.id)
+            if (pack != null) location.pack(pack.id)
             vm.loading = false
         })
     }
 
-    vm.backToSearchClick = () => location.openQuery()
+    vm.backToSearchClick = () => location.query()
 
     vm.username = () => {
         if (vm.user.username.length > 18)
