@@ -2,7 +2,6 @@ import angular from 'angular'
 import ngRoute from 'angular-route'
 
 import icons     from './icons/icons.module'
-import common    from './common/common.module'
 import flow      from './flow/flow.module'
 
 import 'bootstrap/dist/css/bootstrap.min.css'

@@ -1,30 +1,32 @@
 <div class="container">
     <div class="col-md-8 ml-auto mr-auto content">
-    
+
         <loading-icon ng-show="vm.loading"></loading-icon>
         <creating-pack-icon ng-if="!vm.packNotFound && !vm.pack.is_done"></creating-pack-icon>
         <ready-pack-icon ng-if="vm.pack.is_done"></ready-pack-icon>
         <pack-not-found-icon ng-show="vm.packNotFound"></pack-not-found-icon>
-        
+
         <div ng-show="vm.packNotFound" class="row lighter-bg regular-font primary-content-block">
             <div class="mr-auto ml-auto centered">
                 <h3 class="red-font">Pack not found</h1>
                 <h4><a href="/">back</a></h4>
             </div>
         </div>
-        
-        <div ng-hide="vm.packNotFound" class="col-md-10 ml-auto mr-auto middle-font centered collecting-block">
+
+        <div ng-hide="vm.packNotFound" class="col middle-font lighter-bg centered primary-content-block">
             <p ng-hide="vm.pack.is_done">
                 Creating pack
             </p>
             <p ng-hide="vm.pack.is_done || vm.pack.items_count!==-1" class="centered middle-font">
                 <b>{{ vm.pack.packed_count }}</b> items done
             </p>
-            <div ng-hide="vm.pack.is_done || vm.pack.items_count===-1" class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar" aria-valuenow="{{ vm.pack.packed_count }}"
-                    aria-valuemin="0" aria-valuemax="{{ vm.pack.items_count }}"
-                    ng-style="{'width': vm.pack.packed_count/vm.pack.items_count*100 + '%'}">
+            <div class="col-md-10 ml-auto mr-auto">
+                <div ng-hide="vm.pack.is_done || vm.pack.items_count===-1" class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                        role="progressbar" aria-valuenow="{{ vm.pack.packed_count }}"
+                        aria-valuemin="0" aria-valuemax="{{ vm.pack.items_count }}"
+                        ng-style="{'width': vm.pack.packed_count/vm.pack.items_count*100 + '%'}">
+                    </div>
                 </div>
             </div>
             <a class="btn btn-primary btn-lg download-pack-btn"

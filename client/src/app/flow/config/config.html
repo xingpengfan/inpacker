@@ -1,18 +1,18 @@
 <div class="container">
     <div class="col-md-8 ml-auto mr-auto content">
-        
+
         <loading-icon ng-show="vm.loading"></loading-icon>
         <private-user-icon ng-if="vm.user.isPrivate"></private-user-icon>
         <user-not-found-icon ng-show="vm.userNotFound"></user-not-found-icon>
         <pack-conf-icon ng-if="!vm.user.isPrivate && !vm.userNotFound" ng-hide="vm.loading"></pack-conf-icon>
-        
+
         <div ng-show="vm.userNotFound" class="row lighter-bg regular-font primary-content-block">
             <div class="mr-auto ml-auto centered">
                 <h3 class="red-font">User not found</h1>
                 <h4><a href="/">back</a></h4>
             </div>
         </div>
-        
+
         <div ng-if="vm.showConfig" ng-show="vm.showConfig"
             class="row lighter-bg regular-font primary-content-block">
             <div class="col">
@@ -49,7 +49,7 @@
                         <span class="custom-control-description">videos</span>
                     </label>
                     <p class="passive-font">
-                        file names: 
+                        file names:
                         <select ng-model="vm.settings.fileNamePattern">
                             <option value="timestamp">timestamp</option>
                             <option value="id">instagram id</option>

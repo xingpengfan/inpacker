@@ -175,7 +175,6 @@ ul {
     border: 1px solid #919191;
     border-radius: 10px;
     padding: 20px 0 20px 0;
-    display: flex;
     box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
@@ -193,15 +192,6 @@ ul {
 
 .verified-stack .fa-check {
     color: #fff;
-}
-
-.collecting-block {
-    margin-top: 30px;
-    padding: 20px;
-}
-
-.collecting-block p {
-    margin: 4px;
 }
 
 .not-found-content {
@@ -253,4 +243,8 @@ ul {
 
 .custom-control-input:checked~.custom-control-indicator {
     background-color: #24292e!important;
+}
+
+.progress {
+    background-color: #ccc;
 }
