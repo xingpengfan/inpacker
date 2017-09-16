@@ -6,7 +6,7 @@ import inpacker.instagram.IgUser;
 
 import static java.lang.Math.min;
 
-public class CreatePackRequest {
+public class CreateIgPackRequest {
 
     @SerializedName("username")
     public String username;
@@ -22,7 +22,7 @@ public class CreatePackRequest {
 
     private static final int MAX_ITEMS_PER_PACK = 2000;
 
-    public CreatePackRequest(String username, boolean includeVideos, boolean includeImages, String fileNamePattern) {
+    public CreateIgPackRequest(String username, boolean includeVideos, boolean includeImages, String fileNamePattern) {
         this.username = username;
         this.includeVideos = includeVideos;
         this.includeImages = includeImages;

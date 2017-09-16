@@ -5,6 +5,7 @@ plugins {
 dependencies {
     compile project(':core')
     compile project(':ig')
+    compile project(':px')
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: 'jackson-databind'
         exclude module: 'hibernate-validator'

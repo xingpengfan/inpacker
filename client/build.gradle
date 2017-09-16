@@ -8,7 +8,3 @@ task dist(type: Exec) {
 
 task build() {}
 build.dependsOn(npmInstall, dist)
-
-task clean(type: Exec) {
-    commandLine 'npm', 'run', 'clean'
-}

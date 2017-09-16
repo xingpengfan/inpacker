@@ -14,12 +14,12 @@ function ApiService($http) {
     }
 
     function getPack(id) {
-        return $http.get('/api/packs/' + id + '/status')
+        return $http.get('/api/packs/ig/' + id + '/status')
             .then(resp => resp.data, resp => null)
     }
 
     function createPack(config) {
-        return $http.post('/api/packs', config)
+        return $http.post('/api/packs/ig', config)
             .then(resp => resp.data, resp => null)
     }
 }
