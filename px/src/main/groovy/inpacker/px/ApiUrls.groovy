@@ -19,5 +19,9 @@ class ApiUrls {
         "$API_URL/photos?feature=user&username=$username&consumer_key=$consumerKey&image_size=$imageSize&page=$page"
     }
 
+    static String photos(String username, String consumerKey, int page) {
+        photos(username, consumerKey, DEFAULT_IMAGE_SIZE, page)
+    }
+
     private ApiUrls() {}
 }

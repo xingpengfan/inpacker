@@ -19,8 +19,9 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
     void getPackItems(PxPackConfig config, Collection<PxPackItem> items) {
         int packedItemsCount = 0
         boolean moreAvailable = true
+        int page = 1
         while (moreAvailable && packedItemsCount < config.numberOfItems()) {
-            def json = parser.parse(new URL(ApiUrls.photos(config.user.username, consumerKey)))
+            def json = parser.parse(new URL(ApiUrls.photos(config.user.username, consumerKey, page)))
             for (int i = 0; i < json.photos.size() && packedItemsCount < config.numberOfItems(); i++) {
                 def post = parsePost(json.photos[i])
                 def item = new PxPackItem(post, packedItemsCount + 1, config.getFileNameCreator())
@@ -30,6 +31,7 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
                 }
             }
             moreAvailable = json.current_page.toInteger() < json.total_pages.toInteger()
+            page++
         }
         PxPost last = new PxPost('', '', '', '', 0, 0, '', '')
         items << new PxPackItem(last, packedItemsCount, { i, p -> 'end' })

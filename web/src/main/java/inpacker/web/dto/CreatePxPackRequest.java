@@ -10,7 +10,7 @@ public class CreatePxPackRequest {
     @SerializedName("username")
     public String username;
 
-    private static final int MAX_ITEMS_PER_PACK = 50;
+    private static final int MAX_ITEMS_PER_PACK = 30;
 
     public CreatePxPackRequest(String username) {
         this.username = username;
