@@ -12,7 +12,7 @@ class ApiUrls {
     }
 
     static String photos(String username, String consumerKey) {
-        getUserPhotosUrl(username, consumerKey, DEFAULT_IMAGE_SIZE, DEFAULT_PAGE)
+        photos(username, consumerKey, DEFAULT_IMAGE_SIZE, DEFAULT_PAGE)
     }
 
     static String photos(String username, String consumerKey, int imageSize, int page) {

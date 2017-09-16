@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static inpacker.web.dto.MessageResponse.invalidCreatePackRequestBody;
+import static inpacker.web.dto.MessageResponse.packNotFound;
 import static inpacker.web.dto.MessageResponse.userNotFound;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
@@ -46,6 +47,15 @@ public class PxPackController {
         final PxPackConfig config = req.config(user);
         final Pack pack = packService.createPack(config);
         return ok(new PackStatusResponse(pack));
+    }
+
+    @GetMapping("api/packs/px/{packId:.+}/status")
+    public ResponseEntity<?> getPackStatus(@PathVariable("packId") String packId) {
+        final Pack pack = packService.getPack(packId);
+        if (pack == null)
+            return status(NOT_FOUND).body(packNotFound(packId));
+        else
+            return ok(new PackStatusResponse(pack));
     }
 
     public static boolean isValidRequest(CreatePxPackRequest req) {

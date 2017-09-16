@@ -20,7 +20,7 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
         int packedItemsCount = 0
         boolean moreAvailable = true
         while (moreAvailable && packedItemsCount < config.numberOfItems()) {
-            def json = parser.parse(new URL(ApiUrls.photos()))
+            def json = parser.parse(new URL(ApiUrls.photos(config.user.username, consumerKey)))
             for (int i = 0; i < json.photos.size() && packedItemsCount < config.numberOfItems(); i++) {
                 def post = parsePost(json.photos[i])
                 def item = new PxPackItem(post, packedItemsCount + 1, config.getFileNameCreator())
