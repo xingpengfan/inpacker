@@ -5,6 +5,13 @@ export let InstagramIconComponent = {
             </p>`
 }
 
+export let FiveHundredPxIconComponent = {
+    template:
+            `<p class="centered inpacker-icon-component">
+                <i class="fa fa-lg fa-500px" aria-hidden="true"></i>
+            </p>`
+}
+
 export let PackConfIconComponent = {
     template:
             `<p class="centered inpacker-icon-component">

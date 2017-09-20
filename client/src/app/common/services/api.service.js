@@ -4,12 +4,18 @@ ApiService.$inject = ['$http']
 function ApiService($http) {
     return {
         getIgUser,
+        getPxUser,
         getPack,
         createPack
     }
 
     function getIgUser(username) {
         return $http.get('/api/ig/user/' + username)
+            .then(resp => resp.data, resp => null)
+    }
+
+    function getPxUser(username) {
+        return $http.get('/api/px/user/' + username)
             .then(resp => resp.data, resp => null)
     }
 

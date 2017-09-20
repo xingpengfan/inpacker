@@ -5,6 +5,8 @@ function LocationService($location) {
     return {
         query,
         config,
+        igConfig,
+        pxConfig,
         pack
     }
 
@@ -13,7 +15,18 @@ function LocationService($location) {
     }
 
     function config(username) {
-        $location.path('/@' + username)
+        if ($location.path() === '/px')
+            pxConfig(username)
+        else
+            igConfig(username)
+    }
+
+    function igConfig(username) {
+        $location.path('/ig/@' + username)
+    }
+
+    function pxConfig(username) {
+        $location.path('/px/@' + username)
     }
 
     function pack(packId) {

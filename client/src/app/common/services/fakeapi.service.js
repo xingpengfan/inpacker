@@ -4,6 +4,7 @@ function FakeApiService() {
     var packed = 0
     return {
         getIgUser,
+        getPxUser,
         getPack,
         createPack
     }
@@ -18,6 +19,21 @@ function FakeApiService() {
             profilePic: '//avatars1.githubusercontent.com/u/9919?v=4&s=200',
             count: 56,
             isVerified: true
+        }
+        return {then: function(f) {return f(u)}}
+    }
+
+    function getPxUser(username) {
+        let u = {
+            id: '123456',
+            username: username,
+            firstname: 'Walter',
+            lastname: 'White',
+            city: 'Albuquerque',
+            userpic_url: '//avatars1.githubusercontent.com/u/9919?v=4&s=200',
+            cover_url: '//www.everestian.com/photos/1.jpg',
+            photos_count: 89
+
         }
         return {then: function(f) {return f(u)}}
     }
