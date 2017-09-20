@@ -21,7 +21,7 @@ function ApiService($http) {
     }
 
     function getPack(id) {
-        return $http.get('/api/packs/ig/' + id + '/status')
+        return $http.get('/api/packs/' + id + '/status')
             .then(resp => resp.data, resp => null)
     }
 

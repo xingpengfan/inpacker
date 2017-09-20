@@ -7,12 +7,12 @@ function PackController($interval, $scope, $routeParams, api, updatePackInterval
     var interval
     vm.packNotFound = false
     vm.loading = true
-    
+
     api.getPack(PACK_ID).then(pack => {
         vm.loading = false
         activate(pack)
     })
-    
+
     function activate(pack) {
         if (pack == null) {
             vm.packNotFound = true
