@@ -4,6 +4,7 @@ LocationService.$inject = ['$location']
 function LocationService($location) {
     return {
         query,
+        pxQuery,
         config,
         igConfig,
         pxConfig,
@@ -12,6 +13,10 @@ function LocationService($location) {
 
     function query() {
         $location.path('/')
+    }
+
+    function pxQuery() {
+        $location.path('/px')
     }
 
     function config(username) {

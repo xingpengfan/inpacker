@@ -1,7 +1,7 @@
-export default ConfigController
+export default IgConfigController
 
-ConfigController.$inject = ['$routeParams', 'api', 'location']
-function ConfigController($routeParams, api, location) {
+IgConfigController.$inject = ['$routeParams', 'api', 'location']
+function IgConfigController($routeParams, api, location) {
     const vm = this
     vm.showConfig = false
     vm.userNotFound = false
@@ -37,7 +37,7 @@ function ConfigController($routeParams, api, location) {
 
     vm.createPackClick = () => {
         vm.loading = true
-        api.createPack(vm.settings).then(pack => {
+        api.createIgPack(vm.settings).then(pack => {
             if (pack != null) location.pack(pack.id)
             vm.loading = false
         })

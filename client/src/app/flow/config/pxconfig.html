@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="col-md-8 ml-auto mr-auto content">
+
+        <loading-icon ng-show="vm.loading"></loading-icon>
+        <user-not-found-icon ng-show="vm.userNotFound"></user-not-found-icon>
+        <pack-conf-icon ng-if="!vm.userNotFound" ng-hide="vm.loading"></pack-conf-icon>
+
+        <div ng-show="vm.userNotFound" class="row lighter-bg regular-font primary-content-block">
+            <div class="mr-auto ml-auto centered">
+                <h3 class="red-font">User not found</h1>
+                <h4><a href="/">back</a></h4>
+            </div>
+        </div>
+
+        <div ng-if="vm.showConfig" ng-show="vm.showConfig"
+            class="row lighter-bg regular-font primary-content-block">
+            <div class="col">
+                <img class="col rounded-circle" src="" ng-src="{{ vm.user.userpic_url }}">
+            </div>
+            <div class="col">
+                <p class="middle-font">
+                    <a ng-href="{{vm.user.pxPageLink}}" class="ig-link" target="_blank" ng-bind="vm.username()"></a>
+                    <span class="regular-font">
+                        <b>{{ vm.user.photos_count }}</b> posts
+                    </span>
+                </p>
+                <p ng-if="vm.fullName() !== ''">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    {{ vm.fullName() }}
+                </p>
+                <div class="btn-group" role="group" aria-label="Choose next action">
+                    <button type="button" class="btn btn-light" ng-click="vm.backToQueryClick()">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> back
+                    </button>
+                    <button type="button"
+                            class="btn create-pack-btn"
+                            ng-click="vm.createPackClick()"
+                            ng-disabled="!vm.ready()">
+                        go
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

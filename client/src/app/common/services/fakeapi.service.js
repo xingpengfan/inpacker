@@ -6,7 +6,8 @@ function FakeApiService() {
         getIgUser,
         getPxUser,
         getPack,
-        createPack
+        createIgPack,
+        createPxPack
     }
 
     function getIgUser(username) {
@@ -51,7 +52,19 @@ function FakeApiService() {
         return {then: function(f) {return f(p)}}
     }
 
-    function createPack(config) {
+    function createIgPack(config) {
+        let p = {
+            id: 'pack_id',
+            is_done: false,
+            is_failed: false,
+            packed_count: 233,
+            failed_count: 0,
+            items_count: 365
+        }
+        return {then: function(f) {return f(p)}}
+    }
+
+    function createPxPack(config) {
         let p = {
             id: 'pack_id',
             is_done: false,

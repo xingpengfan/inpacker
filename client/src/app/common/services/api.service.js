@@ -6,7 +6,8 @@ function ApiService($http) {
         getIgUser,
         getPxUser,
         getPack,
-        createPack
+        createIgPack,
+        createPxPack
     }
 
     function getIgUser(username) {
@@ -24,8 +25,13 @@ function ApiService($http) {
             .then(resp => resp.data, resp => null)
     }
 
-    function createPack(config) {
+    function createIgPack(config) {
         return $http.post('/api/packs/ig', config)
+            .then(resp => resp.data, resp => null)
+    }
+
+    function createPxPack(config) {
+        return $http.post('/api/packs/px', config)
             .then(resp => resp.data, resp => null)
     }
 }
