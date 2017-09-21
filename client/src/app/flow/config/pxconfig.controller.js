@@ -15,7 +15,7 @@ function PxConfigController($routeParams, api, location) {
 
     function activate(user) {
         if (user == null) {
-            vm.showNotFound = true
+            vm.userNotFound = true
             return
         }
         vm.user = user
