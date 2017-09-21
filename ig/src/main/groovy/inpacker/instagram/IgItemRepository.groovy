@@ -6,8 +6,12 @@ import inpacker.core.ItemRepository
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
     private final JsonSlurper parser
+    private final int maxPackSize
 
-    IgItemRepository() {
+    IgItemRepository(int maxPackSize) {
+        if (maxPackSize <= 0)
+            throw new IllegalArgumentException("maxPackSize should be positive")
+        this.maxPackSize = maxPackSize
         parser = new JsonSlurper()
     }
 
@@ -16,9 +20,10 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         String query = ''
         int packed = 0
         boolean moreAvailable = true
-        while (moreAvailable && packed < config.size) {
+        int size = Math.min(maxPackSize, config.numberOfItems())
+        while (moreAvailable && packed < size) {
             def json = parser.parse(new URL(InstagramApiUrls.media(config.user.username, query)))
-            for (int i = 0; i < json.items.size() && packed < config.size; i++) {
+            for (int i = 0; i < json.items.size() && packed < size; i++) {
                 def post = parseItem(json.items.get(i))
                 def item = new IgPackItem(post, packed+1, config.getFileNameCreator())
                 if (config.test(item)) {

@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import inpacker.instagram.IgPackConfig;
 import inpacker.instagram.IgUser;
 
-import static java.lang.Math.min;
-
 public class CreateIgPackRequest {
 
     @SerializedName("username")
@@ -20,8 +18,6 @@ public class CreateIgPackRequest {
     @SerializedName("fileNamePattern")
     public String fileNamePattern;
 
-    private static final int MAX_ITEMS_PER_PACK = 2000;
-
     public CreateIgPackRequest(String username, boolean includeVideos, boolean includeImages, String fileNamePattern) {
         this.username = username;
         this.includeVideos = includeVideos;
@@ -30,6 +26,6 @@ public class CreateIgPackRequest {
     }
 
     public IgPackConfig toIgPackConfig(IgUser user) {
-        return new IgPackConfig(user, includeVideos, includeImages, min(MAX_ITEMS_PER_PACK, user.getCount()), fileNamePattern);
+        return new IgPackConfig(user, includeVideos, includeImages, user.getCount(), fileNamePattern);
     }
 }

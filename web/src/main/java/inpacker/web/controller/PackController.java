@@ -41,7 +41,7 @@ public class PackController {
 
     private final PackService<IgPackConfig, IgPackItem> igPackService;
     private final IgItemRepository                      igRepo;
-    private final PxItemRepository pxRepo;
+    private final PxItemRepository                      pxRepo;
     private final PackService<PxPackConfig, PxPackItem> pxPackService;
 
     @Autowired
@@ -112,11 +112,11 @@ public class PackController {
         return pack;
     }
 
-    public static boolean isValidRequest(CreateIgPackRequest req) {
+    private boolean isValidRequest(CreateIgPackRequest req) {
         return req.username != null && !req.username.trim().isEmpty() && (req.includeImages || req.includeVideos);
     }
 
-    public static boolean isValidRequest(CreatePxPackRequest req) {
+    private boolean isValidRequest(CreatePxPackRequest req) {
         return req.username != null && !req.username.trim().isEmpty();
     }
 }

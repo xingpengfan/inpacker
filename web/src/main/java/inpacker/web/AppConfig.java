@@ -67,15 +67,17 @@ public class AppConfig {
 
     @Bean("igRepository")
     public IgItemRepository igRepository() {
-        return new IgItemRepository();
+        final int maxPackSize = Integer.parseInt(env.getProperty("instagram.max-pack-size"));
+        return new IgItemRepository(maxPackSize);
     }
 
     @Bean("pxRepository")
     public PxItemRepository pxRepository() {
-        final String consumerKey = env.getProperty("500px.consumerkey");
+        final String consumerKey = env.getProperty("500px.consumer-key");
         if (consumerKey == null || consumerKey.trim().isEmpty())
             throw new RuntimeException("invalid 500px consumer key");
-        return new PxItemRepository(consumerKey);
+        final int maxPackSize = Integer.parseInt(env.getProperty("500px.max-pack-size"));
+        return new PxItemRepository(consumerKey, maxPackSize);
     }
 
 }

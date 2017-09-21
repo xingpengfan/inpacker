@@ -9,8 +9,12 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
 
     private final JsonSlurper parser
     private final String consumerKey
+    private final int maxPackSize
 
-    PxItemRepository(String consumerKey) {
+    PxItemRepository(String consumerKey, int maxPackSize) {
+        if (maxPackSize <= 0)
+            throw new IllegalArgumentException("maxPackSize should be positive")
+        this.maxPackSize = maxPackSize
         this.consumerKey = consumerKey
         parser = new JsonSlurper()
     }
@@ -20,9 +24,10 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
         int packedItemsCount = 0
         boolean moreAvailable = true
         int page = 1
-        while (moreAvailable && packedItemsCount < config.numberOfItems()) {
+        int size = Math.min(maxPackSize, config.numberOfItems())
+        while (moreAvailable && packedItemsCount < size) {
             def json = parser.parse(new URL(ApiUrls.photos(config.user.username, consumerKey, page)))
-            for (int i = 0; i < json.photos.size() && packedItemsCount < config.numberOfItems(); i++) {
+            for (int i = 0; i < json.photos.size() && packedItemsCount < size; i++) {
                 def post = parsePost(json.photos[i])
                 def item = new PxPackItem(post, packedItemsCount + 1, config.getFileNameCreator())
                 if (config.test(item)) {
