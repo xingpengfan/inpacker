@@ -94,8 +94,7 @@ ul {
 }
 
 .header-links {
-    text-align: right;
-    padding: 12px 0px 16px 0px;
+    padding-top: 12px;
 }
 
 .header-links a {
@@ -108,7 +107,7 @@ ul {
 
 .header-links li {
     display: inline;
-    margin: 0 10px 0 10px;
+    margin: 0 10px 0 5px;
 }
 
 .header-content {
