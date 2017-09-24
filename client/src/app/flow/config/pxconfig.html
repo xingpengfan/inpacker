@@ -31,6 +31,19 @@
                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                     {{ vm.fullName() }}
                 </p>
+                <div class="regular-font" ng-if="!vm.user.isPrivate">
+                    <p class="passive-font">
+                        file names:
+                        <select ng-model="vm.config.fileNamePattern">
+                            <option value="name">name+id</option>
+                            <option value="index">index</option>
+                            <option value="id">id</option>
+                        </select>
+                    </p>
+                    <p>
+                        <span class="tiny-font passive-font" ng-bind="vm.filenameExample()"></span>
+                    </p>
+                </div>
                 <div class="btn-group" role="group" aria-label="Choose next action">
                     <button type="button" class="btn btn-light" ng-click="vm.backToQueryClick()">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i> back

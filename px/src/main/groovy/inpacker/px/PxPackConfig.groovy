@@ -11,9 +11,19 @@ import static java.lang.Math.min
 
     PxUser user
     int size
+    String fileNamePattern
 
     BiFunction<Integer, PxPost, String> getFileNameCreator() {
-        return {idx, post -> idx + post.extension()}
+        switch (fileNamePattern) {
+            case 'id':
+                return { idx, post -> post.id + post.extension() }
+            case 'name':
+                return { idx, post -> post.name + '_' + post.id + post.extension() }
+            case 'index':
+            case 'idx':
+            default:
+                return { idx, post -> idx + post.extension() }
+        }
     }
 
     @Override

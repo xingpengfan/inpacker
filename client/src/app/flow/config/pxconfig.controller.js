@@ -20,7 +20,16 @@ function PxConfigController($routeParams, api, location) {
         }
         vm.user = user
         vm.showConfig = true
+        vm.config = {
+            username: vm.user.username,
+            fileNamePattern: 'name'
+        }
         vm.user.pxPageLink = 'https://500px.com/' + user.username
+        vm.filenameExamples = new Map([
+            ['id','475812.jpg'],
+            ['index','1.jpg'],
+            ['name','Eiffel Tower_234578.jpg']
+        ])
     }
 
     vm.username = () => {
@@ -39,13 +48,15 @@ function PxConfigController($routeParams, api, location) {
     vm.ready = () => !vm.loading && vm.user.photos_count > 0
 
     vm.createPackClick = () => {
-        const config = {
-            username: vm.user.username
-        }
         vm.loading = true
-        api.createPxPack(config).then(pack => {
+        api.createPxPack(vm.config).then(pack => {
             if (pack != null) location.pack(pack.id)
             vm.loading = false
         })
     }
+
+    vm.filenameExample = () => {
+        return vm.filenameExamples.get(vm.config.fileNamePattern)
+    }
+
 }
