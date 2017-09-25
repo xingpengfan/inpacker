@@ -33,7 +33,7 @@ import static java.lang.Math.min
 
     @Override
     String getUniqueId() {
-        user.username + '_' + hashCode()
+        user.username + '_px' + hashCode()
     }
 
     @Override

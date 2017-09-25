@@ -20,7 +20,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
         String query = ''
         int packed = 0
         boolean moreAvailable = true
-        int size = Math.min(maxPackSize, config.numberOfItems())
+        int size = Math.min(maxPackSize, config.getUser().getCount())
         while (moreAvailable && packed < size) {
             def json = parser.parse(new URL(InstagramApiUrls.media(config.user.username, query)))
             for (int i = 0; i < json.items.size() && packed < size; i++) {
