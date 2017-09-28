@@ -29,8 +29,7 @@ public class AppConfig {
             packsDir = herokuDir;
         else
             packsDir = localDir;
-        Packer<IgPackItem> packer = "dir".equals(env.getProperty("packs.type")) ? igDirPacker() : igZipPacker();
-        return new DefaultPackService<>(packsDir, igRepository(), packer);
+        return new DefaultPackService<>(packsDir, igRepository(), packer());
     }
 
     @Bean("pxPackService")
@@ -42,28 +41,24 @@ public class AppConfig {
             packsDir = herokuDir;
         else
             packsDir = localDir;
-        Packer<PxPackItem> packer = "dir".equals(env.getProperty("packs.type")) ? pxDirPacker() : pxZipPacker();
-        return new DefaultPackService<>(packsDir, pxRepository(), packer);
+        return new DefaultPackService<>(packsDir, pxRepository(), packer());
     }
 
-    @Bean("igZipPacker")
-    public Packer<IgPackItem> igZipPacker() {
-        return new ZipPacker<>();
+    @Bean
+    public Packer packer() {
+        if ("dir".equals(env.getProperty("packs.type")))
+            return dirPacker();
+        return zipPacker();
     }
 
-    @Bean("igDirPacker")
-    public Packer<IgPackItem> igDirPacker() {
-        return new DirPacker<>();
+    @Bean("zip")
+    public Packer zipPacker() {
+        return new ZipPacker();
     }
 
-    @Bean("pxZipPacker")
-    public Packer<PxPackItem> pxZipPacker() {
-        return new ZipPacker<>();
-    }
-
-    @Bean("pxDirPacker")
-    public Packer<PxPackItem> pxDirPacker() {
-        return new DirPacker<>();
+    @Bean("dir")
+    public Packer dirPacker() {
+        return new DirPacker();
     }
 
     @Bean("igRepository")

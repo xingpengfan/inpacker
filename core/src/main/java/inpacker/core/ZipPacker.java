@@ -7,19 +7,19 @@ import java.util.concurrent.BlockingDeque;
 import java.util.function.Consumer;
 import java.util.zip.ZipOutputStream;
 
-public class ZipPacker<I extends PackItem> implements Packer<I> {
+public class ZipPacker implements Packer {
 
     @Override
-    public void pack(BlockingDeque<I> itemsDeque,
+    public void pack(BlockingDeque<PackItem> itemsDeque,
                      File packsDir,
                      String packId,
-                     Consumer<I> newItemSuccess,
-                     Consumer<I> newItemFail,
+                     Consumer<PackItem> newItemSuccess,
+                     Consumer<PackItem> newItemFail,
                      Consumer<File> done,
                      Runnable failed) {
         final File packFile = new File(packsDir, packId + ".zip");
         try (final ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(packFile))) {
-            I item = takeItem(itemsDeque);
+            PackItem item = takeItem(itemsDeque);
             if (item == null) {
                 failed.run();
                 return;
@@ -41,7 +41,7 @@ public class ZipPacker<I extends PackItem> implements Packer<I> {
         done.accept(packFile);
     }
 
-    private I takeItem(BlockingDeque<I> deque) {
+    private <I extends PackItem> I takeItem(BlockingDeque<I> deque) {
         try {
             return deque.take();
         } catch (InterruptedException e) {

@@ -12,12 +12,12 @@ import static java.util.Objects.requireNonNull;
 public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> implements PackService<C, I> {
 
     private final ItemRepository<C, I> repository;
-    private final Packer<I> packer;
+    private final Packer packer;
     private final Map<String, Pack> packs;
     private final File packsDir;
     private final ExecutorService executorService;
 
-    public DefaultPackService(File packsDirectory, ItemRepository<C, I> itemRepository, Packer<I> packer) {
+    public DefaultPackService(File packsDirectory, ItemRepository<C, I> itemRepository, Packer packer) {
         requireNonNull(packsDirectory, "required non null packsDirectory");
         requireNonNull(itemRepository, "required nun null itemRepository");
         requireNonNull(packer, "required non null packer");
@@ -40,7 +40,7 @@ public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> imp
         if (packs.containsKey(id)) return packs.get(id);
         final Pack pack = new Pack(id, config.numberOfItems());
         packs.put(id, pack);
-        final BlockingDeque<I> deque = new LinkedBlockingDeque<>();
+        final BlockingDeque<PackItem> deque = new LinkedBlockingDeque<>();
         executorService.submit(() -> repository.getPackItems(config, deque));
         pack.processing();
         executorService.submit(() -> packer.pack(deque, packsDir, pack));

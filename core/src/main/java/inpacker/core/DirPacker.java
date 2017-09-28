@@ -6,14 +6,14 @@ import java.io.IOException;
 import java.util.concurrent.BlockingDeque;
 import java.util.function.Consumer;
 
-public class DirPacker<I extends PackItem> implements Packer<I> {
+public class DirPacker implements Packer {
 
     @Override
-    public void pack(BlockingDeque<I> itemsDeque,
+    public void pack(BlockingDeque<PackItem> itemsDeque,
                      File packsDir,
                      String packId,
-                     Consumer<I> newItemSuccess,
-                     Consumer<I> newItemFail,
+                     Consumer<PackItem> newItemSuccess,
+                     Consumer<PackItem> newItemFail,
                      Consumer<File> done,
                      Runnable failed) {
         if (!packsDir.exists())
@@ -21,7 +21,7 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
         final File packDir = new File(packsDir, packId);
         if (!packDir.mkdir())
             throw new RuntimeException("unable to create pack directory");
-        I item = takeItem(itemsDeque);
+        PackItem item = takeItem(itemsDeque);
         if (item == null) {
             failed.run();
             return;
@@ -43,7 +43,7 @@ public class DirPacker<I extends PackItem> implements Packer<I> {
         done.accept(packDir);
     }
 
-    private I takeItem(BlockingDeque<I> deque) {
+    private <I extends PackItem> I takeItem(BlockingDeque<I> deque) {
         try {
             return deque.take();
         } catch (InterruptedException e) {

@@ -2,6 +2,7 @@ package inpacker.instagram
 
 import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
+import inpacker.core.PackItem
 
 class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
 
@@ -16,7 +17,7 @@ class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
     }
 
     @Override
-    void getPackItems(IgPackConfig config, Collection<IgPackItem> items) {
+    void getPackItems(IgPackConfig config, Collection<PackItem> items) {
         String query = ''
         int packed = 0
         boolean moreAvailable = true

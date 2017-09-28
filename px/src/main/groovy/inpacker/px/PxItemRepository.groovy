@@ -2,6 +2,7 @@ package inpacker.px
 
 import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
+import inpacker.core.PackItem
 
 import static java.util.Objects.requireNonNull
 
@@ -20,7 +21,7 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
     }
 
     @Override
-    void getPackItems(PxPackConfig config, Collection<PxPackItem> items) {
+    void getPackItems(PxPackConfig config, Collection<PackItem> items) {
         int packedItemsCount = 0
         boolean moreAvailable = true
         int page = 1
@@ -73,19 +74,5 @@ class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
                 height: postJson.height.toInteger(),
                 url: postJson.image_url,
                 imageFormat: postJson.image_format)
-    }
-
-    private PxUser parseUser(String json) {
-        def u = new JsonSlurper().parseText(json).user
-        return new PxUser(
-                id: u.id,
-                username: u.username,
-                firstname: u.firstname,
-                lastname: u.lastname,
-                city: u.city,
-                country: u.country,
-                userpicUrl: u.userpic_url,
-                coverUrl: u.cover_url,
-                photosCount: u.photos_count)
     }
 }
