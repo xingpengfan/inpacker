@@ -3,7 +3,7 @@ package inpacker.core;
 import java.util.List;
 import java.util.function.Predicate;
 
-public interface PackService<C extends PackConfig<I>, I extends PackItem> {
+public interface PackService<C extends PackConfig> {
 
     Pack createPack(C packConfig);
 

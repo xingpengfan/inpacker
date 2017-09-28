@@ -4,7 +4,7 @@ import groovy.json.JsonSlurper
 import inpacker.core.ItemRepository
 import inpacker.core.PackItem
 
-class IgItemRepository implements ItemRepository<IgPackConfig, IgPackItem> {
+class IgItemRepository implements ItemRepository<IgPackConfig> {
 
     private final JsonSlurper parser
     private final int maxPackSize

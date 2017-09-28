@@ -39,14 +39,14 @@ import static org.springframework.http.ResponseEntity.status;
 @Controller
 public class PackController {
 
-    private final PackService<IgPackConfig, IgPackItem> igPackService;
-    private final IgItemRepository                      igRepo;
-    private final PxItemRepository                      pxRepo;
-    private final PackService<PxPackConfig, PxPackItem> pxPackService;
+    private final PackService<IgPackConfig> igPackService;
+    private final IgItemRepository          igRepo;
+    private final PxItemRepository          pxRepo;
+    private final PackService<PxPackConfig> pxPackService;
 
     @Autowired
-    public PackController(@Qualifier("igPackService") PackService<IgPackConfig, IgPackItem> igPackService,
-                          @Qualifier("pxPackService") PackService<PxPackConfig, PxPackItem> pxPackService,
+    public PackController(@Qualifier("igPackService") PackService<IgPackConfig> igPackService,
+                          @Qualifier("pxPackService") PackService<PxPackConfig> pxPackService,
                           @Qualifier("igRepository") IgItemRepository igRepo,
                           @Qualifier("pxRepository") PxItemRepository pxRepo) {
         this.igPackService = igPackService;

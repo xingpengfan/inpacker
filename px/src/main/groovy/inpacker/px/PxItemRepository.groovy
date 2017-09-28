@@ -6,7 +6,7 @@ import inpacker.core.PackItem
 
 import static java.util.Objects.requireNonNull
 
-class PxItemRepository implements ItemRepository<PxPackConfig, PxPackItem> {
+class PxItemRepository implements ItemRepository<PxPackConfig> {
 
     private final JsonSlurper parser
     private final String consumerKey

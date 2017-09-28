@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
-public class DefaultPackService<C extends PackConfig<I>, I extends PackItem> implements PackService<C, I> {
+public class DefaultPackService<C extends PackConfig> implements PackService<C> {
 
-    private final ItemRepository<C, I> repository;
+    private final ItemRepository<C> repository;
     private final Packer packer;
     private final Map<String, Pack> packs;
     private final File packsDir;
     private final ExecutorService executorService;
 
-    public DefaultPackService(File packsDirectory, ItemRepository<C, I> itemRepository, Packer packer) {
+    public DefaultPackService(File packsDirectory, ItemRepository<C> itemRepository, Packer packer) {
         requireNonNull(packsDirectory, "required non null packsDirectory");
         requireNonNull(itemRepository, "required nun null itemRepository");
         requireNonNull(packer, "required non null packer");

@@ -3,10 +3,8 @@ package inpacker.web;
 import inpacker.core.*;
 import inpacker.instagram.IgItemRepository;
 import inpacker.instagram.IgPackConfig;
-import inpacker.instagram.IgPackItem;
 import inpacker.px.PxItemRepository;
 import inpacker.px.PxPackConfig;
-import inpacker.px.PxPackItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +19,7 @@ public class AppConfig {
     @Autowired private Environment env;
 
     @Bean("igPackService")
-    public PackService<IgPackConfig, IgPackItem> igPackService() {
+    public PackService<IgPackConfig> igPackService() {
         final File herokuDir = new File(env.getProperty("heroku.packs.dir.path"));
         final File localDir = new File(env.getProperty("local.packs.dir.path"));
         File packsDir;
@@ -33,7 +31,7 @@ public class AppConfig {
     }
 
     @Bean("pxPackService")
-    public PackService<PxPackConfig, PxPackItem> pxPackService() {
+    public PackService<PxPackConfig> pxPackService() {
         final File herokuDir = new File(env.getProperty("heroku.packs.dir.path"));
         final File localDir = new File(env.getProperty("local.packs.dir.path"));
         File packsDir;
