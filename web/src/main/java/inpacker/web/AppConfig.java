@@ -18,7 +18,7 @@ public class AppConfig {
 
     @Autowired private Environment env;
 
-    @Bean("igPackService")
+    @Bean("ig")
     public PackService<IgPackConfig> igPackService() {
         final File herokuDir = new File(env.getProperty("heroku.packs.dir.path"));
         final File localDir = new File(env.getProperty("local.packs.dir.path"));
@@ -30,7 +30,7 @@ public class AppConfig {
         return new DefaultPackService<>(packsDir, igRepository(), packer());
     }
 
-    @Bean("pxPackService")
+    @Bean("px")
     public PackService<PxPackConfig> pxPackService() {
         final File herokuDir = new File(env.getProperty("heroku.packs.dir.path"));
         final File localDir = new File(env.getProperty("local.packs.dir.path"));
@@ -59,13 +59,13 @@ public class AppConfig {
         return new DirPacker();
     }
 
-    @Bean("igRepository")
+    @Bean
     public IgItemRepository igRepository() {
         final int maxPackSize = Integer.parseInt(env.getProperty("instagram.max-pack-size"));
         return new IgItemRepository(maxPackSize);
     }
 
-    @Bean("pxRepository")
+    @Bean
     public PxItemRepository pxRepository() {
         final String consumerKey = env.getProperty("500px.consumer-key");
         if (consumerKey == null || consumerKey.trim().isEmpty())

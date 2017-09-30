@@ -13,7 +13,6 @@ import inpacker.web.dto.CreatePxPackRequest;
 import inpacker.web.dto.PackStatusResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,10 +42,10 @@ public class PackController {
     private final PackService<PxPackConfig> pxPackService;
 
     @Autowired
-    public PackController(@Qualifier("igPackService") PackService<IgPackConfig> igPackService,
-                          @Qualifier("pxPackService") PackService<PxPackConfig> pxPackService,
-                          @Qualifier("igRepository") IgItemRepository igRepo,
-                          @Qualifier("pxRepository") PxItemRepository pxRepo) {
+    public PackController(PackService<IgPackConfig> igPackService,
+                          PackService<PxPackConfig> pxPackService,
+                          IgItemRepository igRepo,
+                          PxItemRepository pxRepo) {
         this.igPackService = igPackService;
         this.pxPackService = pxPackService;
         this.igRepo = igRepo;
