@@ -10,9 +10,7 @@
 
 ### Run locally
 ```bash
-cd client
-npm install
-cd ..
-./gradlew :web:build
+./gradlew build
 java -jar web/build/libs/web.jar
 ```
+(in order to download from 500px.com add your consumer key to [application.properties](/web/src/main/resources/application.properties))
