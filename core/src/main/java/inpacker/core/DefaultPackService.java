@@ -3,7 +3,11 @@ package inpacker.core;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -12,10 +16,10 @@ import static java.util.Objects.requireNonNull;
 public class DefaultPackService<C extends PackConfig> implements PackService<C> {
 
     private final ItemRepository<C> repository;
-    private final Packer packer;
+    private final Packer            packer;
     private final Map<String, Pack> packs;
-    private final File packsDir;
-    private final ExecutorService executorService;
+    private final File              packsDir;
+    private final ExecutorService   executorService;
 
     public DefaultPackService(File packsDirectory, ItemRepository<C> itemRepository, Packer packer) {
         requireNonNull(packsDirectory, "required non null packsDirectory");
@@ -37,7 +41,8 @@ public class DefaultPackService<C extends PackConfig> implements PackService<C> 
     public Pack createPack(C config) {
         requireNonNull(config, "required non null config");
         final String id = config.getUniqueId();
-        if (packs.containsKey(id)) return packs.get(id);
+        if (packs.containsKey(id))
+            return packs.get(id);
         final Pack pack = new Pack(id, config.numberOfItems());
         packs.put(id, pack);
         final BlockingDeque<PackItem> deque = new LinkedBlockingDeque<>();

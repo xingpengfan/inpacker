@@ -5,6 +5,7 @@ task npmInstall(type: Exec) {
 task dist(type: Exec) {
     commandLine 'npm', 'run', 'build'
 }
+dist.dependsOn(npmInstall)
 
 task build() {}
-build.dependsOn(npmInstall, dist)
+build.dependsOn(dist)
