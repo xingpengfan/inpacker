@@ -1,11 +1,11 @@
-task npmInstall(type: Exec) {
-    commandLine 'npm', 'install'
+plugins {
+  id "com.moowork.node" version "1.2.0"
 }
 
-task dist(type: Exec) {
-    commandLine 'npm', 'run', 'build'
+task dist(type: NpmTask) {
+    args = ['run', 'build']
 }
-dist.dependsOn(npmInstall)
+dist.dependsOn(npm_install)
 
 task build() {}
 build.dependsOn(dist)
