@@ -1,8 +1,8 @@
 import angular from 'angular'
 import ngRoute from 'angular-route'
 
-import icons     from './icons/icons.module'
-import flow      from './flow/flow.module'
+import icons from './icons/icons.module'
+import flow  from './flow/flow.module'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.min.css'

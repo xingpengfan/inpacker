@@ -4,7 +4,7 @@
   <a href="https://travis-ci.org/dreyman/inpacker"><img src="https://travis-ci.org/dreyman/inpacker.svg?branch=master" /></a>
 </p>
 
-[Inpacker](https://inpacker.herokuapp.com) is an app for downloading images and videos from Instagram.
+[Inpacker](https://inpacker.herokuapp.com) is an app for downloading images and videos from instagram.com and 500px.com.
 
 <p align="center">
   <img src="/garbage/overview2.gif" height="480" />
