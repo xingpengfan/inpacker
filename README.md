@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/garbage/favicon.png" />
+  <img src="/docs/favicon.png" />
   <br />
   <strong>inpacker</strong>
   <br />
@@ -8,10 +8,11 @@
   </a>
 <p>
 
-[Inpacker](https://inpacker.herokuapp.com) is an app for downloading images and videos from instagram.com and 500px.com.
+[Inpacker](https://inpacker.herokuapp.com) is an app for downloading images and
+videos from [instagram.com](https://www.instagram.com) and [500px.com](https://500px.com).
 
 <p align="center">
-  <img src="/garbage/overview2.gif" height="480" />
+  <img src="/docs/overview2.gif" height="480" />
 </p>
 
 ### Run locally
